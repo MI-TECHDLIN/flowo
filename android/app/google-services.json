@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "746846380829",
+    "project_id": "flowo-4f708",
+    "storage_bucket": "flowo-4f708.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:746846380829:android:1325e016be8e249012b7f4",
+        "android_client_info": {
+          "package_name": "com.example.flowo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcdOt4nK7zG7jcabkvvKTnGb7IYuLRBQ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
