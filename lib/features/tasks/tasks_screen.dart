@@ -1,4 +1,5 @@
 import 'package:flowo/features/tasks/task_controller.dart';
+import 'package:flowo/features/tasks/widgets/add_task_sheet.dart';
 import 'package:flowo/main.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -36,7 +37,7 @@ this context.watch acts like a stream it listens for updates on the widget  and 
     return Scaffold(
       appBar: AppBar(title: const Text('My Tasks')),
       body: controller.tasks.isEmpty
-          ? const Center(child: Text('No task yet'))
+          ? const Center(child: Text('No task yet '))
           : ListView.builder(
               itemBuilder: (context, index) {
                 final task = controller.tasks[index];
@@ -57,6 +58,22 @@ this context.watch acts like a stream it listens for updates on the widget  and 
                 );
               },
             ),
+
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          '''
+in  future thisfor add task would be update with a better simplifiied widget
+''';
+          showModalBottomSheet(
+            isScrollControlled: true,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+            ),
+            context: context,
+            builder: (_) => AddTaskSheet(),
+          );
+        },
+      ),
     );
   }
 }
