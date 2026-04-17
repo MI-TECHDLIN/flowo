@@ -176,6 +176,8 @@ class _SectionHeader extends StatelessWidget {
 // - Title + description
 // - Checkbox to toggle
 // - Swipe to delete (Dismissible)
+//i added a dissimble widget for easy UX experience easy sliding for deleting
+
 class _TaskCard extends StatelessWidget {
   final TaskModel task;
   const _TaskCard({required this.task});
@@ -215,6 +217,7 @@ class _TaskCard extends StatelessWidget {
 
     // Dismissible wraps the card to enable swipe-to-delete
     // direction: endToStart = swipe left to delete
+    //for each id we tap through the taslkid
     return Dismissible(
       key: Key(task.id),
       direction: DismissDirection.endToStart,

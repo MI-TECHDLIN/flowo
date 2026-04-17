@@ -2,7 +2,10 @@ import 'package:flowo/shared/widgets/main_sshell.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:provider/provider.dart';
+import 'features/tasks/task_controller.dart';
 
+const String kTestUserId = 'test_user_001';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
@@ -14,14 +17,17 @@ class FlowoApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flowo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF6C63FF)),
-        useMaterial3: true,
+    return ChangeNotifierProvider(
+      create: (_) => TaskController(),
+      child: MaterialApp(
+        title: 'Flowo',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF6C63FF)),
+          useMaterial3: true,
+        ),
+        home: const MainSshell(),
       ),
-      home: const MainSshell(),
     );
   }
 }
