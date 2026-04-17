@@ -1,16 +1,13 @@
 # flowo
 
-A new Flutter project.
+flowo
+core idea:
 
-## Getting Started
+this is a conscious produtivity tool that helps in every day task,track progress instead of blaming, make use of a ai features that sugeests daily todos and rank them in priority and importance, this project is inspired by my old school todo book that keeps tracks of my daily rountine;
 
-This project is a starting point for a Flutter application.
+tech stack:
+langauage:Dart
+framework:flutter
+database:firestore
+backend:restapi
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
