@@ -18,7 +18,7 @@ class TaskController extends ChangeNotifier {
       _tasks.where((t) => !t.isCompleted).toList();
   //compleete
   List<TaskModel> get completeedtasks =>
-      _tasks.where((t) => !t.isCompleted).toList();
+      _tasks.where((t) => t.isCompleted).toList();
 
   //thhis listens to the firestore dbs
   void listenTOtasks(String userId) {
@@ -43,8 +43,20 @@ class TaskController extends ChangeNotifier {
   }
 
   //ADD  a neww task to the tasks
-  Future<void> addTask(String userId, String title, String description) async {
-    final task = TaskModel(id: '', title: title, createdAt: DateTime.now());
+  // Fix Bug 2 — pass all fields through
+  Future<void> addTask(
+    String userId,
+    String title,
+    String description,
+    int priority,
+  ) async {
+    final task = TaskModel(
+      id: '',
+      title: title,
+      description: description,
+      priority: priority,
+      createdAt: DateTime.now(),
+    );
     await _taskService.addTask(userId, task);
   }
 
