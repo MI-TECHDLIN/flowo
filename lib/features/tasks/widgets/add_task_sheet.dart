@@ -43,6 +43,7 @@ class _AddTaskSheetState extends State<AddTaskSheet> {
     if (mounted) Navigator.pop(context);
   }
 
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
@@ -51,102 +52,106 @@ class _AddTaskSheetState extends State<AddTaskSheet> {
         top: 24,
         bottom: MediaQuery.of(context).viewInsets.bottom + 24,
       ),
-      child: Column(
-        children: [
-          //this header
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'New Task',
-                style: Theme.of(
-                  context,
-                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-              ),
-              IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: Icon(Icons.close),
-              ),
-              SizedBox(height: 16),
-
-              //textfield space where user input texts
-              TextField(
-                controller: _titleCOntroller,
-                autofocus: true,
-                autocorrect: true,
-                decoration: InputDecoration(
-                  labelText: 'Task title',
-                  border: OutlineInputBorder(),
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Header
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'New Task',
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                 ),
-              ),
-              const SizedBox(height: 12),
-
-              //description field this would beupdated nextphase
-              TextField(
-                controller: _descriptioncontroller,
-                maxLines: 3,
-                decoration: InputDecoration(
-                  labelText: 'Description (optional)',
-                  border: OutlineInputBorder(),
+                IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: const Icon(Icons.close),
                 ),
+              ],
+            ),
+
+            const SizedBox(height: 16),
+
+            // Title
+            TextField(
+              controller: _titleCOntroller,
+              autofocus: true,
+              decoration: const InputDecoration(
+                labelText: 'Task title',
+                border: OutlineInputBorder(),
               ),
-              SizedBox(height: 16),
+            ),
 
-              //prorotylevelcheck
-              Text('Priority', style: Theme.of(context).textTheme.labelLarge),
-              const SizedBox(height: 8),
+            const SizedBox(height: 12),
 
-              Row(
-                children: [
-                  PriorityChip(
-                    label: "High",
-                    value: 1,
-                    color: Colors.red,
-                    selected: _selectedpriority == 1,
-                    onTap: () => setState(() {
-                      _selectedpriority = 1;
-                    }),
-                  ),
-                  const SizedBox(width: 8),
-                  PriorityChip(
-                    label: 'Medium',
-                    value: 2,
-                    color: Colors.orange,
-                    selected: _selectedpriority == 2,
-                    onTap: () => setState(() => _selectedpriority = 2),
-                  ),
-                  const SizedBox(width: 8),
-                  PriorityChip(
-                    label: 'Low',
-                    value: 3,
-                    color: Colors.green,
-                    selected: _selectedpriority == 3,
-                    onTap: () => setState(() => _selectedpriority = 3),
-                  ),
-                ],
+            // Description
+            TextField(
+              controller: _descriptioncontroller,
+              maxLines: 3,
+              decoration: const InputDecoration(
+                labelText: 'Description (optional)',
+                border: OutlineInputBorder(),
               ),
-              const SizedBox(height: 24),
+            ),
 
-              //aavewidget
-              SizedBox(
-                width: double.infinity,
-                child: FilledButton(
-                  onPressed: _isSaving ? null : save,
-                  child: _isSaving
-                      ? SizedBox(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            color: Colors.white,
-                          ),
-                        )
-                      : Text('Add Task'),
+            const SizedBox(height: 16),
+
+            Text('Priority', style: Theme.of(context).textTheme.labelLarge),
+
+            const SizedBox(height: 8),
+
+            Row(
+              children: [
+                PriorityChip(
+                  label: "High",
+                  value: 1,
+                  color: Colors.red,
+                  selected: _selectedpriority == 1,
+                  onTap: () => setState(() => _selectedpriority = 1),
                 ),
+                const SizedBox(width: 8),
+                PriorityChip(
+                  label: 'Medium',
+                  value: 2,
+                  color: Colors.orange,
+                  selected: _selectedpriority == 2,
+                  onTap: () => setState(() => _selectedpriority = 2),
+                ),
+                const SizedBox(width: 8),
+                PriorityChip(
+                  label: 'Low',
+                  value: 3,
+                  color: Colors.green,
+                  selected: _selectedpriority == 3,
+                  onTap: () => setState(() => _selectedpriority = 3),
+                ),
+              ],
+            ),
+
+            const SizedBox(height: 24),
+
+            SizedBox(
+              width: double.infinity,
+              child: FilledButton(
+                onPressed: _isSaving ? null : save,
+                child: _isSaving
+                    ? const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          color: Colors.white,
+                        ),
+                      )
+                    : const Text('Add Task'),
               ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }
