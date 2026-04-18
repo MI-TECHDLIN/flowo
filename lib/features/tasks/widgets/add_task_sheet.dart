@@ -39,6 +39,7 @@ class _AddTaskSheetState extends State<AddTaskSheet> {
       kTestUserId,
       title,
       _descriptioncontroller.text.trim(),
+      _selectedpriority,
     );
     if (mounted) Navigator.pop(context);
   }
