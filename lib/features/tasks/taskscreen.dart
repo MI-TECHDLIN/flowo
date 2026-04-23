@@ -1,3 +1,6 @@
+//TODO: make sure i get a better modalsheet for the ios
+//TODO: for now i will use the flutter natvie bootom shett laster migrate to smooth sheet bottomshet
+
 import 'package:flowo/features/tasks/widgets/task_/task_card.dart';
 import 'package:flowo/features/tasks/widgets/task_/task_count.dart';
 import 'package:flutter/material.dart';
@@ -117,9 +120,40 @@ class _TaskscreenState extends State<Taskscreen> {
 
                 TaskCard(), TaskCard(),
                 TaskCard(),
+                TaskCard(),
+                TaskCard(),
+                TaskCard(),
+                TaskCard(),
+                TaskCard(),
+                TaskCard(),
               ],
             ),
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            showModalBottomSheet(
+              context: context,
+              builder: (b) {
+                return Container(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Text('New Task'),
+                        Text("What's on your mind"),
+                        Text('Task itle'),
+                        TextField(cursorColor: Colors.blue),
+
+                        Text("Description (optional)"),
+                        TextField(cursorHeight: 30, cursorColor: Colors.blue),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            );
+          },
+          child: Container(child: Icon(Icons.add)),
         ),
       ),
     );
