@@ -1,3 +1,5 @@
+import 'package:flowo/features/tasks/widgets/task_/task_card.dart';
+import 'package:flowo/features/tasks/widgets/task_/task_count.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -12,9 +14,12 @@ class _TaskscreenState extends State<Taskscreen> {
   DateTime time = DateTime.now();
   String greettingfunc(String name) {
     final htime = int.parse(DateFormat.H().format(time));
-    if (htime >= 0) return 'Good morning, $name 👋';
-    if (htime >= 12) return 'Good afternoon, $name';
-    if (htime >= 16) return 'Good evening, $name';
+    if (htime < 12)
+      return 'Good Morning, $name 👋';
+    else if (htime < 17)
+      return 'Good Afternoon, $name 👋';
+    else if (htime < 24)
+      return 'Good Evening, $name 👋';
     return '$name';
   }
 
@@ -53,7 +58,9 @@ class _TaskscreenState extends State<Taskscreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                // welcome container with greeting function
                 Container(
+                  padding: EdgeInsets.all(10),
                   child: Column(
                     children: [
                       Align(
@@ -78,6 +85,38 @@ class _TaskscreenState extends State<Taskscreen> {
                     ],
                   ),
                 ),
+
+                //task section for completed task,remaining,overdue
+                Container(
+                  padding: EdgeInsets.all(10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TaskCount(
+                        Color.fromARGB(51, 255, 62, 142),
+                        '3',
+                        'Done today',
+                        Color(0xFFC394F4),
+                      ),
+                      TaskCount(
+                        Color(0x76C8F0DC),
+                        '4',
+                        'Remaining',
+                        Color(0xFF5AC578),
+                      ),
+                      TaskCount(
+                        Color(0x9AFFE5CC),
+                        '1',
+                        'Overdue',
+                        Color(0xFFF5A24A),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 15),
+
+                TaskCard(), TaskCard(),
+                TaskCard(),
               ],
             ),
           ),
