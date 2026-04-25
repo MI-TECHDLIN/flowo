@@ -133,20 +133,120 @@ class _TaskscreenState extends State<Taskscreen> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             showModalBottomSheet(
+              backgroundColor: Colors.white,
               context: context,
               builder: (b) {
                 return Container(
+                  // color: Colors.white,
+                  height: 550,
+                  width: double.infinity,
                   child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Text('New Task'),
-                        Text("What's on your mind"),
-                        Text('Task itle'),
-                        TextField(cursorColor: Colors.blue),
+                    child: Padding(
+                      padding: EdgeInsets.all(15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(top: 20),
+                            child: Text(
+                              'New Task',
+                              style: TextStyle(
+                                fontFamily: 'inter',
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ),
 
-                        Text("Description (optional)"),
-                        TextField(cursorHeight: 30, cursorColor: Colors.blue),
-                      ],
+                          Text(
+                            "What's on your mind?",
+                            style: TextStyle(fontWeight: FontWeight.w300),
+                          ),
+                          SizedBox(height: 20),
+                          Text('Task title'),
+                          SizedBox(height: 10),
+                          TextField(
+                            decoration: InputDecoration(
+                              // isCollapsed: ,
+                              fillColor: Colors.white,
+                              focusColor: Colors.blueAccent,
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+
+                                borderSide: BorderSide(
+                                  color: Color(0xFF8E32F0),
+                                ),
+                              ),
+
+                              enabled: true,
+
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: BorderSide(
+                                  color: Color(0xffC89FF5),
+                                ),
+                              ),
+                              hintText: 'e.g. Finish the weekly report 📋',
+                              hintStyle: TextStyle(fontWeight: FontWeight.w200),
+                              filled: true,
+                            ),
+                          ),
+                          SizedBox(height: 20),
+                          TextField(
+                            decoration: InputDecoration(
+                              isDense: true,
+                              contentPadding: EdgeInsets.symmetric(
+                                vertical: 50,
+                                horizontal: 10,
+                              ),
+                              // isCollapsed: ,
+                              fillColor: Colors.white,
+                              focusColor: Colors.blueAccent,
+
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+
+                                borderSide: BorderSide(
+                                  color: Color(0xFF8E32F0),
+                                ),
+                              ),
+
+                              enabled: true,
+
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(16),
+                                borderSide: BorderSide(
+                                  color: Color(0xffC89FF5),
+                                ),
+                              ),
+                              hintText: 'e.g. Finish the weekly report 📋',
+                              hintStyle: TextStyle(fontWeight: FontWeight.w200),
+                              filled: true,
+                            ),
+                          ),
+
+                          Text('Priority'),
+                          Container(
+                            child: Row(
+                              children: [
+                                Container(
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                        height: 8,
+                                        width: 8,
+                                        color: Color(0xffEF4444),
+                                      ),
+
+                                      Text('High'),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 );
