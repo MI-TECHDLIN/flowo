@@ -2,44 +2,44 @@ import 'package:flutter/material.dart';
 
 import 'package:flowo/constants/constant.dart';
 
-class TaskPriority extends StatefulWidget {
+enum priority { low, medium, high, state }
+
+class TaskPriority extends StatelessWidget {
   TaskPriority({
     required this.label,
     required this.backgroundcolor,
     required this.bordercolor,
     required this.pointercolor,
+    required this.enu,
+    required this.select,
+    required this.ontap,
   });
   int bordercolor;
   int backgroundcolor;
   int pointercolor;
   String label;
+  priority enu;
+  priority select;
+  VoidCallback ontap;
 
-  @override
-  State<TaskPriority> createState() => _TaskPriorityState();
-}
-
-class _TaskPriorityState extends State<TaskPriority> {
-  bool selected = false;
   @override
   Widget build(BuildContext context) {
+    final selected = enu == select;
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          selected = !selected;
-        });
-      },
+      onTap: ontap,
+
       child: Container(
         height: 40,
         width: 106,
         decoration: BoxDecoration(
-          border: BoxBorder.all(
-            color: selected == false
-                ? prioritybordercolor(0xB7F5F8FA)
-                : prioritybordercolor(0xFFEF4444),
+          border: Border.all(
+            color: selected
+                ? prioritybordercolor(bordercolor)
+                : prioritybordercolor(0x00EF4444),
           ),
-          color: selected == false
-              ? prioritybackgroundcolor(0xAAF5F8FA)
-              : prioritybackgroundcolor(0xffFFDCDC),
+          color: selected
+              ? prioritybackgroundcolor(backgroundcolor)
+              : prioritybackgroundcolor(0x00FFDCDC),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Row(
@@ -49,17 +49,16 @@ class _TaskPriorityState extends State<TaskPriority> {
               height: 8,
               width: 8,
               decoration: BoxDecoration(
-                color: prioritypointercolor(0xffEF4444),
+                color: prioritypointercolor(pointercolor),
                 borderRadius: BorderRadius.circular(20),
               ),
             ),
             SizedBox(width: 5),
             Text(
-              widget.label,
+              label,
               style: TextStyle(
-                color: selected == false
-                    ? Colors.black
-                    : Color(widget.pointercolor),
+                fontWeight: FontWeight.bold,
+                color: selected ? Colors.black : Color(pointercolor),
               ),
             ),
           ],

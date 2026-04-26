@@ -3,6 +3,8 @@
 
 import 'package:flowo/features/tasks/widgets/task_/task_card.dart';
 import 'package:flowo/features/tasks/widgets/task_/task_count.dart';
+import 'package:flowo/features/tasks/widgets/task_/task_field.dart';
+import 'package:flowo/features/tasks/widgets/task_/task_priority.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -136,119 +138,100 @@ class _TaskscreenState extends State<Taskscreen> {
               backgroundColor: Colors.white,
               context: context,
               builder: (b) {
-                return Container(
-                  // color: Colors.white,
-                  height: 550,
-                  width: double.infinity,
-                  child: SingleChildScrollView(
-                    child: Padding(
-                      padding: EdgeInsets.all(15),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            margin: EdgeInsets.only(top: 20),
-                            child: Text(
-                              'New Task',
-                              style: TextStyle(
-                                fontFamily: 'inter',
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-
-                          Text(
-                            "What's on your mind?",
-                            style: TextStyle(fontWeight: FontWeight.w300),
-                          ),
-                          SizedBox(height: 20),
-                          Text('Task title'),
-                          SizedBox(height: 10),
-                          TextField(
-                            decoration: InputDecoration(
-                              // isCollapsed: ,
-                              fillColor: Colors.white,
-                              focusColor: Colors.blueAccent,
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16),
-
-                                borderSide: BorderSide(
-                                  color: Color(0xFF8E32F0),
-                                ),
-                              ),
-
-                              enabled: true,
-
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                borderSide: BorderSide(
-                                  color: Color(0xffC89FF5),
-                                ),
-                              ),
-                              hintText: 'e.g. Finish the weekly report 📋',
-                              hintStyle: TextStyle(fontWeight: FontWeight.w200),
-                              filled: true,
-                            ),
-                          ),
-                          SizedBox(height: 20),
-                          TextField(
-                            decoration: InputDecoration(
-                              isDense: true,
-                              contentPadding: EdgeInsets.symmetric(
-                                vertical: 50,
-                                horizontal: 10,
-                              ),
-                              // isCollapsed: ,
-                              fillColor: Colors.white,
-                              focusColor: Colors.blueAccent,
-
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16),
-
-                                borderSide: BorderSide(
-                                  color: Color(0xFF8E32F0),
-                                ),
-                              ),
-
-                              enabled: true,
-
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16),
-                                borderSide: BorderSide(
-                                  color: Color(0xffC89FF5),
-                                ),
-                              ),
-                              hintText: 'e.g. Finish the weekly report 📋',
-                              hintStyle: TextStyle(fontWeight: FontWeight.w200),
-                              filled: true,
-                            ),
-                          ),
-
-                          Text('Priority'),
-                          Container(
-                            child: Row(
-                              children: [
-                                Container(
-                                  child: Row(
-                                    children: [
-                                      Container(
-                                        height: 8,
-                                        width: 8,
-                                        color: Color(0xffEF4444),
-                                      ),
-
-                                      Text('High'),
-                                    ],
+                priority selectedPriority = priority.state;
+                return StatefulBuilder(
+                  builder: (context, setState) {
+                    return Container(
+                      // color: Colors.white,
+                      height: 550,
+                      width: double.infinity,
+                      child: SingleChildScrollView(
+                        child: Padding(
+                          padding: EdgeInsets.all(15),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(top: 20),
+                                child: Text(
+                                  'New Task',
+                                  style: TextStyle(
+                                    fontFamily: 'inter',
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+
+                              Text(
+                                "What's on your mind?",
+                                style: TextStyle(fontWeight: FontWeight.w300),
+                              ),
+                              SizedBox(height: 20),
+
+                              textfield(text: 'Task title'),
+                              SizedBox(height: 10),
+
+                              textfield(
+                                text: 'Description (optional)',
+                                vertical: 50,
+                                horizontal: 20,
+                              ),
+                              SizedBox(height: 20),
+
+                              Text('Priority'),
+                              SizedBox(height: 7),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  TaskPriority(
+                                    label: 'High',
+                                    backgroundcolor: 0xffFFDCDC,
+                                    bordercolor: 0xffEF4444,
+                                    pointercolor: 0xffEF4444,
+                                    enu: priority.high,
+                                    select: selectedPriority,
+                                    ontap: () {
+                                      setState(() {
+                                        selectedPriority = priority.high;
+                                      });
+                                    },
+                                  ),
+                                  TaskPriority(
+                                    label: 'Medium',
+                                    backgroundcolor: 0x71F5A24A,
+                                    bordercolor: 0xffF5A34A,
+                                    pointercolor: 0xffF5A34A,
+                                    enu: priority.medium,
+                                    select: selectedPriority,
+                                    ontap: () {
+                                      setState(() {
+                                        selectedPriority = priority.medium;
+                                      });
+                                    },
+                                  ),
+                                  TaskPriority(
+                                    label: 'low',
+                                    backgroundcolor: 0x5D5AC578,
+                                    bordercolor: 0xff5AC578,
+                                    pointercolor: 0xff5AC578,
+                                    enu: priority.low,
+                                    select: selectedPriority,
+                                    ontap: () {
+                                      setState(() {
+                                        selectedPriority = priority.low;
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                 );
               },
             );
