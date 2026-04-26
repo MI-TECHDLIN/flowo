@@ -1,7 +1,7 @@
 import 'package:flowo/features/tasks/taskfunctions.dart';
 import 'package:flowo/main.dart';
 import 'package:flutter/material.dart';
-import 'package:flowo/dtata/models/task_model.dart';
+import 'package:flowo/data/models/task_model.dart';
 import 'package:provider/provider.dart';
 // ─── Task Card ────────────────────────────────────────────────────────────────
 // Each task is a card with:
