@@ -1,6 +1,7 @@
 //TODO: make sure i get a better modalsheet for the ios
 //TODO: for now i will use the flutter natvie bootom shett laster migrate to smooth sheet bottomshet
 //TODO: tag feature for each task as the next push
+//TODO: replace for iteration with map for heading tasks
 import 'package:flowo/main.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/provider.dart';
@@ -43,6 +44,8 @@ class _TaskscreenState extends State<Taskscreen> {
 
   Widget build(BuildContext context) {
     final _controller = context.watch<TaskController>();
+    final todo = _controller.activetasks;
+    final completed = _controller.completeedtasks;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -135,8 +138,20 @@ class _TaskscreenState extends State<Taskscreen> {
                 Container(
                   margin: EdgeInsets.only(left: 11),
                   alignment: Alignment.centerLeft,
-                  child: Text("Today's Tasks", style: TextStyle(fontSize: 20)),
+                  child: Text("Todo's", style: TextStyle(fontSize: 20)),
                 ),
+                if (todo.isNotEmpty) ...[
+                  for (var task in todo) TaskCard(task: task),
+                ],
+
+                Container(
+                  margin: EdgeInsets.only(left: 11),
+                  alignment: Alignment.centerLeft,
+                  child: Text("Completed", style: TextStyle(fontSize: 20)),
+                ),
+                if (completed.isNotEmpty) ...[
+                  ...completed.map((task) => TaskCard(task: task)),
+                ],
               ],
             ),
           ),
