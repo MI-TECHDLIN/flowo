@@ -1,6 +1,10 @@
 //TODO: make sure i get a better modalsheet for the ios
 //TODO: for now i will use the flutter natvie bootom shett laster migrate to smooth sheet bottomshet
-
+//TODO: tag feature for each task as the next push
+import 'package:flowo/main.dart';
+import 'package:provider/provider.dart';
+import 'package:provider/provider.dart';
+import 'taskfunctions.dart';
 import 'package:flowo/features/tasks/widgets/task_/task_card.dart';
 import 'package:flowo/features/tasks/widgets/task_/task_count.dart';
 import 'package:flowo/features/tasks/widgets/task_/task_field.dart';
@@ -29,7 +33,16 @@ class _TaskscreenState extends State<Taskscreen> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Future.microtask(() {
+      context.read<TaskController>().listenTOtasks(kTestUserId);
+    });
+  }
+
   Widget build(BuildContext context) {
+    final _controller = context.watch<TaskController>();
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -124,13 +137,6 @@ class _TaskscreenState extends State<Taskscreen> {
                   alignment: Alignment.centerLeft,
                   child: Text("Today's Tasks", style: TextStyle(fontSize: 20)),
                 ),
-
-                TaskCard(headcolor: Color(0xffEF4444)),
-                TaskCard(headcolor: Color(0xffF5A34A)),
-                TaskCard(headcolor: Color(0xffF5A34A)),
-                TaskCard(headcolor: Color(0xff5AC578)),
-                TaskCard(headcolor: Color(0xffF5A34A)),
-                TaskCard(headcolor: Color(0xffEF4444)),
               ],
             ),
           ),
@@ -146,91 +152,145 @@ class _TaskscreenState extends State<Taskscreen> {
                   builder: (context, setState) {
                     return Container(
                       // color: Colors.white,
-                      height: 550,
+                      height: 560,
                       width: double.infinity,
-                      child: SingleChildScrollView(
-                        child: Padding(
-                          padding: EdgeInsets.all(15),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                margin: EdgeInsets.only(top: 20),
-                                child: Text(
-                                  'New Task',
-                                  style: TextStyle(
-                                    fontFamily: 'inter',
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                      child: Padding(
+                        padding: EdgeInsets.all(15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              margin: EdgeInsets.only(top: 20),
+                              child: Text(
+                                'New Task',
+                                style: TextStyle(
+                                  fontFamily: 'inter',
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
+                            ),
 
-                              Text(
-                                "What's on your mind?",
-                                style: TextStyle(fontWeight: FontWeight.w300),
-                              ),
-                              SizedBox(height: 20),
+                            Text(
+                              "What's on your mind?",
+                              style: TextStyle(fontWeight: FontWeight.w300),
+                            ),
+                            SizedBox(height: 20),
 
-                              textfield(text: 'Task title'),
-                              SizedBox(height: 10),
+                            textfield(text: 'Task title'),
+                            SizedBox(height: 10),
 
-                              textfield(
-                                text: 'Description (optional)',
-                                vertical: 50,
-                                horizontal: 20,
-                              ),
-                              SizedBox(height: 20),
+                            textfield(
+                              text: 'Description (optional)',
+                              vertical: 50,
+                              horizontal: 20,
+                            ),
+                            SizedBox(height: 20),
 
-                              Text('Priority'),
-                              SizedBox(height: 7),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                            Text('Priority'),
+                            SizedBox(height: 7),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                TaskPriority(
+                                  label: 'High',
+                                  backgroundcolor: 0xffFFDCDC,
+                                  bordercolor: 0xffEF4444,
+                                  pointercolor: 0xffEF4444,
+                                  enu: priority.high,
+                                  select: selectedPriority,
+                                  ontap: () {
+                                    setState(() {
+                                      selectedPriority = priority.high;
+                                    });
+                                  },
+                                ),
+                                TaskPriority(
+                                  label: 'Medium',
+                                  backgroundcolor: 0x71F5A24A,
+                                  bordercolor: 0xffF5A34A,
+                                  pointercolor: 0xffF5A34A,
+                                  enu: priority.medium,
+                                  select: selectedPriority,
+                                  ontap: () {
+                                    setState(() {
+                                      selectedPriority = priority.medium;
+                                    });
+                                  },
+                                ),
+                                TaskPriority(
+                                  label: 'low',
+                                  backgroundcolor: 0x5D5AC578,
+                                  bordercolor: 0xff5AC578,
+                                  pointercolor: 0xff5AC578,
+                                  enu: priority.low,
+                                  select: selectedPriority,
+                                  ontap: () {
+                                    setState(() {
+                                      selectedPriority = priority.low;
+                                    });
+                                  },
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 20),
+                            Container(
+                              margin: EdgeInsets.only(left: 30),
+                              child: Row(
                                 children: [
-                                  TaskPriority(
-                                    label: 'High',
-                                    backgroundcolor: 0xffFFDCDC,
-                                    bordercolor: 0xffEF4444,
-                                    pointercolor: 0xffEF4444,
-                                    enu: priority.high,
-                                    select: selectedPriority,
-                                    ontap: () {
-                                      setState(() {
-                                        selectedPriority = priority.high;
-                                      });
-                                    },
+                                  GestureDetector(
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xffF5F8FA),
+                                        borderRadius: BorderRadius.circular(27),
+                                        border: Border.all(
+                                          color: Color(0xffD2DAE4),
+                                        ),
+                                      ),
+                                      height: 50,
+                                      width: 100,
+                                      child: Text(
+                                        'Cancel',
+                                        style: TextStyle(fontSize: 15),
+                                      ),
+                                    ),
                                   ),
-                                  TaskPriority(
-                                    label: 'Medium',
-                                    backgroundcolor: 0x71F5A24A,
-                                    bordercolor: 0xffF5A34A,
-                                    pointercolor: 0xffF5A34A,
-                                    enu: priority.medium,
-                                    select: selectedPriority,
-                                    ontap: () {
-                                      setState(() {
-                                        selectedPriority = priority.medium;
-                                      });
-                                    },
-                                  ),
-                                  TaskPriority(
-                                    label: 'low',
-                                    backgroundcolor: 0x5D5AC578,
-                                    bordercolor: 0xff5AC578,
-                                    pointercolor: 0xff5AC578,
-                                    enu: priority.low,
-                                    select: selectedPriority,
-                                    ontap: () {
-                                      setState(() {
-                                        selectedPriority = priority.low;
-                                      });
-                                    },
+                                  SizedBox(width: 20),
+                                  GestureDetector(
+                                    onTap: null,
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xffC89FF5),
+                                        borderRadius: BorderRadius.circular(27),
+                                      ),
+                                      height: 54,
+                                      width: 227,
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Icon(Icons.add, color: Colors.white),
+
+                                          Text(
+                                            'Add Task',
+                                            style: TextStyle(
+                                              fontSize: 17,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
                                 ],
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     );
