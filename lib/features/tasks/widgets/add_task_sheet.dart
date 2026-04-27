@@ -1,7 +1,7 @@
 import 'package:flowo/features/tasks/widgets/priority_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../task_controller.dart';
+import '../taskfunctions.dart';
 import '../../../main.dart';
 
 class AddTaskSheet extends StatefulWidget {
