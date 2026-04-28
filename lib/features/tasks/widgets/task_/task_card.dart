@@ -45,6 +45,14 @@ class TaskCard extends StatelessWidget {
     return Colors.grey;
   }
 
+  String capitlaise(String s) {
+    if (s == '') {
+      return s;
+    }
+
+    return s[0].toUpperCase() + s.substring(1);
+  }
+
   String textpriority(int priority) {
     switch (priority) {
       case 1:
@@ -91,7 +99,7 @@ this function is a widgetstate constraint used to get statecolor
                   height: 100,
                   width: 4,
                   decoration: BoxDecoration(
-                    color: color,
+                    color: task.isCompleted ? Color(0xff5AC578) : color,
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
@@ -125,12 +133,18 @@ this function is a widgetstate constraint used to get statecolor
                           ),
                         ),
 
-                        Text(task.title, style: TextStyle(fontSize: 18)),
+                        Text(
+                          capitlaise(task.title),
+                          style: TextStyle(fontSize: 18),
+                        ),
                       ],
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 15),
-                      child: Text(decript(task)),
+                      child: Text(
+                        capitlaise(decript(task)),
+                        style: TextStyle(),
+                      ),
                     ),
                     SizedBox(height: 10),
                     Container(
@@ -142,12 +156,18 @@ this function is a widgetstate constraint used to get statecolor
                             height: 23,
                             width: 90,
                             decoration: BoxDecoration(
-                              color: bgcolor(task.priority),
+                              color: task.isCompleted
+                                  ? Color(0xffC8F0DC)
+                                  : bgcolor(task.priority),
                               borderRadius: BorderRadius.circular(8),
                             ),
                             child: Text(
                               textpriority(task.priority),
-                              style: TextStyle(color: textcolor(task.priority)),
+                              style: TextStyle(
+                                color: task.isCompleted
+                                    ? Color(0xff5AC578)
+                                    : textcolor(task.priority),
+                              ),
                             ),
                           ),
                           SizedBox(width: 30),
