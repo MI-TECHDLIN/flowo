@@ -1,119 +1,134 @@
+import 'package:flowo/data/models/task_model.dart';
 import 'package:flutter/material.dart';
 
-class TaskCard extends StatefulWidget {
-  const TaskCard();
+class TaskCard extends StatelessWidget {
+  TaskCard({required this.task});
+  final TaskModel task;
 
-  @override
-  State<TaskCard> createState() => _TaskCardState();
-}
+  String decript(TaskModel t) {
+    final des = t.description;
+    if (des.isEmpty) return '';
+    return des;
+  }
 
-class _TaskCardState extends State<TaskCard> {
-  bool isCheck = false;
-  Color getcheckboxcolor(Set<WidgetState> states) {
-    '''
-this function is a widgetstate constraint used to get statecolor
+  Color headcolor(int priority) {
+    if (priority == 3)
+      return Color(0xffEF4444);
+    else if (priority == 2)
+      return Color(0xffF5A34A);
+    else if (priority == 1)
+      return Color(0xff5AC578);
+    return Colors.grey;
+  }
 
-''';
-    const Set<WidgetState> interactwithstate = <WidgetState>{
-      WidgetState.selected,
-    };
-    if (states.any(interactwithstate.contains)) {
-      return Color(0xFF5AC578);
+  String textpriority(int priority) {
+    switch (priority) {
+      case 1:
+        return 'Low';
+      case 2:
+        return 'Medium';
+      case 3:
+        return "HIgh Priority";
+      default:
+        return 'Normal';
     }
-    return Colors.white;
   }
 
   @override
   Widget build(BuildContext context) {
+    final color = headcolor(task.priority);
+    bool isCheck = false;
+    Color getcheckboxcolor(Set<WidgetState> states) {
+      '''
+this function is a widgetstate constraint used to get statecolor
+
+''';
+      const Set<WidgetState> interactwithstate = <WidgetState>{
+        WidgetState.selected,
+      };
+      if (states.any(interactwithstate.contains)) {
+        return Color(0xFF5AC578);
+      }
+      return Colors.white;
+    }
+
     return Container(
+      key: Key(task.id),
       padding: EdgeInsets.only(left: 14),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
             children: [
-              Text("Today's Tasks", style: TextStyle(fontSize: 18)),
               Positioned(
                 top: 5,
                 child: Container(
                   height: 100,
                   width: 4,
                   decoration: BoxDecoration(
-                    color: Color(0xFFEF4444),
+                    color: color,
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
               ),
+
               Card(
                 elevation: 0,
-                color: Color(0xFFFFFFFF),
-                child: Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        child: Row(
-                          children: [
-                            Transform.scale(
-                              scale: 1.2,
-                              child: Checkbox(
-                                fillColor: WidgetStateColor.resolveWith((s) {
-                                  return getcheckboxcolor(s);
-                                }),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadiusGeometry.circular(
-                                    5,
-                                  ),
-                                ),
-                                side: BorderSide(
-                                  color: Color(0xFFC89FF5),
-                                  style: BorderStyle.solid,
-                                ),
-                                value: isCheck,
-                                onChanged: (bool? s) {
-                                  return setState(() {
-                                    isCheck = s!;
-                                  });
-                                },
-                              ),
+                color: Color(0x6EFFFFFF),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Transform.scale(
+                          scale: 1.2,
+                          child: Checkbox(
+                            fillColor: WidgetStateColor.resolveWith((s) {
+                              return getcheckboxcolor(s);
+                            }),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadiusGeometry.circular(5),
                             ),
+                            side: BorderSide(
+                              color: Color(0xFFC89FF5),
+                              style: BorderStyle.solid,
+                            ),
+                            value: isCheck,
+                            onChanged: (bool? s) {
+                              return null;
+                            },
+                          ),
+                        ),
 
-                            Text(
-                              'FInish project proposal',
-                              style: TextStyle(fontSize: 18),
+                        Text(task.title, style: TextStyle(fontSize: 18)),
+                      ],
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 15),
+                      child: Text(decript(task)),
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      margin: EdgeInsets.only(left: 15),
+                      child: Row(
+                        children: [
+                          Container(
+                            alignment: Alignment.center,
+                            height: 23,
+                            width: 90,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFFFDCDC),
+                              borderRadius: BorderRadius.circular(8),
                             ),
-                          ],
-                        ),
+                            child: Text('High Priority'),
+                          ),
+                          SizedBox(width: 30),
+                          Text('Work'),
+                        ],
                       ),
-                      Container(
-                        margin: EdgeInsets.only(left: 15),
-                        child: Text(
-                          'Write sections 2-4 and  executive summary',
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Container(
-                        margin: EdgeInsets.only(left: 15),
-                        child: Row(
-                          children: [
-                            Container(
-                              alignment: Alignment.center,
-                              height: 23,
-                              width: 90,
-                              decoration: BoxDecoration(
-                                color: Color(0xFFFFDCDC),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Text('High Priority'),
-                            ),
-                            SizedBox(width: 30),
-                            Text('Work'),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -121,6 +136,5 @@ this function is a widgetstate constraint used to get statecolor
         ],
       ),
     );
-    ;
   }
 }

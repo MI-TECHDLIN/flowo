@@ -2,6 +2,8 @@
 //TODO: for now i will use the flutter natvie bootom shett laster migrate to smooth sheet bottomshet
 //TODO: tag feature for each task as the next push
 //TODO: replace for iteration with map for heading tasks
+import 'package:flowo/features/tasks/widgets/add_task_sheet.dart';
+import 'package:flowo/features/tasks/widgets/task_/task_bottomsheet.dart';
 import 'package:flowo/main.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/provider.dart';
@@ -46,6 +48,7 @@ class _TaskscreenState extends State<Taskscreen> {
     final _controller = context.watch<TaskController>();
     final todo = _controller.activetasks;
     final completed = _controller.completeedtasks;
+    final total_count = todo.length + completed.length;
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -96,7 +99,7 @@ class _TaskscreenState extends State<Taskscreen> {
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Text(
-                          'You have 4 tasks today',
+                          'You have $total_count tasks today',
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w300,
@@ -113,21 +116,24 @@ class _TaskscreenState extends State<Taskscreen> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
+                      //completed tasks
                       TaskCount(
                         Color.fromARGB(51, 255, 62, 142),
-                        '3',
+                        completed.length.toString(),
                         'Done today',
                         Color(0xFFC394F4),
                       ),
+                      //totalcount
                       TaskCount(
                         Color(0x76C8F0DC),
-                        '4',
+                        total_count.toString(),
                         'Remaining',
                         Color(0xFF5AC578),
                       ),
+                      //remaining
                       TaskCount(
                         Color(0x9AFFE5CC),
-                        '1',
+                        todo.length.toString(),
                         'Overdue',
                         Color(0xFFF5A24A),
                       ),
@@ -144,6 +150,7 @@ class _TaskscreenState extends State<Taskscreen> {
                   for (var task in todo) TaskCard(task: task),
                 ],
 
+                //completedtask
                 Container(
                   margin: EdgeInsets.only(left: 11),
                   alignment: Alignment.centerLeft,
@@ -159,158 +166,11 @@ class _TaskscreenState extends State<Taskscreen> {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             showModalBottomSheet(
+              isScrollControlled: true,
               backgroundColor: Colors.white,
               context: context,
               builder: (b) {
-                priority selectedPriority = priority.state;
-                return StatefulBuilder(
-                  builder: (context, setState) {
-                    return Container(
-                      // color: Colors.white,
-                      height: 560,
-                      width: double.infinity,
-                      child: Padding(
-                        padding: EdgeInsets.all(15),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              margin: EdgeInsets.only(top: 20),
-                              child: Text(
-                                'New Task',
-                                style: TextStyle(
-                                  fontFamily: 'inter',
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-
-                            Text(
-                              "What's on your mind?",
-                              style: TextStyle(fontWeight: FontWeight.w300),
-                            ),
-                            SizedBox(height: 20),
-
-                            textfield(text: 'Task title'),
-                            SizedBox(height: 10),
-
-                            textfield(
-                              text: 'Description (optional)',
-                              vertical: 50,
-                              horizontal: 20,
-                            ),
-                            SizedBox(height: 20),
-
-                            Text('Priority'),
-                            SizedBox(height: 7),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                TaskPriority(
-                                  label: 'High',
-                                  backgroundcolor: 0xffFFDCDC,
-                                  bordercolor: 0xffEF4444,
-                                  pointercolor: 0xffEF4444,
-                                  enu: priority.high,
-                                  select: selectedPriority,
-                                  ontap: () {
-                                    setState(() {
-                                      selectedPriority = priority.high;
-                                    });
-                                  },
-                                ),
-                                TaskPriority(
-                                  label: 'Medium',
-                                  backgroundcolor: 0x71F5A24A,
-                                  bordercolor: 0xffF5A34A,
-                                  pointercolor: 0xffF5A34A,
-                                  enu: priority.medium,
-                                  select: selectedPriority,
-                                  ontap: () {
-                                    setState(() {
-                                      selectedPriority = priority.medium;
-                                    });
-                                  },
-                                ),
-                                TaskPriority(
-                                  label: 'low',
-                                  backgroundcolor: 0x5D5AC578,
-                                  bordercolor: 0xff5AC578,
-                                  pointercolor: 0xff5AC578,
-                                  enu: priority.low,
-                                  select: selectedPriority,
-                                  ontap: () {
-                                    setState(() {
-                                      selectedPriority = priority.low;
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 20),
-                            Container(
-                              margin: EdgeInsets.only(left: 30),
-                              child: Row(
-                                children: [
-                                  GestureDetector(
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xffF5F8FA),
-                                        borderRadius: BorderRadius.circular(27),
-                                        border: Border.all(
-                                          color: Color(0xffD2DAE4),
-                                        ),
-                                      ),
-                                      height: 50,
-                                      width: 100,
-                                      child: Text(
-                                        'Cancel',
-                                        style: TextStyle(fontSize: 15),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(width: 20),
-                                  GestureDetector(
-                                    onTap: null,
-                                    child: Container(
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xffC89FF5),
-                                        borderRadius: BorderRadius.circular(27),
-                                      ),
-                                      height: 54,
-                                      width: 227,
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Icon(Icons.add, color: Colors.white),
-
-                                          Text(
-                                            'Add Task',
-                                            style: TextStyle(
-                                              fontSize: 17,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    );
-                  },
-                );
+                return botttomsheet();
               },
             );
           },
