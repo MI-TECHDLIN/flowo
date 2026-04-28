@@ -1,5 +1,8 @@
 import 'package:flowo/data/models/task_model.dart';
+import 'package:flowo/features/tasks/taskfunctions.dart';
+import 'package:flowo/main.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class TaskCard extends StatelessWidget {
   TaskCard({required this.task});
@@ -36,8 +39,9 @@ class TaskCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = context.read<TaskController>();
     final color = headcolor(task.priority);
-    bool isCheck = false;
+    bool isCheck = task.isCompleted;
     Color getcheckboxcolor(Set<WidgetState> states) {
       '''
 this function is a widgetstate constraint used to get statecolor
@@ -95,9 +99,8 @@ this function is a widgetstate constraint used to get statecolor
                               style: BorderStyle.solid,
                             ),
                             value: isCheck,
-                            onChanged: (bool? s) {
-                              return null;
-                            },
+                            onChanged: (_) =>
+                                controller.toggleTask(kTestUserId, task),
                           ),
                         ),
 
