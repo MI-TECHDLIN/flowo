@@ -1,4 +1,4 @@
-import 'package:flowo/features/tasks/taskfunctions.dart';
+import 'package:flowo/features/tasks/task_functions.dart';
 import 'package:flowo/features/tasks/widgets/task_/task_field.dart';
 import 'package:flowo/features/tasks/widgets/task_/task_priority.dart';
 import 'package:flowo/main.dart';
@@ -74,14 +74,21 @@ class _botttomsheetState extends State<botttomsheet> {
               style: TextStyle(fontWeight: FontWeight.w300),
             ),
             SizedBox(height: 20),
-            TaskField(controller: titilecontroller, text: 'Task title'),
+            TaskField(
+              hinttext: 'e.g. Finish the weekly report 📋',
+              controller: titilecontroller,
+              text: 'Task title',
+              vertical: 10,
+              horizontal: 10,
+            ),
             SizedBox(height: 10),
 
             TaskField(
+              hinttext: 'Add some details...',
               controller: decription_controller,
               text: 'Description (optional)',
-              vertical: 50,
-              horizontal: 20,
+
+              horizontal: 75,
             ),
             SizedBox(height: 20),
 
@@ -134,9 +141,8 @@ class _botttomsheetState extends State<botttomsheet> {
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 40),
             Container(
-              margin: EdgeInsets.only(left: 30),
               child: Row(
                 children: [
                   GestureDetector(
@@ -155,7 +161,7 @@ class _botttomsheetState extends State<botttomsheet> {
                       child: Text('Cancel', style: TextStyle(fontSize: 15)),
                     ),
                   ),
-                  SizedBox(width: 20),
+                  SizedBox(width: 30),
                   GestureDetector(
                     onTap: () {
                       save_task();

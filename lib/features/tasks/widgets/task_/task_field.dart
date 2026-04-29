@@ -4,13 +4,14 @@ class TaskField extends StatelessWidget {
   TaskField({
     required this.controller,
     required this.text,
-
-    this.vertical = 20,
+    required this.hinttext,
+    this.vertical = 0,
     this.horizontal = 0,
   });
 
   final TextEditingController? controller;
   String? text;
+  String? hinttext;
   double vertical;
   double horizontal;
 
@@ -25,10 +26,7 @@ class TaskField extends StatelessWidget {
           controller: controller,
           decoration: InputDecoration(
             isDense: true,
-            contentPadding: EdgeInsets.symmetric(
-              vertical: vertical,
-              horizontal: horizontal,
-            ),
+            // contentPadding: EdgeInsets.only(bottom: 60),
             // isCollapsed: ,
             fillColor: Colors.white,
             focusColor: Colors.blueAccent,
@@ -44,7 +42,15 @@ class TaskField extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
               borderSide: BorderSide(color: Color(0xffC89FF5)),
             ),
-            hintText: 'e.g. Finish the weekly report 📋',
+            hint: Container(
+              margin: EdgeInsets.fromLTRB(0, vertical, 0, horizontal),
+              child: Text(
+                hinttext!,
+                style: TextStyle(fontSize: 16, color: Color(0xffC3CDD7)),
+              ),
+            ),
+            hintTextDirection: TextDirection.ltr,
+
             hintStyle: TextStyle(fontWeight: FontWeight.w200),
             filled: true,
           ),

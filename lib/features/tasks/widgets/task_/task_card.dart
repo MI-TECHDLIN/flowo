@@ -1,5 +1,5 @@
 import 'package:flowo/data/models/task_model.dart';
-import 'package:flowo/features/tasks/taskfunctions.dart';
+import 'package:flowo/features/tasks/task_functions.dart';
 import 'package:flowo/features/tasks/widgets/task_/task_priority.dart';
 import 'package:flowo/main.dart';
 import 'package:flutter/material.dart';

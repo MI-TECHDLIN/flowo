@@ -1,9 +1,13 @@
-import 'package:flowo/features/daily_flow/daily_flow_screen.dart';
-import 'package:flowo/features/progress/progrees_screen.dart';
-import 'package:flowo/features/tasks/demo.dart';
-import 'package:flowo/features/tasks/taskscreen.dart';
+import 'package:flowo/features/ai/ai_suggestion_screen.dart';
+import 'package:flowo/features/tasks/screens/task_screen.dart';
+import 'package:flowo/features/tasks/task_functions.dart';
 import 'package:flowo/features/tasks/widgets/task_/task_bottomsheet.dart';
+import 'package:flowo/features/tasks/widgets/task_/task_field.dart';
+import 'package:flowo/features/tasks/widgets/task_/task_priority.dart';
+import 'package:flowo/main.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flowo/constants/constant.dart';
 
 class Bottomnav extends StatefulWidget {
   const Bottomnav({super.key});
@@ -13,8 +17,19 @@ class Bottomnav extends StatefulWidget {
 }
 
 class _BottomnavState extends State<Bottomnav> {
+  Future<void> addtask() {
+    return showModalBottomSheet(
+      isScrollControlled: true,
+      backgroundColor: Colors.white,
+      context: context,
+      builder: (b) {
+        return botttomsheet();
+      },
+    );
+  }
+
   int _currentindex = 0;
-  final List<Widget> _screens = [Taskscreen(), botttomsheet(), ai()];
+  final List<Widget> _screens = [Taskscreen(), AiSuggestionScreen()];
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +59,7 @@ class _BottomnavState extends State<Bottomnav> {
       ),
 
       body: _screens[_currentindex],
+
       bottomNavigationBar: NavigationBar(
         selectedIndex: _currentindex,
         onDestinationSelected: (index) {
@@ -51,20 +67,24 @@ class _BottomnavState extends State<Bottomnav> {
             _currentindex = index;
           });
         },
-        destinations: const [
+        destinations: [
           NavigationDestination(
             icon: Icon(Icons.check_circle_outline),
             label: 'Tasks',
             selectedIcon: Icon(Icons.check_circle),
           ),
-          NavigationDestination(
-            icon: Icon(Icons.add_rounded),
-            label: 'Add',
-            selectedIcon: Icon(Icons.add),
+          SizedBox(
+            child: Column(
+              children: [
+                IconButton(onPressed: addtask, icon: Icon(Icons.add_rounded)),
+                Text('Add task'),
+              ],
+            ),
           ),
+
           NavigationDestination(
             icon: Icon(Icons.auto_awesome_rounded),
-            label: 'Ai',
+            label: 'Ai Suggestions',
             selectedIcon: Icon(Icons.auto_awesome),
           ),
         ],

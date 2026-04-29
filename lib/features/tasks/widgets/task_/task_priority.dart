@@ -35,11 +35,11 @@ class TaskPriority extends StatelessWidget {
           border: Border.all(
             color: selected
                 ? prioritybordercolor(bordercolor)
-                : prioritybordercolor(0x00EF4444),
+                : prioritybordercolor(0x35C913D0),
           ),
           color: selected
               ? prioritybackgroundcolor(backgroundcolor)
-              : prioritybackgroundcolor(0x00FFDCDC),
+              : prioritybackgroundcolor(0x44DCECFF),
           borderRadius: BorderRadius.circular(20),
         ),
         child: Row(
