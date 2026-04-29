@@ -23,13 +23,22 @@ class _BottomnavState extends State<Bottomnav> {
       backgroundColor: Colors.white,
       context: context,
       builder: (b) {
-        return botttomsheet();
+        return Padding(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).viewInsets.bottom,
+          ),
+          child: botttomsheet(),
+        );
       },
     );
   }
 
   int _currentindex = 0;
-  final List<Widget> _screens = [Taskscreen(), AiSuggestionScreen()];
+  final List<Widget> _screens = [
+    Taskscreen(),
+    Taskscreen(),
+    AiSuggestionScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
