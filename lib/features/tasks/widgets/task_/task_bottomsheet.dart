@@ -1,3 +1,4 @@
+import 'package:flowo/constants/constant.dart';
 import 'package:flowo/features/tasks/task_functions.dart';
 import 'package:flowo/features/tasks/widgets/task_/task_field.dart';
 import 'package:flowo/features/tasks/widgets/task_/task_priority.dart';
@@ -13,6 +14,59 @@ class botttomsheet extends StatefulWidget {
 }
 
 class _botttomsheetState extends State<botttomsheet> {
+  TimeOfDay time = TimeOfDay(hour: 10, minute: 10);
+  static const TimeOfDay consttime = TimeOfDay(hour: 10, minute: 10);
+
+  String changestring({String? text, TimeOfDay? time}) {
+    if (text!.contains('day'))
+      return text;
+    else {
+      return time!.format(context).toString();
+    }
+  }
+
+  Widget timerwudget(
+    VoidCallback ontouch,
+
+    IconData icon, {
+    String label = '10:00',
+    TimeOfDay time = consttime,
+    int bgcolor = 0xffF5F8FA,
+    int bordercolor = 0xffE8EEF3,
+  }) {
+    """
+am actually having issue put a timeofday type and String in the same widget so am creating a function that returns with a conditions
+""";
+    return InkWell(
+      onTap: ontouch,
+      child: Container(
+        height: 45,
+        width: 164,
+        decoration: BoxDecoration(
+          color: Color(bgcolor),
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: Color(bordercolor), width: 2),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+
+          children: [
+            Container(
+              margin: EdgeInsets.only(left: 20),
+              child: Icon(icon, color: Color(0xffC89FF5), size: 18),
+            ),
+            SizedBox(width: 10),
+            blacktext(
+              changestring(text: label, time: time),
+              17,
+              color: 0xFF000000,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   priority selectedPriority = priority.state;
   final titilecontroller = TextEditingController();
   final decription_controller = TextEditingController();
@@ -51,7 +105,7 @@ class _botttomsheetState extends State<botttomsheet> {
     return SingleChildScrollView(
       child: SizedBox(
         // color: Colors.white,
-        height: 560,
+        height: 570,
         width: double.infinity,
         child: Padding(
           padding: EdgeInsets.all(15),
@@ -74,7 +128,7 @@ class _botttomsheetState extends State<botttomsheet> {
                 "What's on your mind?",
                 style: TextStyle(fontWeight: FontWeight.w300),
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
               TaskField(
                 hinttext: 'e.g. Finish the weekly report 📋',
                 controller: titilecontroller,
@@ -89,9 +143,9 @@ class _botttomsheetState extends State<botttomsheet> {
                 controller: decription_controller,
                 text: 'Description (optional)',
 
-                horizontal: 75,
+                horizontal: 50,
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 10),
 
               Text('Priority'),
               SizedBox(height: 7),
@@ -142,7 +196,45 @@ class _botttomsheetState extends State<botttomsheet> {
                   ),
                 ],
               ),
-              SizedBox(height: 40),
+
+              Container(
+                margin: EdgeInsets.only(top: 8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(child: Text('Date & Time')),
+                    SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        timerwudget(
+                          () => {},
+                          Icons.calendar_today_rounded,
+                          label: 'Today',
+                        ),
+                        timerwudget(
+                          () {
+                            showTimePicker(
+                              context: context,
+                              initialTime: TimeOfDay.now(),
+                            ).then((value) {
+                              setState(() {
+                                time = value!;
+                              });
+                            });
+                          },
+                          Icons.access_time,
+                          time: time,
+
+                          bgcolor: 0xffF3E8FF,
+                          bordercolor: 0xffD4B5F5,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
               Container(
                 child: Row(
                   children: [
