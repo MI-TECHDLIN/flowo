@@ -57,10 +57,13 @@ it wworks with our stream ... listentiask function acts as the listener
     String userId,
     String title,
     String description,
+    TimeOfDay time,
     int priority,
+    BuildContext context,
   ) async {
     final task = TaskModel(
       id: '',
+      time: time.format(context).toString(),
       title: title,
       description: description,
       priority: priority,

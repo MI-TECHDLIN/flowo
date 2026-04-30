@@ -8,12 +8,12 @@ class TaskModel {
   final String description;
   final bool isCompleted;
   final int priority;
-  final TimeOfDay time;
+  final String time;
   final DateTime createdAt;
   TaskModel({
     required this.id,
     required this.title,
-    this.time = consttime,
+    required this.time,
     this.description =
         '', //description would be optional, there would be a default description
     this.isCompleted = false,
@@ -25,7 +25,6 @@ class TaskModel {
     final firestoredata = doc.data() as Map<String, dynamic>;
     return TaskModel(
       id: doc.id,
-
       title: firestoredata['title'] ?? '',
       time: firestoredata['time'] ?? '',
       description: firestoredata['description'] ?? '',
@@ -36,6 +35,10 @@ class TaskModel {
   }
   // Convert TaskModel → Map to save to Firestore
   Map<String, dynamic> toFirestore() {
+    '''
+for reading to the firestoore instead of using Timeofday as datatype  i used 
+a string and formated the timeof day because we cant actually get read of timeofday as datatype
+''';
     return {
       'title': title,
       'time': time,
@@ -49,6 +52,7 @@ class TaskModel {
   // Create a modified copy of a task
   TaskModel copyWith({
     String? title,
+    String? time,
     String? description,
     bool? isCompleted,
     int? priority,
@@ -59,7 +63,7 @@ class TaskModel {
       description: description ?? this.description,
       isCompleted: isCompleted ?? this.isCompleted,
       priority: priority ?? this.priority,
-      time: time,
+      time: time ?? this.time,
       createdAt: createdAt,
     );
   }
