@@ -114,14 +114,16 @@ class _focustimerState extends State<FocusTimer> {
               ),
 
               Container(
-                height: 277,
+                margin: EdgeInsets.only(top: 20),
+                height: 260,
                 width: 390,
                 child: Card(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(28),
                   ),
+                  elevation: 2,
                   surfaceTintColor: const Color.fromARGB(141, 255, 255, 255),
-                  shadowColor: const Color(0x00FFFFFF),
+                  shadowColor: const Color(0x47FFFFFF),
                   color: const Color(0xFFFFFFFF),
 
                   child: Padding(
@@ -131,6 +133,7 @@ class _focustimerState extends State<FocusTimer> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Expanded(
+                          flex: 1,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -157,11 +160,12 @@ class _focustimerState extends State<FocusTimer> {
                                   color: Color(0xff6B7C8f),
                                 ),
                               ),
-                              Text('Remaining'),
+                              Text('Running'),
                             ],
                           ),
                         ),
                         Expanded(
+                          flex: 2,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -216,7 +220,7 @@ class _focustimerState extends State<FocusTimer> {
                                     child: Text(
                                       '38',
                                       style: TextStyle(
-                                        fontSize: 50,
+                                        fontSize: 58,
                                         color: Color(0xff3CA05A),
                                         fontWeight: FontWeight.bold,
                                       ),
@@ -229,11 +233,32 @@ class _focustimerState extends State<FocusTimer> {
                             ],
                           ),
                         ),
-
                         Expanded(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: [Icon(Icons.timer_sharp)],
+                            children: [
+                              Icon(
+                                Icons.timer_sharp,
+                                color: Color(0xffC89FF5),
+                                size: 15,
+                              ),
+                              SizedBox(width: 5),
+                              Text('25 min session'),
+
+                              Container(
+                                height: 5,
+                                width: 5,
+                                decoration: BoxDecoration(
+                                  color: Color(0xff6B7C8F),
+                                  borderRadius: BorderRadius.circular(2),
+                                ),
+                                margin: EdgeInsets.symmetric(
+                                  vertical: 0,
+                                  horizontal: 7,
+                                ),
+                              ),
+                              Text('75 min total remaining'),
+                            ],
                           ),
                         ),
                       ],
