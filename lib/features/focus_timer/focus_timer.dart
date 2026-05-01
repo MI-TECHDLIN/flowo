@@ -114,7 +114,7 @@ class _focustimerState extends State<FocusTimer> {
               ),
 
               Container(
-                margin: EdgeInsets.only(top: 20),
+                margin: EdgeInsets.only(top: 25),
                 height: 260,
                 width: 390,
                 child: Card(
@@ -123,7 +123,7 @@ class _focustimerState extends State<FocusTimer> {
                   ),
                   elevation: 2,
                   surfaceTintColor: const Color.fromARGB(141, 255, 255, 255),
-                  shadowColor: const Color(0x47FFFFFF),
+                  shadowColor: const Color(0x46FFFFFF),
                   color: const Color(0xFFFFFFFF),
 
                   child: Padding(
@@ -264,6 +264,16 @@ class _focustimerState extends State<FocusTimer> {
                       ],
                     ),
                   ),
+                ),
+              ),
+
+              Container(
+                alignment: Alignment.topLeft,
+                margin: EdgeInsets.symmetric(vertical: 22, horizontal: 12),
+                child: Column(
+                  children: [
+                    Text('Session progress', style: TextStyle(fontSize: 16)),
+                  ],
                 ),
               ),
             ],
