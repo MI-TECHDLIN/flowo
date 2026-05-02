@@ -2,12 +2,11 @@
 //TODO: in prod ship a new feature for a only minute time sugeestion or only hour time suggestiion
 //TODO: currently using seststae() for rebuilds migrate latert o change notifier
 import 'dart:async';
-
 import 'package:flowo/constants/constant.dart';
 import 'package:flowo/features/focus_timer/time_card.dart';
-import 'package:flowo/features/timer/timer_card.dart';
 import 'package:flutter/material.dart';
 import 'package:goal_progress_indicator/goal_progress_indicator.dart';
+import 'package:flowo/features/focus_timer/play_card.dart';
 
 class FocusTimer extends StatefulWidget {
   const FocusTimer({super.key});
@@ -17,7 +16,8 @@ class FocusTimer extends StatefulWidget {
 }
 
 class _focustimerState extends State<FocusTimer> {
-  int initialseconds = 10800;
+  int totalseconds = 10800;
+  int sessionseconds = 10800;
 
   ///static
   static int constsec = 10800;
@@ -26,7 +26,7 @@ class _focustimerState extends State<FocusTimer> {
   static int consthour = constsec ~/ 3600;
 
   //dynamic
-  int get minutes => initialseconds ~/ 60;
+  int get minutes => totalseconds ~/ 60;
   int get diffmin => consttotalmin - minutes;
   int get hours {
     return minutes ~/ 60;
@@ -36,7 +36,17 @@ class _focustimerState extends State<FocusTimer> {
   bool iscounting = false;
   Timer? timer;
   // bool iscounting = false;
-  void countdownfunc() {
+
+  void stop() {
+    setState(() {
+      timer!.cancel();
+      timer = null;
+      totalseconds = sessionseconds;
+      iscounting = false;
+    });
+  }
+
+  void play() {
     timer = Timer.periodic(Duration(seconds: 1), (v) {
       '''
 for a start working a simple implementation fecth
@@ -45,13 +55,24 @@ getters would only display hours and mins for now the app is getting busy
 ''';
 
       setState(() {
-        if (initialseconds > 0 || timer != null) {
-          initialseconds--;
+        if (totalseconds > 0 || timer != null) {
+          totalseconds--;
           iscounting = true;
-        } else if (initialseconds == 0) {
+        } else if (totalseconds == 0) {
           timer!.cancel();
+          iscounting = false;
+          timer = null;
+          totalseconds = constsec;
         }
       });
+    });
+  }
+
+  void pause() {
+    setState(() {
+      timer!.cancel();
+      timer = null;
+      iscounting = false;
     });
   }
 
@@ -59,7 +80,6 @@ getters would only display hours and mins for now the app is getting busy
   void initState() {
     // TODO: implement initState
     super.initState();
-    countdownfunc();
   }
 
   @override
@@ -283,7 +303,7 @@ getters would only display hours and mins for now the app is getting busy
                                 size: 15,
                               ),
                               SizedBox(width: 5),
-                              Text('$diffmin min session'),
+                              Text('$totalseconds min session'),
                               Container(
                                 height: 5,
                                 width: 5,
@@ -328,15 +348,66 @@ getters would only display hours and mins for now the app is getting busy
               ),
 
               Container(
+                margin: EdgeInsets.only(right: 30),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    playcard(() {
-                      setState(() {});
-                    }, Icons.pause_outlined),
+                    Container(
+                      child: Row(
+                        children: [
+                          Container(
+                            height: 38,
+                            decoration: BoxDecoration(
+                              color: Color.fromARGB(133, 200, 240, 220),
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            width: 135,
+
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Take a break',
+                                  style: TextStyle(color: Color(0xff3CA05A)),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SizedBox(width: 10),
+
+                    PlayCard(
+                      ontap: () {
+                        if (iscounting == false) {
+                          play();
+                        } else if (iscounting = true) {
+                          pause();
+                        } else {
+                          null;
+                        }
+                      },
+                      iscounting == false
+                          ? Icons.play_arrow
+                          : Icons.pause_outlined,
+                    ),
 
                     SizedBox(width: 20),
-
-                    playcard(() {}, Icons.stop_outlined, height: 53, width: 53),
+                    PlayCard(
+                      ontap: () {
+                        Dialog(
+                          child: Text('Are you sure want to end this session'),
+                        );
+                        iscounting == true ? stop() : null;
+                      },
+                      Icons.stop_outlined,
+                      height: 53,
+                      width: 53,
+                      iconsize: 33,
+                      bgcolor: 0xffFFDCDC,
+                      iconcolor: 0xB4EF4444,
+                    ),
                   ],
                 ),
               ),
@@ -346,27 +417,4 @@ getters would only display hours and mins for now the app is getting busy
       ),
     );
   }
-}
-
-Widget playcard(
-  Function ontap,
-  IconData icon, {
-  double height = 72,
-  double width = 72,
-  int bgcolor = 0xffC89FF5,
-  int iconcolor = 0xffFFFFFFF,
-  double iconsize = 42,
-}) {
-  return GestureDetector(
-    onTap: () => ontap,
-    child: Container(
-      height: height,
-      width: width,
-      decoration: BoxDecoration(
-        color: Color(bgcolor),
-        borderRadius: BorderRadius.circular(36),
-      ),
-      child: Icon(icon, color: Color(iconcolor), size: iconsize),
-    ),
-  );
 }
