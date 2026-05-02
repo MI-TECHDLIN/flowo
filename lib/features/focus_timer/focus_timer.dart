@@ -35,8 +35,137 @@ class _focustimerState extends State<FocusTimer> {
   int get rminutes => minutes % 60;
   bool iscounting = false;
   Timer? timer;
-  // bool iscounting = false;
 
+  //dialog function on called;
+  Future<void> showplaydialog() {
+    return showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.white,
+          content: SizedBox(
+            height: 300,
+            width: 500,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    color: Color(0xffFFDCDC),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  height: 60,
+                  width: 60,
+                  child: Icon(
+                    Icons.stop_outlined,
+                    color: Color(0xB4EF4444),
+
+                    size: 50,
+                  ),
+                ),
+                SizedBox(height: 10),
+                Text(
+                  'End this session?',
+                  style: TextStyle(
+                    fontSize: 20,
+                    color: Color(0xff2D3E50),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Text(
+                  'You Still have $hours:$rminutes left om Session 2. Ending will reset the focus time',
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    fontSize: 15,
+                    color: Color(0xff687C8F),
+                  ),
+                ),
+                SizedBox(height: 13),
+                Container(
+                  height: 36,
+                  width: 210,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(18),
+                    color: Color(0x92F3E8FF),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.timer_sharp,
+                        size: 15,
+                        color: Color(0xffC89FF5),
+                      ),
+                      SizedBox(width: 7),
+                      Text(
+                        'Session 2',
+                        style: TextStyle(color: Color(0xffAA64DC)),
+                      ),
+                      Container(
+                        margin: EdgeInsets.symmetric(
+                          vertical: 0,
+                          horizontal: 13,
+                        ),
+
+                        height: 6,
+                        width: 6,
+                        decoration: BoxDecoration(
+                          color: Color(0xffAA64DC),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                      ),
+                      Text(
+                        '50% complete ',
+                        style: TextStyle(color: Color(0xffAA64DC)),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 14),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    resuablebutton(
+                      function: () {
+                        Navigator.pop(context);
+                      },
+                      bgcolor: 0xffC89FF5,
+                      textcolor: 0xffFFFFFF,
+                      iconcolor: 0xffFFFFFF,
+                      icondata: Icons.play_arrow_outlined,
+                      label: 'Keep going',
+                    ),
+                    SizedBox(width: 8),
+
+                    resuablebutton(
+                      function: () {
+                        if (iscounting == true || iscounting == false) {
+                          stop();
+                          setState(() {
+                            totalseconds = sessionseconds;
+                          });
+                          Navigator.pop(context);
+                        }
+                      },
+                      bgcolor: 0xffFFDCDC,
+                      textcolor: 0xffEF4444,
+                      iconcolor: 0xffEF4444,
+                      icondata: Icons.stop,
+                      label: 'End Session',
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  //stop function for playcard
   void stop() {
     setState(() {
       timer!.cancel();
@@ -46,6 +175,7 @@ class _focustimerState extends State<FocusTimer> {
     });
   }
 
+  //playfunction for playcard
   void play() {
     timer = Timer.periodic(Duration(seconds: 1), (v) {
       '''
@@ -68,10 +198,10 @@ getters would only display hours and mins for now the app is getting busy
     });
   }
 
+  //pause function for playcard;
   void pause() {
     setState(() {
       timer!.cancel();
-      timer = null;
       iscounting = false;
     });
   }
@@ -303,7 +433,7 @@ getters would only display hours and mins for now the app is getting busy
                                 size: 15,
                               ),
                               SizedBox(width: 5),
-                              Text('$totalseconds min session'),
+                              Text('$diffmin min session'),
                               Container(
                                 height: 5,
                                 width: 5,
@@ -366,9 +496,16 @@ getters would only display hours and mins for now the app is getting busy
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
-                                  'Take a break',
-                                  style: TextStyle(color: Color(0xff3CA05A)),
+                                GestureDetector(
+                                  onTap: () => {
+                                    setState(() {
+                                      iscounting == true ? pause() : null;
+                                    }),
+                                  },
+                                  child: Text(
+                                    'Take a break',
+                                    style: TextStyle(color: Color(0xff3CA05A)),
+                                  ),
                                 ),
                               ],
                             ),
@@ -394,12 +531,17 @@ getters would only display hours and mins for now the app is getting busy
                     ),
 
                     SizedBox(width: 20),
+
+                    //stop
                     PlayCard(
                       ontap: () {
-                        Dialog(
-                          child: Text('Are you sure want to end this session'),
-                        );
-                        iscounting == true ? stop() : null;
+                        showplaydialog();
+                        '''
+implemeneted a alert log feature so a user dont mistake of reseting the time 
+
+this kind of confirmation
+
+''';
                       },
                       Icons.stop_outlined,
                       height: 53,
@@ -413,6 +555,51 @@ getters would only display hours and mins for now the app is getting busy
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class resuablebutton extends StatelessWidget {
+  resuablebutton({
+    required this.function,
+    required this.bgcolor,
+    required this.textcolor,
+    required this.iconcolor,
+    required this.icondata,
+    required this.label,
+  });
+  final int bgcolor;
+  final int textcolor;
+  final IconData icondata;
+  final int iconcolor;
+  final String label;
+  final VoidCallback function;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 50,
+      width: 140,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(backgroundColor: Color(bgcolor)),
+        onPressed: function,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Icon(icondata, size: 20, color: Color(iconcolor)),
+            SizedBox(width: 4),
+            Text(
+              label,
+              style: TextStyle(
+                color: Color(textcolor),
+                fontSize: 13,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
       ),
     );
