@@ -4,6 +4,7 @@
 import 'dart:async';
 
 import 'package:flowo/constants/constant.dart';
+import 'package:flowo/features/focus_timer/time_card.dart';
 import 'package:flowo/features/timer/timer_card.dart';
 import 'package:flutter/material.dart';
 import 'package:goal_progress_indicator/goal_progress_indicator.dart';
@@ -20,12 +21,13 @@ class _focustimerState extends State<FocusTimer> {
 
   ///static
   static int constsec = 10800;
+  static int consttotalmin = constsec ~/ 60;
   static int constmin = (constsec ~/ 60) % 60;
   static int consthour = constsec ~/ 3600;
 
   //dynamic
   int get minutes => initialseconds ~/ 60;
-
+  int get diffmin => consttotalmin - minutes;
   int get hours {
     return minutes ~/ 60;
   }
@@ -165,9 +167,9 @@ getters would only display hours and mins for now the app is getting busy
                             ),
 
                             Text(
-                              constmin == 0
-                                  ? 'Est. $consthour h '
-                                  : 'Est. $consthour h $constmin min',
+                              constmin == 0 || consthour >= 1
+                                  ? 'Est. $consthour hours '
+                                  : 'Est. $consthour hour $constmin min',
                               style: TextStyle(
                                 fontSize: 17,
                                 color: Color(0xff6B7C8F),
@@ -181,6 +183,7 @@ getters would only display hours and mins for now the app is getting busy
                 ],
               ),
 
+              //time card
               Container(
                 margin: EdgeInsets.only(top: 25),
                 height: 260,
@@ -200,6 +203,7 @@ getters would only display hours and mins for now the app is getting busy
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        //sessions
                         Expanded(
                           flex: 1,
                           child: Row(
@@ -232,35 +236,20 @@ getters would only display hours and mins for now the app is getting busy
                             ],
                           ),
                         ),
+                        //hour-min widget
                         Expanded(
                           flex: 2,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Column(
-                                children: [
-                                  Container(
-                                    alignment: Alignment.center,
-                                    height: 96,
-                                    width: 120,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: Color(0x82F3E8FF),
-                                    ),
-
-                                    child: Text(
-                                      '$hours',
-                                      style: TextStyle(
-                                        fontSize: 58,
-                                        color: Color(0xffAA64DC),
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(height: 4),
-                                  Text('hour'),
-                                ],
+                              //hour
+                              timewidget(
+                                '$hours',
+                                'hour',
+                                0xffF3E8FF,
+                                0xffAA64DC,
                               ),
+
                               Container(
                                 margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
                                 child: Text(
@@ -273,34 +262,17 @@ getters would only display hours and mins for now the app is getting busy
                                   ),
                                 ),
                               ),
-
-                              Column(
-                                children: [
-                                  Container(
-                                    alignment: Alignment.center,
-                                    height: 96,
-                                    width: 120,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: Color(0x6CD3E8FF),
-                                    ),
-
-                                    child: Text(
-                                      '$rminutes',
-                                      style: TextStyle(
-                                        fontSize: 58,
-                                        color: Color(0xff3CA05A),
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(height: 4),
-                                  Text('min'),
-                                ],
+                              //min
+                              timewidget(
+                                '$rminutes',
+                                'min',
+                                0xffE8F6EE,
+                                0xff3CA05A,
                               ),
                             ],
                           ),
                         ),
+                        //time header
                         Expanded(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -311,8 +283,7 @@ getters would only display hours and mins for now the app is getting busy
                                 size: 15,
                               ),
                               SizedBox(width: 5),
-                              Text('25 min session'),
-
+                              Text('$diffmin min session'),
                               Container(
                                 height: 5,
                                 width: 5,
@@ -325,7 +296,7 @@ getters would only display hours and mins for now the app is getting busy
                                   horizontal: 7,
                                 ),
                               ),
-                              Text('75 min total remaining'),
+                              Text('$consttotalmin min total remaining'),
                             ],
                           ),
                         ),
@@ -334,25 +305,39 @@ getters would only display hours and mins for now the app is getting busy
                   ),
                 ),
               ),
-
+              //time progress indicator
               Container(
-                alignment: Alignment.topLeft,
                 margin: EdgeInsets.symmetric(vertical: 18, horizontal: 12),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Session progress', style: TextStyle(fontSize: 16)),
+                    Text('Session progress', style: TextStyle(fontSize: 18)),
+                    SizedBox(height: 10),
+                    GoalProgressIndicator(
+                      showLabels: false,
+                      showMilestoneCircles: false,
+                      startValue: 0,
+                      currentValue: diffmin.toDouble(),
+                      targetValue: consttotalmin.toDouble(),
+                      style: GoalProgressIndicatorStyles.gradient(
+                        colors: [Color(0xffAA64DC0), Color(0xffC89FF5)],
+                      ),
+                    ),
                   ],
                 ),
               ),
 
-              GoalProgressIndicator(
-                showLabels: false,
-                showMilestoneCircles: false,
-                startValue: 0,
-                currentValue: 49,
-                targetValue: 50,
-                style: GoalProgressIndicatorStyles.gradient(
-                  colors: [Color(0xffAA64DC0), Color(0xffC89FF5)],
+              Container(
+                child: Row(
+                  children: [
+                    playcard(() {
+                      setState(() {});
+                    }, Icons.pause_outlined),
+
+                    SizedBox(width: 20),
+
+                    playcard(() {}, Icons.stop_outlined, height: 53, width: 53),
+                  ],
                 ),
               ),
             ],
@@ -361,4 +346,27 @@ getters would only display hours and mins for now the app is getting busy
       ),
     );
   }
+}
+
+Widget playcard(
+  Function ontap,
+  IconData icon, {
+  double height = 72,
+  double width = 72,
+  int bgcolor = 0xffC89FF5,
+  int iconcolor = 0xffFFFFFFF,
+  double iconsize = 42,
+}) {
+  return GestureDetector(
+    onTap: () => ontap,
+    child: Container(
+      height: height,
+      width: width,
+      decoration: BoxDecoration(
+        color: Color(bgcolor),
+        borderRadius: BorderRadius.circular(36),
+      ),
+      child: Icon(icon, color: Color(iconcolor), size: iconsize),
+    ),
+  );
 }
