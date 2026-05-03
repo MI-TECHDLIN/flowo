@@ -1,6 +1,7 @@
 //TODO: try get a better progress widget this is good but no efficent
 //TODO: in prod ship a new feature for a only minute time sugeestion or only hour time suggestiion
 //TODO: currently using seststae() for rebuilds migrate latert o change notifier
+import 'package:flowo/features/focus_timer/reusable_btn.dart';
 import 'dart:async';
 import 'package:flowo/constants/constant.dart';
 import 'package:flowo/features/focus_timer/time_card.dart';
@@ -477,44 +478,43 @@ getters would only display hours and mins for now the app is getting busy
                 ),
               ),
 
+              //take a break button
               Container(
                 margin: EdgeInsets.only(right: 30),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
-                      child: Row(
-                        children: [
-                          Container(
-                            height: 38,
-                            decoration: BoxDecoration(
-                              color: Color.fromARGB(133, 200, 240, 220),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            width: 135,
-
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                GestureDetector(
-                                  onTap: () => {
-                                    setState(() {
-                                      iscounting == true ? pause() : null;
-                                    }),
-                                  },
-                                  child: Text(
-                                    'Take a break',
-                                    style: TextStyle(color: Color(0xff3CA05A)),
-                                  ),
-                                ),
-                              ],
-                            ),
+                    Row(
+                      children: [
+                        Container(
+                          height: 38,
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(133, 200, 240, 220),
+                            borderRadius: BorderRadius.circular(20),
                           ),
-                        ],
-                      ),
+                          width: 135,
+
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: () => {
+                                  setState(() {
+                                    iscounting == true ? pause() : null;
+                                  }),
+                                },
+                                child: Text(
+                                  'Take a break',
+                                  style: TextStyle(color: Color(0xff3CA05A)),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                     SizedBox(width: 10),
-
+                    //break playcard....
                     PlayCard(
                       ontap: () {
                         if (iscounting == false) {
@@ -555,51 +555,6 @@ this kind of confirmation
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class resuablebutton extends StatelessWidget {
-  resuablebutton({
-    required this.function,
-    required this.bgcolor,
-    required this.textcolor,
-    required this.iconcolor,
-    required this.icondata,
-    required this.label,
-  });
-  final int bgcolor;
-  final int textcolor;
-  final IconData icondata;
-  final int iconcolor;
-  final String label;
-  final VoidCallback function;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50,
-      width: 140,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(backgroundColor: Color(bgcolor)),
-        onPressed: function,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Icon(icondata, size: 20, color: Color(iconcolor)),
-            SizedBox(width: 4),
-            Text(
-              label,
-              style: TextStyle(
-                color: Color(textcolor),
-                fontSize: 13,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
         ),
       ),
     );
