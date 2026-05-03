@@ -1,10 +1,12 @@
 import 'package:flowo/constants/constant.dart';
 import 'package:flowo/features/tasks/task_functions.dart';
+import 'package:flowo/features/tasks/widgets/task_/reusable_increment_btn.dart';
 import 'package:flowo/features/tasks/widgets/task_/task_field.dart';
 import 'package:flowo/features/tasks/widgets/task_/task_priority.dart';
 import 'package:flowo/main.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:numberpicker/numberpicker.dart';
 
 class botttomsheet extends StatefulWidget {
   const botttomsheet({super.key});
@@ -14,10 +16,23 @@ class botttomsheet extends StatefulWidget {
 }
 
 class _botttomsheetState extends State<botttomsheet> {
-  TimeOfDay time = TimeOfDay(hour: 10, minute: 10);
-  static const TimeOfDay consttime = TimeOfDay(hour: 10, minute: 10);
+  Widget selcet_number() {
+    return NumberPicker(
+      minValue: 20,
+      maxValue: 1000,
+      value: duration,
+      onChanged: (value) {
+        setState(() {});
+      },
+    );
+  }
 
+  TimeOfDay time = TimeOfDay(hour: 10, minute: 10);
+  int duration = 25;
   String changestring({String? text, TimeOfDay? time}) {
+    '''
+this function checks for Timeoftype or string type
+''';
     if (text!.contains('day'))
       return text;
     else {
@@ -41,10 +56,10 @@ am actually having issue put a timeofday type and String in the same widget so a
       onTap: ontouch,
       child: Container(
         height: 45,
-        width: 164,
+        width: 156,
         decoration: BoxDecoration(
           color: Color(bgcolor),
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(15),
           border: Border.all(color: Color(bordercolor), width: 2),
         ),
         child: Row(
@@ -56,10 +71,14 @@ am actually having issue put a timeofday type and String in the same widget so a
               child: Icon(icon, color: Color(0xffC89FF5), size: 18),
             ),
             SizedBox(width: 10),
-            blacktext(
+            Text(
               changestring(text: label, time: time),
-              17,
-              color: 0xFF000000,
+              style: TextStyle(
+                color: Color(0xff2D3E50),
+
+                fontSize: 17,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
@@ -93,7 +112,9 @@ am actually having issue put a timeofday type and String in the same widget so a
       kTestUserId,
       title,
       description,
+      time,
       priorityint,
+      context,
     );
 
     if (!context.mounted) return;
@@ -197,98 +218,65 @@ am actually having issue put a timeofday type and String in the same widget so a
                 ],
               ),
 
-              Container(
-                margin: EdgeInsets.only(top: 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(child: Text('Date & Time')),
-                    SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        timerwudget(
-                          () => {},
-                          Icons.calendar_today_rounded,
-                          label: 'Today',
-                        ),
-                        timerwudget(
-                          () {
-                            showTimePicker(
-                              context: context,
-                              initialTime: TimeOfDay.now(),
-                            ).then((value) {
-                              setState(() {
-                                time = value!;
-                              });
-                            });
-                          },
-                          Icons.access_time,
-                          time: time,
-
-                          bgcolor: 0xffF3E8FF,
-                          bordercolor: 0xffD4B5F5,
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+              NumberPicker(
+                minValue: 20,
+                maxValue: 100,
+                value: duration,
+                onChanged: (value) => setState(() {}),
               ),
               SizedBox(height: 20),
-              Container(
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pop(context);
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Color(0xffF5F8FA),
-                          borderRadius: BorderRadius.circular(27),
-                          border: Border.all(color: Color(0xffD2DAE4)),
-                        ),
-                        height: 50,
-                        width: 100,
-                        child: Text('Cancel', style: TextStyle(fontSize: 15)),
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: Color(0xffF5F8FA),
+                        borderRadius: BorderRadius.circular(27),
+                        border: Border.all(color: Color(0xffD2DAE4)),
                       ),
+                      height: 50,
+                      width: 100,
+                      child: Text('Cancel', style: TextStyle(fontSize: 15)),
                     ),
-                    SizedBox(width: 30),
-                    GestureDetector(
-                      onTap: () {
-                        save_task();
-                      },
-                      child: Container(
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          color: Color(0xffC89FF5),
-                          borderRadius: BorderRadius.circular(27),
-                        ),
-                        height: 54,
-                        width: 227,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Icon(Icons.add, color: Colors.white),
+                  ),
+                  SizedBox(width: 30),
+                  GestureDetector(
+                    onTap: () {
+                      save_task();
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: Color(0xffC89FF5),
+                        borderRadius: BorderRadius.circular(27),
+                      ),
+                      height: 54,
+                      width: 227,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(Icons.add, color: Colors.white),
 
-                            issaving
-                                ? CircularProgressIndicator()
-                                : Text(
-                                    'Add Task',
-                                    style: TextStyle(
-                                      fontSize: 17,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    ),
+                          issaving
+                              ? CircularProgressIndicator()
+                              : Text(
+                                  'Add Task',
+                                  style: TextStyle(
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
                                   ),
-                          ],
-                        ),
+                                ),
+                        ],
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),
