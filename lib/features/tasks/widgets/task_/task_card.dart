@@ -1,3 +1,4 @@
+import 'package:flowo/constants/constant.dart';
 import 'package:flowo/data/models/task_model.dart';
 import 'package:flowo/features/tasks/task_functions.dart';
 import 'package:flowo/features/tasks/widgets/task_/task_priority.dart';
@@ -8,13 +9,14 @@ import 'package:provider/provider.dart';
 class TaskCard extends StatelessWidget {
   TaskCard({required this.task});
   final TaskModel task;
-
+  //decription_converter
   String decript(TaskModel t) {
     final des = t.description;
     if (des.isEmpty) return '';
     return des;
   }
 
+  //head_color
   Color headcolor(int priority) {
     if (priority == 3)
       return Color(0xffEF4444);
@@ -25,6 +27,7 @@ class TaskCard extends StatelessWidget {
     return Colors.grey;
   }
 
+  //text_color
   Color textcolor(int priority) {
     if (priority == 3)
       return Color(0xffEF4444);
@@ -35,6 +38,24 @@ class TaskCard extends StatelessWidget {
     return Colors.grey;
   }
 
+  //duration_converter
+  String duration_conv(int time) {
+    int hour = time ~/ 60;
+    int minuite = time % 60;
+    if (time >= 60) {
+      if (minuite <= 9) {
+        return '$hour:0$minuite';
+      }
+      return '$hour:$minuite';
+    } else {
+      if (minuite <= 9) {
+        return '$hour:0$minuite';
+      }
+      return '00:$minuite';
+    }
+  }
+
+  //backgroound_color-priority
   Color bgcolor(int priority) {
     if (priority == 3)
       return Color(0xffFFDCDC);
@@ -45,6 +66,7 @@ class TaskCard extends StatelessWidget {
     return Colors.grey;
   }
 
+  //capitalise-taskcard
   String capitlaise(String s) {
     if (s == '') {
       return s;
@@ -53,6 +75,7 @@ class TaskCard extends StatelessWidget {
     return s[0].toUpperCase() + s.substring(1);
   }
 
+  //text-priority
   String textpriority(int priority) {
     switch (priority) {
       case 1:
@@ -85,102 +108,151 @@ this function is a widgetstate constraint used to get statecolor
       return Colors.white;
     }
 
-    return Container(
-      key: Key(task.id),
-      padding: EdgeInsets.only(left: 14),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
-            children: [
-              Positioned(
-                top: 5,
-                child: Container(
-                  height: 100,
-                  width: 4,
-                  decoration: BoxDecoration(
-                    color: task.isCompleted ? Color(0xff5AC578) : color,
-                    borderRadius: BorderRadius.circular(20),
+    return InkWell(
+      onTap: () {},
+      child: Container(
+        margin: EdgeInsets.only(bottom: 5),
+        key: Key(task.id),
+        padding: EdgeInsets.only(left: 14),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Stack(
+              children: [
+                //iscompleted
+                Positioned(
+                  top: 3,
+                  child: Container(
+                    height: 118,
+                    width: 4,
+                    decoration: BoxDecoration(
+                      color: task.isCompleted ? Color(0xff5AC578) : color,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
                 ),
-              ),
 
-              Card(
-                elevation: 0,
-                color: Color(0x6EFFFFFF),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Transform.scale(
-                          scale: 1.2,
-                          child: Checkbox(
-                            fillColor: WidgetStateColor.resolveWith((s) {
-                              return getcheckboxcolor(s);
-                            }),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadiusGeometry.circular(5),
-                            ),
-                            side: BorderSide(
-                              color: Color(0xFFC89FF5),
-                              style: BorderStyle.solid,
-                            ),
-                            value: isCheck,
-                            onChanged: (_) =>
-                                controller.toggleTask(kTestUserId, task),
-                          ),
-                        ),
-
-                        Text(
-                          capitlaise(task.title),
-                          style: TextStyle(fontSize: 18),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 15),
-                      child: Text(
-                        capitlaise(decript(task)),
-                        style: TextStyle(),
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    Container(
-                      margin: EdgeInsets.only(left: 15),
-                      child: Row(
+                Card(
+                  elevation: 1,
+                  shadowColor: const Color(0x52FFFFFF),
+                  color: Color.fromARGB(251, 255, 255, 255),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
                         children: [
-                          Container(
-                            alignment: Alignment.center,
-                            height: 23,
-                            width: 90,
-                            decoration: BoxDecoration(
-                              color: task.isCompleted
-                                  ? Color(0xffC8F0DC)
-                                  : bgcolor(task.priority),
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Text(
-                              textpriority(task.priority),
-                              style: TextStyle(
-                                color: task.isCompleted
-                                    ? Color(0xff5AC578)
-                                    : textcolor(task.priority),
+                          //checkbox
+                          Transform.scale(
+                            scale: 1.2,
+                            child: Checkbox(
+                              fillColor: WidgetStateColor.resolveWith((s) {
+                                return getcheckboxcolor(s);
+                              }),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadiusGeometry.circular(5),
                               ),
+                              side: BorderSide(
+                                color: Color(0xFFC89FF5),
+                                style: BorderStyle.solid,
+                              ),
+                              value: isCheck,
+                              onChanged: (_) =>
+                                  controller.toggleTask(kTestUserId, task),
                             ),
                           ),
-                          SizedBox(width: 30),
-                          Text('Work'),
+
+                          Text(
+                            capitlaise(task.title),
+                            style: TextStyle(fontSize: 18),
+                          ),
                         ],
                       ),
-                    ),
-                  ],
+                      //decription
+                      Container(
+                        margin: EdgeInsets.fromLTRB(15, 0, 0, 4),
+                        child: Text(
+                          capitlaise(decript(task)),
+                          style: TextStyle(),
+                        ),
+                      ),
+
+                      Container(
+                        margin: EdgeInsets.fromLTRB(15, 2, 4, 15),
+                        child: Row(
+                          children: [
+                            //TaskPriority
+                            Container(
+                              alignment: Alignment.center,
+                              height: 23,
+                              width: 90,
+                              decoration: BoxDecoration(
+                                color: task.isCompleted
+                                    ? Color(0xffC8F0DC)
+                                    : bgcolor(task.priority),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Text(
+                                textpriority(task.priority),
+                                style: TextStyle(
+                                  color: task.isCompleted
+                                      ? Color(0xff5AC578)
+                                      : textcolor(task.priority),
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 10),
+                            //tasktime && duration
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Color(0x7BF3E8FF),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              height: 30,
+                              width: 150,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    task.time,
+                                    style: TextStyle(color: Color(0xffAA64DC)),
+                                  ),
+                                  SizedBox(width: 3),
+                                  Text('·', style: TextStyle(fontSize: 22)),
+
+                                  Container(
+                                    margin: EdgeInsets.symmetric(
+                                      horizontal: 4,
+
+                                      vertical: 0,
+                                    ),
+                                    child: Icon(
+                                      Icons.access_time,
+                                      color: Color(0xffC89FF5),
+                                      size: 15,
+                                    ),
+                                  ),
+
+                                  Text(
+                                    duration_conv(task.duration!.toInt()),
+                                    style: TextStyle(
+                                      color: Color(0xffAA64DC),
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

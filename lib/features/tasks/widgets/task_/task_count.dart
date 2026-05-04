@@ -22,7 +22,14 @@ class TaskCount extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(ktext, style: TextStyle(fontSize: 24, color: tcolor)),
+            Text(
+              ktext,
+              style: TextStyle(
+                fontSize: 24,
+                color: tcolor,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
             SizedBox(width: 13),
             Text(
               ptext,

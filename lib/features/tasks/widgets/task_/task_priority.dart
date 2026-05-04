@@ -58,7 +58,7 @@ class TaskPriority extends StatelessWidget {
               label,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: selected ? Colors.black : Color(pointercolor),
+                color: selected ? Color(pointercolor) : Colors.black,
               ),
             ),
           ],
