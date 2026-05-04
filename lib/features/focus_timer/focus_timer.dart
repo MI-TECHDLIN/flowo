@@ -1,6 +1,7 @@
 //TODO: try get a better progress widget this is good but no efficent
 //TODO: in prod ship a new feature for a only minute time sugeestion or only hour time suggestiion
 //TODO: currently using seststae() for rebuilds migrate latert o change notifier
+import 'package:flowo/data/models/task_model.dart';
 import 'package:flowo/features/focus_timer/reusable_btn.dart';
 import 'dart:async';
 import 'package:flowo/constants/constant.dart';
@@ -10,21 +11,24 @@ import 'package:goal_progress_indicator/goal_progress_indicator.dart';
 import 'package:flowo/features/focus_timer/play_card.dart';
 
 class FocusTimer extends StatefulWidget {
-  const FocusTimer({super.key});
+  FocusTimer({required this.task});
+  final TaskModel task;
 
   @override
   State<FocusTimer> createState() => _focustimerState();
 }
 
 class _focustimerState extends State<FocusTimer> {
-  int totalseconds = 10800;
-  int sessionseconds = 10800;
+  late int statevalue;
+  late int conv = statevalue * 60;
+  late int totalseconds = conv;
+  late int sessionseconds = conv;
 
   ///static
-  static int constsec = 10800;
-  static int consttotalmin = constsec ~/ 60;
-  static int constmin = (constsec ~/ 60) % 60;
-  static int consthour = constsec ~/ 3600;
+  late int constsec = conv;
+  late int consttotalmin = constsec ~/ 60;
+  late int constmin = (constsec ~/ 60) % 60;
+  late int consthour = constsec ~/ 3600;
 
   //dynamic
   int get minutes => totalseconds ~/ 60;
@@ -36,6 +40,13 @@ class _focustimerState extends State<FocusTimer> {
   int get rminutes => minutes % 60;
   bool iscounting = false;
   Timer? timer;
+
+  String min_condition(int min) {
+    if (min <= 9) {
+      return '0$min';
+    }
+    return '$min';
+  }
 
   //dialog function on called;
   Future<void> showplaydialog() {
@@ -211,6 +222,7 @@ getters would only display hours and mins for now the app is getting busy
   void initState() {
     // TODO: implement initState
     super.initState();
+    statevalue = widget.task.duration!.toInt();
   }
 
   @override
@@ -266,72 +278,83 @@ getters would only display hours and mins for now the app is getting busy
           child: Column(
             children: [
               SizedBox(height: 10),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Container(
-                        height: 10,
+              Container(
+                key: Key(widget.task.id),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          height: 10,
 
-                        width: 10,
-                        decoration: BoxDecoration(
-                          color: Color(0xffEF4444),
-                          borderRadius: BorderRadius.circular(5),
+                          width: 10,
+                          decoration: BoxDecoration(
+                            color: Color(0xffEF4444),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
                         ),
-                      ),
-                      SizedBox(width: 5),
-                      blacktext('Currently focusing on', 17, color: 0xff6B7C8f),
-                      SizedBox(width: 5),
-                      taskwidget(0xffFFDCDC, 0xfffEF4444, 'High Priority'),
-                    ],
-                  ),
-
-                  SizedBox(height: 1),
-
-                  Text(
-                    'Finish project proposal',
-                    style: TextStyle(
-                      color: Color(0xff2D3E50),
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
+                        SizedBox(width: 5),
+                        blacktext(
+                          'Currently focusing on',
+                          17,
+                          color: 0xff6B7C8f,
+                        ),
+                        SizedBox(width: 5),
+                        taskwidget(
+                          bgcolor(widget.task.priority),
+                          textcolor(widget.task.priority),
+                          '${textpriority(widget.task.priority)}',
+                        ),
+                      ],
                     ),
-                  ),
 
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      iconwidget(
-                        Icons.access_time,
-                        'Due 9:00 AM',
-                        color: 0xffC89FF5,
+                    SizedBox(height: 1),
+
+                    Text(
+                      capitlaise(widget.task.title),
+                      style: TextStyle(
+                        color: Color(0xff2D3E50),
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
                       ),
-                      SizedBox(width: 20),
-                      Container(
-                        height: 20,
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.device_hub_rounded,
-                              color: Color(0xffF5A34A),
-                              size: 17,
-                            ),
+                    ),
 
-                            Text(
-                              constmin == 0 || consthour >= 1
-                                  ? 'Est. $consthour hours '
-                                  : 'Est. $consthour hour $constmin min',
-                              style: TextStyle(
-                                fontSize: 17,
-                                color: Color(0xff6B7C8F),
-                              ),
-                            ),
-                          ],
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        iconwidget(
+                          Icons.access_time,
+                          'Due ${widget.task.time}',
+                          color: 0xffC89FF5,
                         ),
-                      ),
-                    ],
-                  ),
-                ],
+                        SizedBox(width: 20),
+                        Container(
+                          height: 20,
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.device_hub_rounded,
+                                color: Color(0xffF5A34A),
+                                size: 17,
+                              ),
+
+                              Text(
+                                constmin <= 60 || consthour <= 0
+                                    ? 'Est. $constmin min '
+                                    : 'Est. $consthour hour $constmin min',
+                                style: TextStyle(
+                                  fontSize: 17,
+                                  color: Color(0xff6B7C8F),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
 
               //time card
@@ -415,7 +438,7 @@ getters would only display hours and mins for now the app is getting busy
                               ),
                               //min
                               timewidget(
-                                '$rminutes',
+                                min_condition(rminutes),
                                 'min',
                                 0xffE8F6EE,
                                 0xff3CA05A,
@@ -535,6 +558,10 @@ getters would only display hours and mins for now the app is getting busy
                     //stop
                     PlayCard(
                       ontap: () {
+                        setState(() {
+                          iscounting = false;
+                        });
+
                         showplaydialog();
                         '''
 implemeneted a alert log feature so a user dont mistake of reseting the time 

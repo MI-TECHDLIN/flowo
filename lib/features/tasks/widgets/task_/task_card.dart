@@ -1,5 +1,6 @@
 import 'package:flowo/constants/constant.dart';
 import 'package:flowo/data/models/task_model.dart';
+import 'package:flowo/features/focus_timer/focus_timer.dart';
 import 'package:flowo/features/tasks/task_functions.dart';
 import 'package:flowo/features/tasks/widgets/task_/task_priority.dart';
 import 'package:flowo/main.dart';
@@ -27,17 +28,6 @@ class TaskCard extends StatelessWidget {
     return Colors.grey;
   }
 
-  //text_color
-  Color textcolor(int priority) {
-    if (priority == 3)
-      return Color(0xffEF4444);
-    else if (priority == 2)
-      return Color(0xffF5A34A);
-    else if (priority == 1)
-      return Color(0xff6B7C8F);
-    return Colors.grey;
-  }
-
   //duration_converter
   String duration_conv(int time) {
     int hour = time ~/ 60;
@@ -55,17 +45,6 @@ class TaskCard extends StatelessWidget {
     }
   }
 
-  //backgroound_color-priority
-  Color bgcolor(int priority) {
-    if (priority == 3)
-      return Color(0xffFFDCDC);
-    else if (priority == 2)
-      return Color(0xffFFEDD5);
-    else if (priority == 1)
-      return Color(0xffF5F8FA);
-    return Colors.grey;
-  }
-
   //capitalise-taskcard
   String capitlaise(String s) {
     if (s == '') {
@@ -73,20 +52,6 @@ class TaskCard extends StatelessWidget {
     }
 
     return s[0].toUpperCase() + s.substring(1);
-  }
-
-  //text-priority
-  String textpriority(int priority) {
-    switch (priority) {
-      case 1:
-        return 'Low';
-      case 2:
-        return 'Medium';
-      case 3:
-        return "High Priority";
-      default:
-        return 'Normal';
-    }
   }
 
   @override
@@ -108,31 +73,36 @@ this function is a widgetstate constraint used to get statecolor
       return Colors.white;
     }
 
-    return InkWell(
-      onTap: () {},
-      child: Container(
-        margin: EdgeInsets.only(bottom: 5),
-        key: Key(task.id),
-        padding: EdgeInsets.only(left: 14),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
-              children: [
-                //iscompleted
-                Positioned(
-                  top: 3,
-                  child: Container(
-                    height: 118,
-                    width: 4,
-                    decoration: BoxDecoration(
-                      color: task.isCompleted ? Color(0xff5AC578) : color,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
+    return Container(
+      margin: EdgeInsets.only(bottom: 5),
+      key: Key(task.id),
+      padding: EdgeInsets.only(left: 14),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              //iscompleted
+              Positioned(
+                top: 3,
+                child: Container(
+                  height: 118,
+                  width: 4,
+                  decoration: BoxDecoration(
+                    color: task.isCompleted ? Color(0xff5AC578) : color,
+                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
+              ),
 
-                Card(
+              InkWell(
+                onTap: () => {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (v) => FocusTimer(task: task)),
+                  ),
+                },
+                child: Card(
                   elevation: 1,
                   shadowColor: const Color(0x52FFFFFF),
                   color: Color.fromARGB(251, 255, 255, 255),
@@ -249,10 +219,10 @@ this function is a widgetstate constraint used to get statecolor
                     ],
                   ),
                 ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
