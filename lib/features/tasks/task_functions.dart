@@ -57,6 +57,7 @@ it wworks with our stream ... listentiask function acts as the listener
     String userId,
     String title,
     String description,
+    int duration,
     TimeOfDay time,
     int priority,
     BuildContext context,
@@ -66,6 +67,7 @@ it wworks with our stream ... listentiask function acts as the listener
       time: time.format(context).toString(),
       title: title,
       description: description,
+      duration: duration,
       priority: priority,
       createdAt: DateTime.now(),
     );

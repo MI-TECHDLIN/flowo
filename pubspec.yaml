@@ -39,7 +39,6 @@ dependencies:
   cloud_firestore: ^5.4.4
   provider: ^6.1.5+1
   intl: ^0.20.2
-  smooth_sheets: ^1.0.2
   goal_progress_indicator: ^1.0.0
   numberpicker: ^2.1.2
 

@@ -18,6 +18,12 @@ class TaskService {
 
   //Read - Stream of all tasks livefeed
   Stream<List<TaskModel>> gettasks(String userID) {
+    '''
+this function works with the listentotask 
+gettask serves as a pipe to send live updates from the firestore
+with listentotask listens to it and updates the notfylister
+
+''';
     return _tasksRef(
       userID,
     ).orderBy('createdAt', descending: true).snapshots().map((snapshot) {

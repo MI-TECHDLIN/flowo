@@ -6,6 +6,7 @@ class TaskModel {
   final String id;
   final String title;
   final String description;
+  final int? duration;
   final bool isCompleted;
   final int priority;
   final String time;
@@ -13,6 +14,7 @@ class TaskModel {
   TaskModel({
     required this.id,
     required this.title,
+    this.duration,
     required this.time,
     this.description =
         '', //description would be optional, there would be a default description
@@ -30,6 +32,7 @@ class TaskModel {
       description: firestoredata['description'] ?? '',
       isCompleted: firestoredata['isCompleted'] ?? false,
       priority: firestoredata['priority'] ?? 2,
+      duration: firestoredata['duration'] ?? '',
       createdAt: (firestoredata['createdAt'] as Timestamp).toDate(),
     );
   }
@@ -43,7 +46,8 @@ a string and formated the timeof day because we cant actually get read of timeof
       'title': title,
       'time': time,
       'description': description,
-      'isCompleated': isCompleted,
+      'duration': duration,
+      'isCompleted': isCompleted,
       'priority': priority,
       'createdAt': Timestamp.fromDate(createdAt),
     };
@@ -53,6 +57,7 @@ a string and formated the timeof day because we cant actually get read of timeof
   TaskModel copyWith({
     String? title,
     String? time,
+    int? duration,
     String? description,
     bool? isCompleted,
     int? priority,
@@ -61,6 +66,7 @@ a string and formated the timeof day because we cant actually get read of timeof
       id: id,
       title: title ?? this.title,
       description: description ?? this.description,
+      duration: duration ?? this.duration,
       isCompleted: isCompleted ?? this.isCompleted,
       priority: priority ?? this.priority,
       time: time ?? this.time,
