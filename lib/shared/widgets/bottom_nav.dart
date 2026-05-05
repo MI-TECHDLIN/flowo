@@ -1,13 +1,7 @@
 import 'package:flowo/features/ai/ai_suggestion_screen.dart';
 import 'package:flowo/features/tasks/screens/task_screen.dart';
-import 'package:flowo/features/tasks/task_functions.dart';
 import 'package:flowo/features/tasks/widgets/task_/task_bottomsheet.dart';
-import 'package:flowo/features/tasks/widgets/task_/task_field.dart';
-import 'package:flowo/features/tasks/widgets/task_/task_priority.dart';
-import 'package:flowo/main.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:flowo/constants/constant.dart';
 
 class Bottomnav extends StatefulWidget {
   const Bottomnav({super.key});
@@ -52,9 +46,7 @@ class _BottomnavState extends State<Bottomnav> {
 
         title: Text('Flowo'),
         actions: [
-          Container(
-            child: IconButton(onPressed: null, icon: Icon(Icons.notifications)),
-          ),
+          IconButton(onPressed: null, icon: Icon(Icons.notifications)),
           Container(
             margin: EdgeInsets.only(right: 20),
             height: 34,

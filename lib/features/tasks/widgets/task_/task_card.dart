@@ -45,15 +45,6 @@ class TaskCard extends StatelessWidget {
     }
   }
 
-  //capitalise-taskcard
-  String capitlaise(String s) {
-    if (s == '') {
-      return s;
-    }
-
-    return s[0].toUpperCase() + s.substring(1);
-  }
-
   @override
   Widget build(BuildContext context) {
     final controller = context.read<TaskController>();

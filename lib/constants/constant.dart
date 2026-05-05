@@ -62,6 +62,7 @@ Widget iconwidget(IconData data, String label, {int color = 0xffFFFFF}) {
   );
 }
 
+//task_widget-card
 Widget taskwidget(Color bgcolor, Color color, String label) {
   return Container(
     alignment: Alignment.center,
@@ -82,6 +83,11 @@ String capitlaise(String s) {
   }
 
   return s[0].toUpperCase() + s.substring(1);
+}
+
+//spacewidget
+Widget space({double height = 0, double width = 0}) {
+  return SizedBox(height: height, width: width);
 }
 
 //text-priority

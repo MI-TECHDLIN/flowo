@@ -2,9 +2,9 @@
 //TODO: for now i will use the flutter natvie bootom shett laster migrate to smooth sheet bottomshet
 //TODO: tag feature for each task as the next push
 //TODO: replace for iteration with map for heading tasks
+
 import 'package:flowo/constants/constant.dart';
 import 'package:flowo/features/ai/ai_suggestion_screen.dart';
-import 'package:flowo/features/tasks/widgets/task_/task_bottomsheet.dart';
 import 'package:flowo/main.dart';
 import 'package:provider/provider.dart';
 import '../task_functions.dart';
@@ -112,7 +112,9 @@ class _TaskscreenState extends State<Taskscreen> {
                     ],
                   ),
                 ),
+
                 SizedBox(height: 15),
+
                 Container(
                   margin: EdgeInsets.only(left: 11),
                   alignment: Alignment.centerLeft,
