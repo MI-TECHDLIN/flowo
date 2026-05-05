@@ -6,9 +6,11 @@ import 'package:flowo/features/focus_timer/reusable_btn.dart';
 import 'dart:async';
 import 'package:flowo/constants/constant.dart';
 import 'package:flowo/features/focus_timer/time_card.dart';
+import 'package:flowo/features/tasks/task_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:goal_progress_indicator/goal_progress_indicator.dart';
 import 'package:flowo/features/focus_timer/play_card.dart';
+import 'package:provider/provider.dart';
 
 class FocusTimer extends StatefulWidget {
   FocusTimer({required this.task});
@@ -19,6 +21,7 @@ class FocusTimer extends StatefulWidget {
 }
 
 class _focustimerState extends State<FocusTimer> {
+  //late since it is a stateful widget it would be iitialized later
   late int statevalue;
   late int conv = statevalue * 60;
   late int totalseconds = conv;
@@ -37,11 +40,60 @@ class _focustimerState extends State<FocusTimer> {
     return minutes ~/ 60;
   }
 
+  //remaining minutes............
   int get rminutes => minutes % 60;
-  bool iscounting = false;
-  Timer? timer;
 
-  String min_condition(int min) {
+  //bool
+  bool iscounting = false;
+
+  //timer
+  Timer? timer;
+  //taskbreak
+  Widget take_break() {
+    '''
+since this would be called one
+ it should be initialized
+
+''';
+    return Row(
+      children: [
+        Container(
+          height: 38,
+          decoration: BoxDecoration(
+            color: Color.fromARGB(133, 200, 240, 220),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          width: 135,
+
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                Icons.free_breakfast_outlined,
+                size: 14,
+                color: Color(0xff3CA05A),
+              ),
+              space(width: 3),
+              GestureDetector(
+                onTap: () => {
+                  setState(() {
+                    iscounting == true ? pause() : null;
+                  }),
+                },
+                child: Text(
+                  'Take a break',
+                  style: TextStyle(color: Color(0xff3CA05A), fontSize: 17),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  //minutes_conditions
+  String mincondition(int min) {
     if (min <= 9) {
       return '0$min';
     }
@@ -177,6 +229,14 @@ class _focustimerState extends State<FocusTimer> {
     );
   }
 
+  //id_finder for getting index
+  String getIndexByiD(List<TaskModel> tasks, String id) {
+    for (int i = 0; i < tasks.length; i++) {
+      if (id == tasks[i].id) return i.toString();
+    }
+    return id;
+  }
+
   //stop function for playcard
   void stop() {
     setState(() {
@@ -227,6 +287,12 @@ getters would only display hours and mins for now the app is getting busy
 
   @override
   Widget build(BuildContext context) {
+    //controller
+    final id = widget.task.id;
+    final _controller = context.watch<TaskController>();
+    final todos = _controller.activetasks + _controller.completeedtasks;
+    final total_count = todos.length;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFFFFFFFF),
@@ -234,20 +300,18 @@ getters would only display hours and mins for now the app is getting busy
         elevation: 1,
         toolbarHeight: 70,
         leadingWidth: 80,
-        leading: Container(
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(20, 5, 5, 8),
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadiusGeometry.circular(17),
-              ),
-              elevation: 5,
-              color: Color(0xffF3E8FF),
+        leading: Padding(
+          padding: EdgeInsets.fromLTRB(20, 5, 5, 8),
+          child: Card(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadiusGeometry.circular(17),
+            ),
+            elevation: 5,
+            color: Color(0xffF3E8FF),
 
-              child: IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: Icon(Icons.arrow_back_rounded, color: Color(0xffAA64DC)),
-              ),
+            child: IconButton(
+              onPressed: () => Navigator.pop(context),
+              icon: Icon(Icons.arrow_back_rounded, color: Color(0xffAA64DC)),
             ),
           ),
         ),
@@ -304,7 +368,7 @@ getters would only display hours and mins for now the app is getting busy
                         taskwidget(
                           bgcolor(widget.task.priority),
                           textcolor(widget.task.priority),
-                          '${textpriority(widget.task.priority)}',
+                          textpriority(widget.task.priority),
                         ),
                       ],
                     ),
@@ -329,27 +393,24 @@ getters would only display hours and mins for now the app is getting busy
                           color: 0xffC89FF5,
                         ),
                         SizedBox(width: 20),
-                        Container(
-                          height: 20,
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.device_hub_rounded,
-                                color: Color(0xffF5A34A),
-                                size: 17,
-                              ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.device_hub_rounded,
+                              color: Color(0xffF5A34A),
+                              size: 17,
+                            ),
 
-                              Text(
-                                constmin <= 60 || consthour <= 0
-                                    ? 'Est. $constmin min '
-                                    : 'Est. $consthour hour $constmin min',
-                                style: TextStyle(
-                                  fontSize: 17,
-                                  color: Color(0xff6B7C8F),
-                                ),
+                            Text(
+                              constmin <= 60 || consthour <= 0
+                                  ? 'Est. $constmin min '
+                                  : 'Est. $consthour hour $constmin min',
+                              style: TextStyle(
+                                fontSize: 17,
+                                color: Color(0xff6B7C8F),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -392,7 +453,9 @@ getters would only display hours and mins for now the app is getting busy
                                 ),
                               ),
                               SizedBox(width: 8),
-                              Text('Session 2 of 4'),
+                              Text(
+                                'Session ${getIndexByiD(todos, id)} of $total_count',
+                              ),
 
                               Container(
                                 margin: EdgeInsets.symmetric(
@@ -438,7 +501,7 @@ getters would only display hours and mins for now the app is getting busy
                               ),
                               //min
                               timewidget(
-                                min_condition(rminutes),
+                                mincondition(rminutes),
                                 'min',
                                 0xffE8F6EE,
                                 0xff3CA05A,
@@ -494,7 +557,7 @@ getters would only display hours and mins for now the app is getting busy
                       currentValue: diffmin.toDouble(),
                       targetValue: consttotalmin.toDouble(),
                       style: GoalProgressIndicatorStyles.gradient(
-                        colors: [Color(0xffAA64DC0), Color(0xffC89FF5)],
+                        colors: [Color(0xffaa64dc0), Color(0xffC89FF5)],
                       ),
                     ),
                   ],
@@ -507,36 +570,8 @@ getters would only display hours and mins for now the app is getting busy
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Row(
-                      children: [
-                        Container(
-                          height: 38,
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(133, 200, 240, 220),
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          width: 135,
-
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              GestureDetector(
-                                onTap: () => {
-                                  setState(() {
-                                    iscounting == true ? pause() : null;
-                                  }),
-                                },
-                                child: Text(
-                                  'Take a break',
-                                  style: TextStyle(color: Color(0xff3CA05A)),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(width: 10),
+                    take_break(),
+                    space(width: 10),
                     //break playcard....
                     PlayCard(
                       ontap: () {
@@ -553,7 +588,7 @@ getters would only display hours and mins for now the app is getting busy
                           : Icons.pause_outlined,
                     ),
 
-                    SizedBox(width: 20),
+                    space(width: 20),
 
                     //stop
                     PlayCard(
