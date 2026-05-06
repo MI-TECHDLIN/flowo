@@ -6,13 +6,14 @@ import 'package:provider/provider.dart';
 import 'features/tasks/task_functions.dart';
 
 //TODO:this timer material widget lags i will get a third  party pckage
-
+//ToDo:make sure to remove test mode from firestore dbs
 //TODO: disabling time fime stamp feature this feature might be later introduce on production i am replacing it with a countdown features
+//TODO: coming back to frontend--later
 const String kTestUserId = 'test_user_002';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  runApp(FlowoApp());
+  runApp(const FlowoApp());
 }
 
 class FlowoApp extends StatelessWidget {
