@@ -1,3 +1,4 @@
+import 'package:flowo/constants/constant.dart';
 import 'package:flowo/features/ai/ai_suggestion_screen.dart';
 import 'package:flowo/features/tasks/screens/task_screen.dart';
 import 'package:flowo/features/tasks/widgets/task_/task_bottomsheet.dart';
@@ -11,22 +12,6 @@ class Bottomnav extends StatefulWidget {
 }
 
 class _BottomnavState extends State<Bottomnav> {
-  Future<void> addtask() {
-    return showModalBottomSheet(
-      isScrollControlled: true,
-      backgroundColor: Colors.white,
-      context: context,
-      builder: (b) {
-        return Padding(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-          ),
-          child: botttomsheet(),
-        );
-      },
-    );
-  }
-
   int _currentindex = 0;
   final List<Widget> _screens = [
     Taskscreen(),
@@ -77,7 +62,12 @@ class _BottomnavState extends State<Bottomnav> {
           SizedBox(
             child: Column(
               children: [
-                IconButton(onPressed: addtask, icon: Icon(Icons.add_rounded)),
+                IconButton(
+                  onPressed: () {
+                    addtask(context);
+                  },
+                  icon: Icon(Icons.add_rounded),
+                ),
                 Text('Add task'),
               ],
             ),
