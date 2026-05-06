@@ -4,6 +4,7 @@ import 'package:flowo/constants/constant.dart';
 
 enum priority { low, medium, high, state }
 
+// ignore: must_be_immutable
 class TaskPriority extends StatelessWidget {
   TaskPriority({
     required this.label,

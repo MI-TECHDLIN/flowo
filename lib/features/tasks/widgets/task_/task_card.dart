@@ -2,7 +2,6 @@ import 'package:flowo/constants/constant.dart';
 import 'package:flowo/data/models/task_model.dart';
 import 'package:flowo/features/focus_timer/focus_timer.dart';
 import 'package:flowo/features/tasks/task_functions.dart';
-import 'package:flowo/features/tasks/widgets/task_/task_priority.dart';
 import 'package:flowo/main.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -125,7 +124,13 @@ this function is a widgetstate constraint used to get statecolor
 
                           Text(
                             capitlaise(task.title),
-                            style: TextStyle(fontSize: 18),
+                            style: TextStyle(
+                              fontSize: 18,
+
+                              fontWeight: task.isCompleted
+                                  ? FontWeight.w200
+                                  : FontWeight.w400,
+                            ),
                           ),
                         ],
                       ),
@@ -134,7 +139,11 @@ this function is a widgetstate constraint used to get statecolor
                         margin: EdgeInsets.fromLTRB(15, 0, 0, 4),
                         child: Text(
                           capitlaise(decript(task)),
-                          style: TextStyle(),
+                          style: TextStyle(
+                            fontWeight: task.isCompleted
+                                ? FontWeight.w300
+                                : FontWeight.normal,
+                          ),
                         ),
                       ),
 
@@ -174,6 +183,7 @@ this function is a widgetstate constraint used to get statecolor
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
+                                  //task_time,
                                   Text(
                                     task.time,
                                     style: TextStyle(color: Color(0xffAA64DC)),

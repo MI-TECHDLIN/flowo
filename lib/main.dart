@@ -1,4 +1,3 @@
-import 'package:flowo/features/focus_timer/focus_timer.dart';
 import 'package:flowo/shared/widgets/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';

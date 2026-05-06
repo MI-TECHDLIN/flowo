@@ -1,3 +1,4 @@
+import 'package:flowo/features/tasks/widgets/task_/task_bottomsheet.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -26,6 +27,24 @@ Widget whitetext(String text, double fontsize, {int color = 0xffFFFFFFF}) {
   );
 }
 
+//bttomsheet
+Future<void> addtask(BuildContext context) {
+  return showModalBottomSheet(
+    isScrollControlled: true,
+    backgroundColor: Colors.white,
+    context: context,
+    builder: (b) {
+      return Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
+        child: botttomsheet(),
+      );
+    },
+  );
+}
+
+//blacktext
 Widget blacktext(String text, double fontsize, {int color = 0xFF000000F}) {
   return Text(
     text,
@@ -45,6 +64,7 @@ Widget tapper(Function func) {
   );
 }
 
+//icon-widget
 Widget iconwidget(IconData data, String label, {int color = 0xffFFFFF}) {
   return Container(
     decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),

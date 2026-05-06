@@ -131,37 +131,122 @@ class _TaskscreenState extends State<Taskscreen> {
                             ),
                           ),
 
-                          Container(
-                            margin: EdgeInsets.only(top: 10),
-                            height: 50,
-                            width: 200,
-                            child: ElevatedButton(
-                              style: ButtonStyle(
-                                backgroundColor: WidgetStatePropertyAll(
-                                  Color(0x7DF3E8FF),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (ctx) => AiSuggestionScreen(),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              margin: EdgeInsets.only(top: 15),
+                              height: 50,
+                              width: 200,
+                              child: ElevatedButton(
+                                style: ButtonStyle(
+                                  shadowColor: WidgetStatePropertyAll(
+                                    Color(0x00F3E8FF),
+                                  ),
+                                  backgroundColor: WidgetStatePropertyAll(
+                                    Color(0x7DF3E8FF),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          AiSuggestionScreen(),
+                                    ),
+                                  );
+                                },
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.auto_awesome,
+                                      color: Color(0xffC89FF5),
+                                    ),
+                                    SizedBox(width: 10),
+                                    Text(
+                                      'Get AI  Suggestions',
+                                      style: TextStyle(
+                                        color: Color(0xffC89FF5),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (ctx) => AiSuggestionScreen(),
-                                  ),
-                                );
-                              },
-                              child: Row(
-                                children: [
-                                  Icon(
-                                    Icons.auto_awesome,
-                                    color: Color(0xffC89FF5),
-                                  ),
-                                  SizedBox(width: 10),
-                                  Text(
-                                    'Get AI  Suggestions',
-                                    style: TextStyle(color: Color(0xffC89FF5)),
-                                  ),
-                                ],
-                              ),
+                            ),
+                          ),
+
+                          Container(
+                            margin: EdgeInsets.fromLTRB(45, 30, 20, 0),
+                            // padding: Edgein,
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Icon(
+                                      Icons.lightbulb,
+                                      size: 17,
+                                      color: Color(0xffF5A43A),
+                                    ),
+                                    SizedBox(width: 5),
+                                    Text(
+                                      'Quick start ideas',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Color(0xff2D3E50),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 13),
+                                Row(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(40),
+                                        color: Color(0xffA8D8F0),
+                                      ),
+                                      height: 8,
+                                      width: 8,
+                                    ),
+                                    SizedBox(width: 10),
+                                    Text(
+                                      'Start small -- even tiny tasks count',
+
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Color(0xff6B7C8F),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 13),
+                                Row(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(40),
+                                        color: Color(0xffC89FF5),
+                                      ),
+                                      height: 8,
+                                      width: 8,
+                                    ),
+                                    SizedBox(width: 10),
+                                    Text(
+                                      'Write down 3 things you want to finish today',
+                                      style: TextStyle(
+                                        fontSize: 16,
+                                        color: Color(0xff6B7C8F),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
                         ],
