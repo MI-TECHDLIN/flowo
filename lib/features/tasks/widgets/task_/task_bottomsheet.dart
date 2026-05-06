@@ -117,7 +117,6 @@ am actually having issue put a timeofday type and String in the same widget so a
 
     setState(() {
       issaving = true;
-      Navigator.pop(context);
     });
 
     if (!context.mounted) return;

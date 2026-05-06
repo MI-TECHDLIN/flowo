@@ -43,6 +43,142 @@ class _TaskscreenState extends State<Taskscreen> {
   }
 
   Widget build(BuildContext context) {
+    Widget emptystate = Center(
+      child: Container(
+        margin: EdgeInsets.only(top: 120),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              alignment: Alignment.center,
+              height: 110,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(70),
+                color: Color(0xB5F3E8FF),
+              ),
+              width: 110,
+              child: Icon(Icons.paste, size: 40, color: Color(0xffD4B5F5)),
+            ),
+            space(height: 20),
+            Text(
+              'No tasks yet :)',
+              style: TextStyle(
+                fontSize: 22,
+                color: Color(0xff2D3E50),
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            space(height: 20),
+
+            Container(
+              padding: EdgeInsets.fromLTRB(70, 0, 55, 10),
+              // padding: EdgeInsets.only(left: 90.0),
+              child: Text(
+                'Your list is wide open -- a blank canvas, ready for great things, Start with one small task 🌱',
+                style: TextStyle(color: Color(0xff6B7C8F), fontSize: 15),
+              ),
+            ),
+
+            Container(
+              margin: EdgeInsets.only(top: 20),
+              width: 300,
+              height: 52,
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: WidgetStatePropertyAll(Color(0xffC89FF5)),
+                ),
+
+                onPressed: () => addtask(context),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(Icons.add, color: Colors.white, size: 30),
+                    space(width: 10),
+
+                    Text(
+                      'Add  your first task',
+                      style: TextStyle(color: Colors.white, fontSize: 16),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (ctx) => AiSuggestionScreen()),
+                );
+              },
+              child: Container(
+                margin: EdgeInsets.only(top: 15),
+                height: 50,
+                width: 200,
+                child: ElevatedButton(
+                  style: ButtonStyle(
+                    shadowColor: WidgetStatePropertyAll(Color(0x00F3E8FF)),
+                    backgroundColor: WidgetStatePropertyAll(Color(0x7DF3E8FF)),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AiSuggestionScreen(),
+                      ),
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      Icon(Icons.auto_awesome, color: Color(0xffC89FF5)),
+                      SizedBox(width: 10),
+                      Text(
+                        'Get AI  Suggestions',
+                        style: TextStyle(color: Color(0xffC89FF5)),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+
+            Container(
+              margin: EdgeInsets.fromLTRB(45, 30, 20, 0),
+              // padding: Edgein,
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.lightbulb, size: 17, color: Color(0xffF5A43A)),
+                      SizedBox(width: 5),
+                      Text(
+                        'Quick start ideas',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Color(0xff2D3E50),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 13),
+                  reusable_row_conc(
+                    0xffA8D8F0,
+                    'Start small -- even tiny tasks count',
+                  ),
+                  SizedBox(height: 13),
+                  reusable_row_conc(
+                    0xffC89FF5,
+                    'Write down 3 things you want to finish today',
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+
     final _controller = context.watch<TaskController>();
     final todo = _controller.activetasks;
     final completed = _controller.completeedtasks;
@@ -53,206 +189,7 @@ class _TaskscreenState extends State<Taskscreen> {
           padding: const EdgeInsets.all(8.0),
           child: SingleChildScrollView(
             child: total_count == 0
-                ? Center(
-                    child: Container(
-                      margin: EdgeInsets.only(top: 120),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            alignment: Alignment.center,
-                            height: 110,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(70),
-                              color: Color(0xB5F3E8FF),
-                            ),
-                            width: 110,
-                            child: Icon(
-                              Icons.paste,
-                              size: 40,
-                              color: Color(0xffD4B5F5),
-                            ),
-                          ),
-                          space(height: 20),
-                          Text(
-                            'No tasks yet :)',
-                            style: TextStyle(
-                              fontSize: 22,
-                              color: Color(0xff2D3E50),
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          space(height: 20),
-
-                          Container(
-                            padding: EdgeInsets.fromLTRB(70, 0, 55, 10),
-                            // padding: EdgeInsets.only(left: 90.0),
-                            child: Text(
-                              'Your list is wide open -- a blank canvas, ready for great things, Start with one small task 🌱',
-                              style: TextStyle(
-                                color: Color(0xff6B7C8F),
-                                fontSize: 15,
-                              ),
-                            ),
-                          ),
-
-                          Container(
-                            margin: EdgeInsets.only(top: 20),
-                            width: 300,
-                            height: 52,
-                            child: ElevatedButton(
-                              style: ButtonStyle(
-                                backgroundColor: WidgetStatePropertyAll(
-                                  Color(0xffC89FF5),
-                                ),
-                              ),
-
-                              onPressed: () => addtask(context),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.add,
-                                    color: Colors.white,
-                                    size: 30,
-                                  ),
-                                  space(width: 10),
-
-                                  Text(
-                                    'Add  your first task',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (ctx) => AiSuggestionScreen(),
-                                ),
-                              );
-                            },
-                            child: Container(
-                              margin: EdgeInsets.only(top: 15),
-                              height: 50,
-                              width: 200,
-                              child: ElevatedButton(
-                                style: ButtonStyle(
-                                  shadowColor: WidgetStatePropertyAll(
-                                    Color(0x00F3E8FF),
-                                  ),
-                                  backgroundColor: WidgetStatePropertyAll(
-                                    Color(0x7DF3E8FF),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          AiSuggestionScreen(),
-                                    ),
-                                  );
-                                },
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.auto_awesome,
-                                      color: Color(0xffC89FF5),
-                                    ),
-                                    SizedBox(width: 10),
-                                    Text(
-                                      'Get AI  Suggestions',
-                                      style: TextStyle(
-                                        color: Color(0xffC89FF5),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-
-                          Container(
-                            margin: EdgeInsets.fromLTRB(45, 30, 20, 0),
-                            // padding: Edgein,
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    Icon(
-                                      Icons.lightbulb,
-                                      size: 17,
-                                      color: Color(0xffF5A43A),
-                                    ),
-                                    SizedBox(width: 5),
-                                    Text(
-                                      'Quick start ideas',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: Color(0xff2D3E50),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 13),
-                                Row(
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(40),
-                                        color: Color(0xffA8D8F0),
-                                      ),
-                                      height: 8,
-                                      width: 8,
-                                    ),
-                                    SizedBox(width: 10),
-                                    Text(
-                                      'Start small -- even tiny tasks count',
-
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: Color(0xff6B7C8F),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 13),
-                                Row(
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(40),
-                                        color: Color(0xffC89FF5),
-                                      ),
-                                      height: 8,
-                                      width: 8,
-                                    ),
-                                    SizedBox(width: 10),
-                                    Text(
-                                      'Write down 3 things you want to finish today',
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: Color(0xff6B7C8F),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  )
+                ? emptystate
                 : Column(
                     children: [
                       // welcome container with greeting function
@@ -399,4 +336,21 @@ class _TaskscreenState extends State<Taskscreen> {
       ),
     );
   }
+}
+
+Widget reusable_row_conc(int cont_color, String label) {
+  return Row(
+    children: [
+      Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(40),
+          color: Color(cont_color),
+        ),
+        height: 8,
+        width: 8,
+      ),
+      SizedBox(width: 10),
+      Text(label, style: TextStyle(fontSize: 16, color: Color(0xff6B7C8F))),
+    ],
+  );
 }

@@ -7,7 +7,6 @@ class AiSuggestionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
