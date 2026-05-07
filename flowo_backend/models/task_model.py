@@ -1,34 +1,45 @@
-from  pydantic import BaseModel
-from typing import List, Optional
+from pydantic import BaseModel
+from fastapi import FastAPI
+from typing import Optional
 
-# Blueprint
-class TaskInput (BaseModel):
-    '''
-    this is blueprint class that fetches data from flutter
-    descripiton would be optional so it not required
+#task_model
 
+class TaskInput(BaseModel):
 
     '''
-    id: str
-    title: str
+    this basic blueprint of taskmodel
+    '''
+    id:str
+    title:str #reuired
     description:Optional[str]=''
-    
-    priority:int=2
-    is_completed: bool=False
+    priority:int #requireed
+    is_completed:bool #required
 
-class SuggestionRequest (BaseModel):
-    tasks: List[TaskInput]
 
-# what the backend sends back to flutter
-class RankedTask (BaseModel):
+class rankedist(BaseModel):
     id:str
     title:str
-    suggested_rank:int
-    reasoning:str
+    suggested_rank:str
+    reasoninig:str
     estimated_effort:str
     impact_level:str
 
-class SuggestionsResponse(BaseModel):
-    ranked_tasks:List[RankedTask]
-    daily_focus:str
-    disclamier:str #disclaimer
+
+
+class SuggestionRequest(BaseModel):
+    tasks:list[TaskInput]
+
+
+
+
+
+class suggestionResponse(BaseModel):
+    rankedlist:list[rankedist]
+    reasons:str
+    disclameer:str
+
+
+
+
+# time:str #required
+#     duration:int #required
