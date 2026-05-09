@@ -15,25 +15,51 @@ load_dotenv()
 env path: flowo_backend/app/.env
 '''
 
+todo_task=TaskInput.is_completed=False
+
+
+
+completed_task=TaskInput.is_completed=True
+
+
 groq_object=Groq(api_key=os.getenv("api_key"))
 
 
-def prompt_func(tasks: list[TaskInput])->str:
-    
-#   this functions basically fetches list of taskINput and iterates 
-#  through it and comprehensively return and formating the list as string
-# in a straight line
 
-    line='\n'.join([
-        f"- ID {task.id} | title: {task.title} |  descripition:{task.description} |  priority: {task.priority}"
-          for task in tasks
-          ])
-    return f"""
+def prompt_func(tasks: list[TaskInput])->str:
+   
+   ''' 
+   this functions basically fetches list of taskINput and iterates 
+   through it and comprehensively return and formating the list as string
+   in a straight line
+   '''
+   listtasks=[]
+   liner=list
+
+   for task in tasks:
+       if task.is_completed != completed_task:
+          listtasks.append(f'Taskid:{task.id} | taskTitle:{task.title} | taskdescription: {task.description} | taskprority {task.priority} | iscompleted: {task.is_completed}')
+          liner='\n'.join(listtasks)
+       
+        
+       
+
+       if liner=='':
+           liner='No task Provided'
+       
+        
+       
+
+
+   print(liner)
+
+   return f"""
     You are Flowo, an AI productivity assistant.
-    Analyze the following tasks and return a JSON response ranking them 
+    Analyze the following tasks and return a JSON response ranking them
     by importance.
+    if task is completed or is equal to true reomve task or if no task provided return no task provided
     Tasks:
-    {line}
+    {liner}
 
     Return ONLY a valid JSON object in this exact format:
     {{
@@ -60,7 +86,9 @@ def prompt_func(tasks: list[TaskInput])->str:
 
   """
 def get_suggestions(tasks:list[TaskInput])->SuggestionResponse:
+   
     prompt=prompt_func(tasks)
+    
 
     groq_response=groq_object.chat.completions.create(
         model='llama-3.3-70b-versatile',
@@ -80,9 +108,13 @@ def get_suggestions(tasks:list[TaskInput])->SuggestionResponse:
 
     raw=groq_response.choices[0].message.content
     response_data=json.loads(raw)
+    
 
     return SuggestionResponse(
-        ranked_tasks=[RankedTask(**t) for t in response_data["ranked_tasks"]],
+        #return list of task......
+        ranked_tasks=[RankedTask(**t) for t in response_data["ranked_tasks"]
+                  
+                      ],
         daily_focus=response_data["daily_focus"],
         disclaimer=response_data["disclaimer"]
     )
