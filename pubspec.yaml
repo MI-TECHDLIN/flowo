@@ -41,6 +41,8 @@ dependencies:
   intl: ^0.20.2
   goal_progress_indicator: ^1.0.0
   numberpicker: ^2.1.2
+  http: ^1.2.0
+
 
 
 dev_dependencies:
