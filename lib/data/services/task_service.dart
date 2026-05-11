@@ -22,7 +22,6 @@ class TaskService {
 this function works with the listentotask 
 gettask serves as a pipe to send live updates from the firestore
 with listentotask listens to it and updates the notfylister
-
 ''';
     return _tasksRef(
       userID,
