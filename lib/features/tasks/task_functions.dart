@@ -1,3 +1,5 @@
+import 'package:flowo/data/models/suggestiion_response,.dart';
+import 'package:flowo/data/services/ai_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flowo/data/models/task_model.dart';
 import 'package:flowo/data/services/task_service.dart';
@@ -6,6 +8,15 @@ class TaskController extends ChangeNotifier {
   //this are private properity they can only be read
   final TaskService _taskService = TaskService();
   List<TaskModel> _tasks = [];
+  var aiservice = AiService();
+
+  //ai_variables
+  bool _isloadingsug = false;
+  bool get isloadingsug => _isloadingsug;
+  SuggestionResponse? _suggestion;
+  SuggestionResponse get suggestion => _suggestion!;
+
+  //state_variables
   bool _isloading = false;
   String? _error;
   String errortaskmessge() {
@@ -50,6 +61,23 @@ it wworks with our stream ... listentiask function acts as the listener
             notifyListeners();
           },
         );
+  }
+
+  //fetchsuggetion
+  Future<void> fetchSuggestions() async {
+    if (activetasks.isEmpty) return;
+
+    _isloadingsug = true;
+    notifyListeners();
+
+    try {
+      _suggestion = await aiservice.getSuggestions(activetasks);
+    } catch (e) {
+      _error = e.toString();
+    } finally {
+      _isloadingsug = false;
+      notifyListeners();
+    }
   }
 
   //ADD  a neww task to the tasks

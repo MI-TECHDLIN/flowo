@@ -3,6 +3,7 @@
 //TODO: tag feature for each task as the next push
 //TODO: replace for iteration with map for heading tasks
 
+import 'package:flowo/data/services/ai_service.dart';
 import 'package:flowo/constants/constant.dart';
 import 'package:flowo/features/ai/ai_suggestion_screen.dart';
 import 'package:flowo/main.dart';
@@ -23,6 +24,10 @@ class Taskscreen extends StatefulWidget {
 class _TaskscreenState extends State<Taskscreen> {
   DateTime dtime = DateTime.now();
   String greettingfunc(String name) {
+    '''
+this function basically set a greeting time stamp for the task screen
+
+''';
     final htime = int.parse(DateFormat.H().format(dtime));
     if (htime < 12)
       return 'Good Morning, $name 👋';
@@ -38,6 +43,9 @@ class _TaskscreenState extends State<Taskscreen> {
     // TODO: implement initState
     super.initState();
     Future.microtask(() {
+      '''
+a initial request called   once
+''';
       context.read<TaskController>().listenTOtasks(kTestUserId);
     });
   }

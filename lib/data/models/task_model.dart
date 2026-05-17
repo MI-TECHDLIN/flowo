@@ -1,6 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:flowo/constants/constant.dart';
 
 class TaskModel {
   final String id;
@@ -50,6 +48,16 @@ a string and formated the timeof day because we cant actually get read of timeof
       'isCompleted': isCompleted,
       'priority': priority,
       'createdAt': Timestamp.fromDate(createdAt),
+    };
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'title': title,
+      'descrription': description,
+      'priority': priority,
+      'is_completed': isCompleted,
     };
   }
 
