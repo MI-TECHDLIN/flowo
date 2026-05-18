@@ -3,7 +3,7 @@ class RankedTask {
   final String title;
   final int suggetsted_rank;
   final String reasoning;
-  final String Estimated_effort;
+  final String estimated_effort;
   final String impact_level;
 
   //rank tasks with properties
@@ -12,7 +12,7 @@ class RankedTask {
     this.title,
     this.suggetsted_rank,
     this.reasoning,
-    this.Estimated_effort,
+    this.estimated_effort,
     this.impact_level,
   );
 
@@ -25,9 +25,9 @@ from python the same index
     return RankedTask(
       json['id'],
       json['title'],
-      json['suggetsted_rank'],
+      json['suggested_rank'],
       json['reasoning'],
-      json['Estimated_effort'],
+      json['estimated_effort'],
       json['impact_level'],
     );
   }

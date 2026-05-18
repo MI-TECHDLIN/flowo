@@ -12,14 +12,14 @@ class Bottomnav extends StatefulWidget {
 
 class _BottomnavState extends State<Bottomnav> {
   int _currentindex = 0;
-  final List<Widget> _screens = [
-    Taskscreen(),
-    Taskscreen(),
-    AiSuggestionScreen(),
-  ];
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> _screens = [
+      Taskscreen(),
+      Taskscreen(),
+      AiSuggestionScreen(),
+    ];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,

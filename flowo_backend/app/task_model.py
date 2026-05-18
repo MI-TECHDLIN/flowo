@@ -27,11 +27,18 @@ class RankedTask(BaseModel):
 
 
 class SuggestionRequest(BaseModel):
+    
+    '''
+    request from flutter 
+    '''
     tasks:list[TaskInput]
 
 
 class SuggestionResponse(BaseModel):
-    ranked_tasks:Optional[list[RankedTask]]='No task provided'
+    '''
+    back to flutter
+    '''
+    ranked_tasks:list[RankedTask]  
     daily_focus:str
     disclaimer:str
 
