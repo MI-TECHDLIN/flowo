@@ -2,7 +2,19 @@ import 'package:flowo/constants/constant.dart';
 import 'package:flutter/material.dart';
 
 class AiCard extends StatelessWidget {
-  const AiCard({super.key});
+  AiCard({
+    super.key,
+    required this.index,
+    required this.title,
+    required this.reasoning,
+    required this.estimatedEffort,
+    required this.impactlevel,
+  });
+  int index;
+  String title;
+  String reasoning;
+  String estimatedEffort;
+  String impactlevel;
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +54,7 @@ class AiCard extends StatelessWidget {
                         color: Color(0xffC89FF5),
                       ),
                       child: Text(
-                        '1',
+                        '$index',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 20,
@@ -57,7 +69,10 @@ class AiCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Finish project proposal',
+                            title,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+
                             style: TextStyle(
                               color: Color(0xff2D3E50),
                               fontSize: 23,
@@ -70,9 +85,7 @@ class AiCard extends StatelessWidget {
                             height: 40,
                             width: 208,
                             child: Text(
-                              capitlaise(
-                                ' Due today  and blocking client review -- finishing this clears the biggest task on your plate. ',
-                              ),
+                              capitlaise(reasoning),
                               style: TextStyle(fontSize: 15),
                             ),
                           ),
@@ -89,7 +102,7 @@ class AiCard extends StatelessWidget {
                                 child: Row(
                                   children: [
                                     Icon(Icons.access_time, size: 14),
-                                    SizedBox(child: Text('45 mins')),
+                                    SizedBox(child: Text(estimatedEffort)),
                                   ],
                                 ),
                               ),
@@ -110,7 +123,7 @@ class AiCard extends StatelessWidget {
                                     Icon(Icons.adjust_outlined, size: 13),
                                     SizedBox(width: 2),
 
-                                    SizedBox(child: Text('High')),
+                                    SizedBox(child: Text(impactlevel)),
                                   ],
                                 ),
                               ),

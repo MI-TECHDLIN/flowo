@@ -40,7 +40,7 @@ class _AiSuggestionScreenState extends State<AiSuggestionScreen> {
               )
             : Container(
                 margin: const EdgeInsets.fromLTRB(20, 20, 20, 4),
-                child: controller.suggestion.ranked_tasks == ''
+                child: controller.suggestion == null
                     ? Center(
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -150,11 +150,12 @@ class _AiSuggestionScreenState extends State<AiSuggestionScreen> {
                                       impactlevel: task.impact_level,
                                     );
                                   }),
+                              SizedBox(height: 20),
                             ],
                           ),
                           const SizedBox(height: 16),
                           Text(
-                            controller!.suggestion.disclaimer,
+                            controller.suggestion!.disclaimer,
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                               color: Colors.grey,

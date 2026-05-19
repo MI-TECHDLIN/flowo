@@ -14,7 +14,7 @@ class TaskController extends ChangeNotifier {
   bool _isloadingsug = false;
   bool get isloadingsug => _isloadingsug;
   SuggestionResponse? _suggestion;
-  SuggestionResponse get suggestion => _suggestion!;
+  SuggestionResponse? get suggestion => _suggestion;
 
   //state_variables
   bool _isloading = false;
