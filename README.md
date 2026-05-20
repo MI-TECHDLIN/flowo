@@ -2,7 +2,7 @@
 
 A sugesstions produtivity tool that helps in every day task,  make use of a ai features that sugeests daily todos and rank them in priority and importance,
 
-![flowo your suggestion](images/Flowo — Banner 1080x1080.png)
+![flowo your suggestion](<img width="2426" height="1080" alt="Flowo — Banner 1080x1080" src="https://github.com/user-attachments/assets/a2a7e04d-8bbe-48af-be24-0008b5f6d896" />)
 
 
 ## idea
