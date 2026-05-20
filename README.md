@@ -10,7 +10,7 @@ flowo you suggestion engine...
 ## idea
  This project is inspired by my old school todo book that keeps tracks of my daily rountine;
 
-this basically transfers your dailytasks to a SPA meaning Structured,Proitized and a Actionable plan in which users have full control of decision, in synopsis it a intelligent suggestion engine..........
+this basically transfers your dailytasks to a SPA meaning Structured,Proitized and a Actionable plan in given end users full control of decision, in a synopsis it a intelligent suggestion engine
 
 ## how it works
 
@@ -28,7 +28,10 @@ this basically transfers your dailytasks to a SPA meaning Structured,Proitized a
 
 
 - progress is tracked over time — daily, weekly, monthly,yearly
+  
+## video demo
 
+Uploading flowo.mp4…
 
 ## Project Stack
 - FLutter(Andriod)
@@ -38,7 +41,6 @@ this basically transfers your dailytasks to a SPA meaning Structured,Proitized a
 
 
 ## requirement 
-
 - Flutter SDK 3.x 
 - Python 3.10++ 
 - firebase project 
@@ -48,6 +50,30 @@ this basically transfers your dailytasks to a SPA meaning Structured,Proitized a
 ### Ui App design 
 ```bash
 $ https://www.figma.com/design/0XSGJwBGhE4XLPOfOMFOqd/flowo
+```
+
+### Project structure
+
+```r
+flowo/
+│
+├── andriod/                              # andriod dependicies and config files
+├── flowo_backend/                        # backend source code
+├── images/                               # images for setup code
+├── ios/                                  # ios dependicies and config files 
+├── lib/                                  # frontend source code
+├── macos/                                # macos dependicies and config files
+├── test/                                 # unit tests for flutter build config files
+├── web/                                  # web dependicies and config files
+├── windows/                              # windows dependicies and config files
+├── .gitignore
+├── .metadata
+├── analysis_options.yaml
+├── devtools_options.yaml
+├── firebase.json
+├── pubspec.lock
+├── pubspec.yaml
+└── README.md
 ```
 
 ### Flutter app
