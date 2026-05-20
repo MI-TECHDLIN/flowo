@@ -45,6 +45,11 @@ this basically transfers your dailytasks to a SPA meaning Structured,Proitized a
 - Groq API key (free version for now)
 
 
+### Ui App design 
+```bash
+$ 
+```
+
 ### Flutter app
 ```bash
 $ git clone https://github.com/MI_TECHDLIN/flowo.git
@@ -105,3 +110,4 @@ flutter build apk --debug
 
 the app would be at `build/app/outputs/flutter-apk/app-debug.apk`.
 
+Ai was used to generate UI design and for error debugging in firestore setup and groq skill implementation for strict rule
