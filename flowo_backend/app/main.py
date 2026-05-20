@@ -17,10 +17,11 @@ app=FastAPI(title='Flowo backend')
 # url=os.getenv(""),
 app.add_middleware(
    CORSMiddleware,
+   
    allow_origins=["*"],
    allow_methods=["*"],
    allow_headers=["*"]
-)
+),
 
 @app.get("/")
 
@@ -32,18 +33,12 @@ def health_check():
 
 # @app.post('/suggestion')
 @app.post("/suggestions")
-async def run(suggestion:SuggestionRequest):
+def run(suggestion:SuggestionRequest):
    return  get_suggestions(tasks=suggestion.tasks)
-
-
-
-
-
-
 
 if __name__ == "__main__":
    import uvicorn
-   uvicorn.run("main:app",host="127.0.0.1",port=8000,reload=True)
+   uvicorn.run("main:app",host="0.0.0.0",port=8000,reload=True)
 
 
 

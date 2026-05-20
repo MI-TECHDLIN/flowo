@@ -124,6 +124,19 @@ String textpriority(int priority) {
   }
 }
 
+int stringpriority(String priority) {
+  switch (priority) {
+    case 'Low':
+      return 1;
+    case 'Medium':
+      return 2;
+    case 'High':
+      return 3;
+    default:
+      return 2;
+  }
+}
+
 //backgroound_color-priority
 Color bgcolor(int priority) {
   if (priority == 3)
