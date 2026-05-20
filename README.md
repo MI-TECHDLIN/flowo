@@ -2,7 +2,9 @@
 
 A sugesstions produtivity tool that helps in every day task,  make use of a ai features that sugeests daily todos and rank them in priority and importance,
 
-![flowo your suggestion](<img width="2426" height="1080" alt="Flowo — Banner 1080x1080" src="https://github.com/user-attachments/assets/a2a7e04d-8bbe-48af-be24-0008b5f6d896" />)
+flowo you suggestion engine...
+
+<img width="2426" height="1080" alt="Flowo — Banner 1080x1080" src="https://github.com/user-attachments/assets/a2a7e04d-8bbe-48af-be24-0008b5f6d896" />
 
 
 ## idea
@@ -12,20 +14,20 @@ this basically transfers your dailytasks to a SPA meaning Structured,Proitized a
 
 ## how it works
 
-- **User adds tasks with a title description, and priority i.e descripton is oprional
+- User adds tasks with a title description, and priority i.e descripton is oprional
 
-- **tasks sync in real time to Firestore
+- tasks sync in real time to Firestore
 
-- **user can request AI suggestions at any time
+- user can request AI suggestions at any time
 
-- **AI analyzes active tasks and returns a ranked list with reasoning, effort estimates, and impact levels as suggestions
+- AI analyzes active tasks and returns a ranked list with reasoning, effort estimates, and impact levels as suggestions
 
-- **for each tasks comes with a focus session for productivity it optional 
+- for each tasks comes with a focus session for productivity it optional 
 
-- **optionally generates a structured daily plan (morning, focus block, light tasks)
+- optionally generates a structured daily plan (morning, focus block, light tasks)
 
 
-- **progress is tracked over time — daily, weekly, monthly,yearly
+- progress is tracked over time — daily, weekly, monthly,yearly
 
 
 ## Project Stack
