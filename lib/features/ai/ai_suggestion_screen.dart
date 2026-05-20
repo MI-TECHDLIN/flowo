@@ -1,6 +1,8 @@
 import 'package:flowo/constants/constant.dart';
 import 'package:flowo/features/ai/ai_card.dart';
+import 'package:flowo/features/tasks/screens/task_screen.dart';
 import 'package:flowo/features/tasks/task_functions.dart';
+import 'package:flowo/shared/widgets/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -29,35 +31,44 @@ class _AiSuggestionScreenState extends State<AiSuggestionScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: controller.isloadingsug
-            ? Center(
-                child: Column(
-                  children: [
-                    CircularProgressIndicator(),
-                    SizedBox(height: 16),
-                    Text('Flowo is thinking...'),
-                  ],
+            ? Container(
+                margin: EdgeInsets.only(top: 380),
+                child: Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      CircularProgressIndicator(),
+                      SizedBox(height: 16),
+                      Text('Flowo is thinking...'),
+                    ],
+                  ),
                 ),
               )
             : Container(
-                margin: const EdgeInsets.fromLTRB(20, 20, 20, 4),
+                margin: const EdgeInsets.fromLTRB(20, 60, 20, 0),
                 child: controller.suggestion == null
                     ? Center(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(
-                              Icons.lightbulb_outline,
-                              size: 64,
-                              color: Colors.grey,
-                            ),
-                            const SizedBox(height: 16),
-                            const Text('No suggestions yet'),
-                            const SizedBox(height: 8),
-                            FilledButton(
-                              onPressed: () => controller.fetchSuggestions(),
-                              child: const Text("get Suggestons"),
-                            ),
-                          ],
+                        child: Container(
+                          margin: const EdgeInsets.fromLTRB(20, 300, 20, 0),
+
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(
+                                Icons.lightbulb_outline,
+                                size: 64,
+                                color: Colors.grey,
+                              ),
+                              const SizedBox(height: 16),
+                              const Text('No suggestions yet'),
+                              const SizedBox(height: 8),
+                              FilledButton(
+                                onPressed: () => controller.fetchSuggestions(),
+                                child: const Text("Get Suggestons"),
+                              ),
+                            ],
+                          ),
                         ),
                       )
                     : Column(
@@ -131,7 +142,6 @@ class _AiSuggestionScreenState extends State<AiSuggestionScreen> {
                             ),
                           ),
 
-                          SizedBox(height: 20),
                           ListView(
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),

@@ -1,6 +1,7 @@
 import 'package:flowo/shared/widgets/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
 import 'features/tasks/task_functions.dart';
@@ -12,6 +13,14 @@ import 'features/tasks/task_functions.dart';
 const String kTestUserId = 'test_user_002';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.light,
+    ),
+  );
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   runApp(const FlowoApp());
 }

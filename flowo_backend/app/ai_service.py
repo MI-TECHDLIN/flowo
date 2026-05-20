@@ -4,6 +4,9 @@ from dotenv import load_dotenv
 from task_model import TaskInput,SuggestionRequest,SuggestionResponse,RankedTask
 from groq import Groq
 
+
+#getting request from groq doesnt work with VPN
+
 '''
 package: 
 -went for a leeser free ai module because of

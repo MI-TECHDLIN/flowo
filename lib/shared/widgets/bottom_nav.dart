@@ -21,28 +21,6 @@ class _BottomnavState extends State<Bottomnav> {
       AiSuggestionScreen(),
     ];
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        toolbarHeight:
-            70, //this was made 70 becuase of  the measurement in andriod
-
-        elevation: 5,
-
-        title: Text('Flowo'),
-        actions: [
-          IconButton(onPressed: null, icon: Icon(Icons.notifications)),
-          Container(
-            margin: EdgeInsets.only(right: 20),
-            height: 34,
-            width: 34,
-            decoration: BoxDecoration(
-              color: Color(0xFFD4B5F5),
-              borderRadius: BorderRadius.circular(17),
-            ),
-          ),
-        ],
-      ),
-
       body: _screens[_currentindex],
 
       bottomNavigationBar: NavigationBar(
