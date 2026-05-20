@@ -64,7 +64,7 @@ class _AiSuggestionScreenState extends State<AiSuggestionScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            controller.suggestion!.daily_focus,
+                            "Here's what i recommend —— you decide",
                             style: TextStyle(fontSize: 16),
                           ),
                           SizedBox(height: 15),
@@ -112,7 +112,7 @@ class _AiSuggestionScreenState extends State<AiSuggestionScreen> {
                                       ),
                                       SizedBox(
                                         height: 60,
-                                        width: 230,
+                                        width: 250,
                                         child: Text(
                                           capitlaise(
                                             controller.suggestion!.daily_focus,
@@ -150,7 +150,6 @@ class _AiSuggestionScreenState extends State<AiSuggestionScreen> {
                                       impactlevel: task.impact_level,
                                     );
                                   }),
-                              SizedBox(height: 20),
                             ],
                           ),
                           const SizedBox(height: 16),
