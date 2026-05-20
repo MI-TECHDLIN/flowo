@@ -30,8 +30,9 @@ this basically transfers your dailytasks to a SPA meaning Structured,Proitized a
 - progress is tracked over time — daily, weekly, monthly,yearly
   
 ## video demo
+https://github.com/user-attachments/assets/c19748f7-da30-49cb-b9c5-3a6af87bafc8
 
-Uploading flowo.mp4…
+
 
 ## Project Stack
 - FLutter(Andriod)
