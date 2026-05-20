@@ -47,7 +47,7 @@ this basically transfers your dailytasks to a SPA meaning Structured,Proitized a
 
 ### Ui App design 
 ```bash
-$ 
+$ https://www.figma.com/design/0XSGJwBGhE4XLPOfOMFOqd/flowo
 ```
 
 ### Flutter app
