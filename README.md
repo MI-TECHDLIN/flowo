@@ -1,55 +1,105 @@
 # flowo
 
-Flowo 
-core idea:
+A sugesstions produtivity tool that helps in every day task,  make use of a ai features that sugeests daily todos and rank them in priority and importance,
 
-this is a sugesstions produtivity tool that helps in every day task,track progress instead of blaming, make use of a ai features that sugeests daily todos and rank them in priority and importance, this project is inspired by my old school todo book that keeps tracks of my daily rountine;
+![flowo your suggestion](images/Flowo — Banner 1080x1080.png)
+
+
+## idea
+ This project is inspired by my old school todo book that keeps tracks of my daily rountine;
 
 this basically transfers your dailytasks to a SPA meaning Structured,Proitized and a Actionable plan in which users have full control of decision, in synopsis it a intelligent suggestion engine..........
 
-How It Works
+## how it works
 
--User adds tasks with a title, description, and priority
--Tasks sync in real time to Firestore
--User can request AI suggestions at any time
--AI analyzes active tasks and returns a ranked list with reasoning, effort estimates, and impact levels
--User decides what to accept, modify, or ignore
--Optionally generates a structured daily plan (morning, focus block, light tasks)
--Progress is tracked over time — daily, weekly, monthly,yearly
+- **User adds tasks with a title description, and priority i.e descripton is oprional
 
+- **tasks sync in real time to Firestore
 
-tech stack:
-langauage:Dart
-framework:flutter
-database:firestore
-AI backend:fastApi
-Ai  Model: OpenAi
-State Manageement Provide+ChangeNotifer
+- **user can request AI suggestions at any time
+
+- **AI analyzes active tasks and returns a ranked list with reasoning, effort estimates, and impact levels as suggestions
+
+- **for each tasks comes with a focus session for productivity it optional 
+
+- **optionally generates a structured daily plan (morning, focus block, light tasks)
 
 
-
-Database:
-colllection-user
-       ↓
-tasks
+- **progress is tracked over time — daily, weekly, monthly,yearly
 
 
+## Project Stack
+- FLutter(Andriod)
+- Firebase firestore + Auth
+- FastAPI (Ai request)
+- Groq (LLM)
 
-Addtask:Functionality
-when a user adda new task......context.read updates the sub collection of
 
-flowo Aritechture
-Flutter App
-    ↓ CRUD operations
-Firebase Firestore (real-time sync)
+## requirement 
 
-Flutter App
-    ↓ sends active task list
-FastAPI Backend
-    ↓ builds structured prompt
-OpenAI GPT-4o Mini
-    ↓ returns ranked suggestions + reasoning
-FastAPI Backend
-    ↓ parses and validates response
-Flutter App
-    ↓ displays suggestions (user decides)
+- Flutter SDK 3.x 
+- Python 3.10++ 
+- firebase project 
+- Groq API key (free version for now)
+
+
+### Flutter app
+```bash
+$ git clone https://github.com/MI_TECHDLIN/flowo.git
+
+$ cd flowo
+
+flutter pub get
+```
+
+get your `google-servicees.json` from firebase to `andriod.app/`. 
+
+
+Run the app:
+```bash
+flutter run
+```
+
+### Backend
+```bash
+cd flowo_backend
+python -m venv venv
+venv\Scripts\activate       
+pip install -r requirements.txt
+```
+
+Create a `.env` file in `flowo_backend/`:
+```
+GROQ_API_KEY=your_key_here
+```
+
+Start the server:
+```bash
+use  python run in the main.py it already configured to start running
+```
+
+
+Update the base url in `lib/data/services/ai_service.dart` to point to your backend.
+
+---
+
+
+## NB
+
+this version v1.0.0 has a hardcoded test user ID it would be modified firestore Authentication in v2.0 all task are stored in firestore 
+
+if you want to test update the `lib/main.dart`:
+
+```dart
+const String kTestUserId = 'any_custom_id_here';
+```
+
+
+## Build APK
+
+```bash
+flutter build apk --debug
+```
+
+the app would be at `build/app/outputs/flutter-apk/app-debug.apk`.
+
