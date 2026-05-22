@@ -102,6 +102,24 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+### start Backend to internet
+in a separate terminal:
+```bash
+ngrok http 8000
+```
+copy the ngrok url to (e.g. `https://abc123.ngrok-free.app`) and update
+`lib/data/services/ai_service.dart`:
+
+```dart
+static const String _baseurl = 'https://YOUR_NGROK_URL/suggestions';
+```
+### Note
+```
+ngrok URL changes every time you restart it. Update the URL in
+`ai_service.dart` each time you start a new ngrok session.
+for v2.00, the backend server and response would be handled on Railway
+```
+
 Create a `.env` file in `flowo_backend/`:
 ```
 GROQ_API_KEY=your_key_here
