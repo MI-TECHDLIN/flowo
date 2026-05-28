@@ -1,9 +1,5 @@
-//TODO: make sure i get a better modalsheet for the ios
-//TODO: for now i will use the flutter natvie bootom shett laster migrate to smooth sheet bottomshet
-//TODO: tag feature for each task as the next push
-//TODO: replace for iteration with map for heading tasks
+//TODO: make sure you replace you name for the grretings function
 
-import 'package:flowo/data/services/ai_service.dart';
 import 'package:flowo/constants/constant.dart';
 import 'package:flowo/features/ai/ai_suggestion_screen.dart';
 import 'package:flowo/main.dart';

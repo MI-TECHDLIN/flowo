@@ -6,8 +6,7 @@ import 'package:flowo/data/models/task_model.dart';
 import 'package:http/http.dart' as http;
 
 class AiService {
-  static const String _baseurl =
-      'https://partake-annually-drool.ngrok-free.dev/suggestions';
+  static const String _baseurl = 'https://flowo-szup.onrender.com/suggestions';
   Future<SuggestionResponse> getSuggestions(List<TaskModel> tasks) async {
     """
 this function bascially helps get a two way request
