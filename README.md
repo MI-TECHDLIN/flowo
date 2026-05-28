@@ -32,7 +32,8 @@ this basically transfers your dailytasks to a SPA meaning Structured,Proitized a
 ## video demo
 https://github.com/user-attachments/assets/c19748f7-da30-49cb-b9c5-3a6af87bafc8
 
-
+for a better quality check out this drive:
+https://drive.google.com/drive/folders/1RBh110BnmArqj2y9kWEB6pQ_tPiUc8NA?usp=drive_link
 
 ## Project Stack
 - FLutter(Andriod)
@@ -46,6 +47,7 @@ https://github.com/user-attachments/assets/c19748f7-da30-49cb-b9c5-3a6af87bafc8
 - Python 3.10++ 
 - firebase project 
 - Groq API key (free version for now)
+- render 
 
 
 ### Ui App design 
@@ -102,22 +104,15 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### start Backend to internet
-in a separate terminal:
-```bash
-ngrok http 8000
-```
-copy the ngrok url to (e.g. `https://abc123.ngrok-free.app`) and update
-`lib/data/services/ai_service.dart`:
-
 ```dart
-static const String _baseurl = 'https://YOUR_NGROK_URL/suggestions';
+static const String _baseurl = 'https://your-render-url/suggestions';
 ```
 ### Note
 ```
-ngrok URL changes every time you restart it. Update the URL in
-`ai_service.dart` each time you start a new ngrok session.
-for v2.00, the backend server and response would be handled on Railway
+- for v1.0.0 the app size is 144mb because of a local server and complex functionality
+- for v1.1.0 which used render for backend rending and api services, the app size is optimized to 50mb and refractored
+- for delete feature for task card would be implemented in v.2.0.0
+- for custom authentication involve login and complex authentication state would be implemented in v2.0.0
 ```
 
 Create a `.env` file in `flowo_backend/`:
