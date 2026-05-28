@@ -9,7 +9,6 @@ import uvicorn
 from dotenv import load_dotenv
 from app.ai_service import get_suggestions
 from app.task_model import SuggestionRequest
-asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 
 app=FastAPI(title='Flowo backend')
