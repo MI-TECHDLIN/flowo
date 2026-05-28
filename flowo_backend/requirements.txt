@@ -1,6 +1,6 @@
 fastapi
 uvicorn
 ngrok
-python-dotnev
+python-dotenv
 request
 groq
