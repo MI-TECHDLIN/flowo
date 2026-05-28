@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+ngrok
+python-dotnev
+request
+groq
