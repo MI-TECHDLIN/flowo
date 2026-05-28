@@ -7,8 +7,8 @@ from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
 
 from dotenv import load_dotenv
-from ai_service import get_suggestions
-from task_model import SuggestionRequest
+from app.ai_service import get_suggestions
+from app.task_model import SuggestionRequest
 asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 
@@ -35,10 +35,5 @@ def health_check():
 @app.post("/suggestions")
 def run(suggestion:SuggestionRequest):
    return  get_suggestions(tasks=suggestion.tasks)
-
-if __name__ == "__main__":
-   import uvicorn
-   uvicorn.run("main:app",host="0.0.0.0",port=8000,reload=True)
-
 
 

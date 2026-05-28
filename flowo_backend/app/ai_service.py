@@ -1,7 +1,7 @@
 import os
 import json
 from dotenv import load_dotenv
-from task_model import TaskInput,SuggestionRequest,SuggestionResponse,RankedTask
+from app.task_model import TaskInput,SuggestionRequest,SuggestionResponse,RankedTask
 from groq import Groq
 
 
@@ -24,8 +24,8 @@ todo_task=TaskInput.is_completed=False
 
 completed_task=TaskInput.is_completed=True
 
-
-groq_object=Groq(api_key=os.getenv("api_key"))
+def get_groqapi():
+    return Groq(api_key=os.getenv("GROQ_API_KEY"))
 
 
 
@@ -91,9 +91,9 @@ def prompt_func(tasks: list[TaskInput])->str:
 def get_suggestions(tasks:list[TaskInput])->SuggestionResponse:
    
     prompt=prompt_func(tasks)
-    
+    cli=get_groqapi()
 
-    groq_response=groq_object.chat.completions.create(
+    groq_response=cli.chat.completions.create(
         model='llama-3.3-70b-versatile',
         messages=[
             {
