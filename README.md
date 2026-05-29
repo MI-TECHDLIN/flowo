@@ -1,8 +1,8 @@
 # flowo
 
-A sugesstions produtivity tool that helps in every day task,  make use of a ai features that sugeests daily todos and rank them in priority and importance,
+A sugesstions produtivity tool that helps in every day task make use of a ai features that sugeests daily todos and rank them in priority and importance,
 
-flowo you suggestion engine...
+flowo you suggestion engine
 
 <img width="2426" height="1080" alt="Flowo — Banner 1080x1080" src="https://github.com/user-attachments/assets/a2a7e04d-8bbe-48af-be24-0008b5f6d896" />
 
@@ -10,11 +10,11 @@ flowo you suggestion engine...
 ## idea
  This project is inspired by my old school todo book that keeps tracks of my daily rountine;
 
-this basically transfers your dailytasks to a SPA meaning Structured,Proitized and a Actionable plan in given end users full control of decision, in a synopsis it a intelligent suggestion engine
+this basically transfers your dailytasks in structured plan based on priority and importance it a suggestion you have full control of decision, in a synopsis it a intelligent suggestion engine
 
 ## how it works
 
-- User adds tasks with a title description, and priority i.e descripton is oprional
+- user adds tasks with a title description, and priority 
 
 - tasks sync in real time to Firestore
 
@@ -108,12 +108,12 @@ pip install -r requirements.txt
 static const String _baseurl = 'https://your-render-url/suggestions';
 ```
 ### Note
-```
+
 - for v1.0.0 the app size is 144mb because of a local server and complex functionality
 - for v1.1.0 which used render for backend rending and api services, the app size is optimized to 50mb and refractored
 - for delete feature for task card would be implemented in v.2.0.0
 - for custom authentication involve login and complex authentication state would be implemented in v2.0.0
-```
+
 
 Create a `.env` file in `flowo_backend/`:
 ```
@@ -126,14 +126,13 @@ use  python run in the main.py it already configured to start running
 ```
 
 
-Update the base url in `lib/data/services/ai_service.dart` to point to your backend.
+Update the base url in `lib/data/services/ai_service.dart` to point to render url you created.
 
 ---
 
-
 ## NB
 
-this version v1.0.0 has a hardcoded test user ID it would be modified firestore Authentication in v2.0 all task are stored in firestore 
+this version v1.1.0 has a hardcoded test user ID it would be modified firestore Authentication in v2.0 all task are stored in firestore 
 
 if you want to test update the `lib/main.dart`:
 
