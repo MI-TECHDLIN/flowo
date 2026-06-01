@@ -62,5 +62,5 @@ Create a `.env` file in `flowo_backend/`:
 ```
 GROQ_API_KEY='key.....'
 ```
-
+## Ai usuage 
 Ai was used to generate UI design and for error debugging in firestore setup and groq skill implementation for strict rule
