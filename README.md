@@ -25,7 +25,7 @@ flowo this is a productivity tool that re ranks daily tasks based on importance 
 https://github.com/user-attachments/assets/c19748f7-da30-49cb-b9c5-3a6af87bafc8
 
 for a better quality check out this drive:
-https://drive.google.com/drive/folders/1RBh110BnmArqj2y9kWEB6pQ_tPiUc8NA?usp=drive_link
+https://drive.google.com/file/d/1HyTMUxGqOqqY4nnAyaadVrEKx5q7mWnc/view?usp=sharing
 
 ## Stack 
 - Flutter SDK 
