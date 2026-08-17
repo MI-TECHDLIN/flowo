@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 class ReusableIncrementBtn extends StatelessWidget {
-  ReusableIncrementBtn({required this.icon, required this.callback});
+  ReusableIncrementBtn({super.key, required this.icon, required this.callback});
   IconData icon;
   VoidCallback callback;
   @override

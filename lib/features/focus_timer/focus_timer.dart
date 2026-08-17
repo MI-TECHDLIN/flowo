@@ -13,7 +13,7 @@ import 'package:flowo/features/focus_timer/play_card.dart';
 import 'package:provider/provider.dart';
 
 class FocusTimer extends StatefulWidget {
-  FocusTimer({required this.task});
+  const FocusTimer({super.key, required this.task});
   final TaskModel task;
 
   @override
@@ -289,9 +289,9 @@ getters would only display hours and mins for now the app is getting busy
   Widget build(BuildContext context) {
     //controller
     final id = widget.task.id;
-    final _controller = context.watch<TaskController>();
-    final todos = _controller.activetasks + _controller.completeedtasks;
-    final total_count = todos.length;
+    final controller = context.watch<TaskController>();
+    final todos = controller.activetasks + controller.completeedtasks;
+    final totalCount = todos.length;
 
     return Scaffold(
       appBar: AppBar(
@@ -454,7 +454,7 @@ getters would only display hours and mins for now the app is getting busy
                               ),
                               SizedBox(width: 8),
                               Text(
-                                'Session ${getIndexByiD(todos, id)} of $total_count',
+                                'Session ${getIndexByiD(todos, id)} of $totalCount',
                               ),
 
                               Container(

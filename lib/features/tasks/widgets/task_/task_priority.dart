@@ -6,7 +6,7 @@ enum priority { low, medium, high, state }
 
 // ignore: must_be_immutable
 class TaskPriority extends StatelessWidget {
-  TaskPriority({
+  TaskPriority({super.key, 
     required this.label,
     required this.backgroundcolor,
     required this.bordercolor,

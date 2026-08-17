@@ -1,8 +1,6 @@
 import 'package:flowo/constants/constant.dart';
 import 'package:flowo/features/ai/ai_card.dart';
-import 'package:flowo/features/tasks/screens/task_screen.dart';
 import 'package:flowo/features/tasks/task_functions.dart';
-import 'package:flowo/shared/widgets/bottom_nav.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

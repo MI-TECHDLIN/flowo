@@ -65,6 +65,10 @@ it wworks with our stream ... listentiask function acts as the listener
 
   //fetchsuggetion
   Future<void> fetchSuggestions() async {
+    '''
+this is used to fetch suggestion from fast api backend
+''';
+
     if (activetasks.isEmpty) return;
 
     _isloadingsug = true;
@@ -90,6 +94,11 @@ it wworks with our stream ... listentiask function acts as the listener
     int priority,
     BuildContext context,
   ) async {
+    '''
+
+this is function adds new task to the list of tasks 
+''';
+
     final task = TaskModel(
       id: '',
       time: time.format(context).toString(),
@@ -104,16 +113,26 @@ it wworks with our stream ... listentiask function acts as the listener
 
   // Toggle complete/incomplete
   Future<void> toggleTask(String userId, TaskModel task) async {
+    '''
+this is used to toggle pending anddone tasks
+''';
     await _taskService.toggleComplete(userId, task);
   }
 
   //delete a exisiting task form the dbs
   Future<void> deleteTask(String userId, String taskid) async {
+    '''
+this function basically deletes task that exist already in the userlogs
+''';
     await _taskService.deleteTask(userId, taskid);
   }
 
   //updatetask
   Future<void> updateTask(String userId, TaskModel task) async {
+    '''
+this function basically updates tasks
+-for users to edit for any case a already inputed task
+''';
     await _taskService.updateTask(userId, task);
   }
 }

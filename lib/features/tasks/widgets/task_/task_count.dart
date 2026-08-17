@@ -6,7 +6,7 @@ class TaskCount extends StatelessWidget {
   final String ptext;
   final Color tcolor;
 
-  const TaskCount(this.bgcolor, this.ktext, this.ptext, this.tcolor);
+  const TaskCount(this.bgcolor, this.ktext, this.ptext, this.tcolor, {super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -33,9 +33,9 @@ class _botttomsheetState extends State<botttomsheet> {
     '''
 this function checks for Timeoftype or string type
 ''';
-    if (text!.contains('day'))
+    if (text!.contains('day')) {
       return text;
-    else {
+    } else {
       return time!.format(context).toString();
     }
   }

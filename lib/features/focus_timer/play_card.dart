@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class PlayCard extends StatelessWidget {
   PlayCard(
-    this.icon, {
+    this.icon, {super.key, 
     required this.ontap,
     this.height = 72,
     this.width = 72,

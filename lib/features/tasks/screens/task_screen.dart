@@ -25,13 +25,13 @@ this function basically set a greeting time stamp for the task screen
 
 ''';
     final htime = int.parse(DateFormat.H().format(dtime));
-    if (htime < 12)
+    if (htime < 12) {
       return 'Good Morning, $name 👋';
-    else if (htime < 17)
+    } else if (htime < 17)
       return 'Good Afternoon, $name 👋';
     else if (htime < 24)
       return 'Good Evening, $name 👋';
-    return '$name';
+    return name;
   }
 
   @override
@@ -46,6 +46,7 @@ a initial request called   once
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     Widget emptystate = Center(
       child: Container(
@@ -183,16 +184,16 @@ a initial request called   once
       ),
     );
 
-    final _controller = context.watch<TaskController>();
-    final todo = _controller.activetasks;
-    final completed = _controller.completeedtasks;
-    final total_count = todo.length + completed.length;
+    final controller = context.watch<TaskController>();
+    final todo = controller.activetasks;
+    final completed = controller.completeedtasks;
+    final totalCount = todo.length + completed.length;
     return SafeArea(
       child: Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SingleChildScrollView(
-            child: total_count == 0
+            child: totalCount == 0
                 ? emptystate
                 : Column(
                     children: [
@@ -213,7 +214,7 @@ a initial request called   once
                             Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                'You have $total_count tasks today',
+                                'You have $totalCount tasks today',
                                 style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.w300,
@@ -240,7 +241,7 @@ a initial request called   once
                             //totalcount
                             TaskCount(
                               Color(0x58C8F0DC),
-                              total_count.toString(),
+                              totalCount.toString(),
                               'Remaining',
                               Color(0xFF5AC578),
                             ),
@@ -342,13 +343,13 @@ a initial request called   once
   }
 }
 
-Widget reusable_row_conc(int cont_color, String label) {
+Widget reusable_row_conc(int contColor, String label) {
   return Row(
     children: [
       Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(40),
-          color: Color(cont_color),
+          color: Color(contColor),
         ),
         height: 8,
         width: 8,

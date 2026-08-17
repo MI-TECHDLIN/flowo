@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TaskCard extends StatelessWidget {
-  TaskCard({required this.task});
+  const TaskCard({super.key, required this.task});
   final TaskModel task;
   //decription_converter
   String decript(TaskModel t) {
@@ -18,9 +18,9 @@ class TaskCard extends StatelessWidget {
 
   //head_color
   Color headcolor(int priority) {
-    if (priority == 3)
+    if (priority == 3) {
       return Color(0xffEF4444);
-    else if (priority == 2)
+    } else if (priority == 2)
       return Color(0xffF5A34A);
     else if (priority == 1)
       return Color(0xff5AC578);

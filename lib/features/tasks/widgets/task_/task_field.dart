@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class TaskField extends StatelessWidget {
-  TaskField({
+  TaskField({super.key, 
     required this.controller,
     required this.text,
     required this.hinttext,

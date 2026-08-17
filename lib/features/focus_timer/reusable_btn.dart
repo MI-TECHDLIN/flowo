@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class resuablebutton extends StatelessWidget {
-  resuablebutton({
+  const resuablebutton({super.key, 
     required this.function,
     required this.bgcolor,
     required this.textcolor,
