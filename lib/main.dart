@@ -1,3 +1,4 @@
+import 'package:flowo/authentication/sigin_in_screen.dart';
 import 'package:flowo/onboarding/onboardingscreen.dart';
 import 'package:flowo/shared/widgets/bottom_nav.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,7 @@ class FlowoApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF6C63FF)),
           useMaterial3: true,
         ),
-        home: Onboardingscreen(),
+        home: SiginInScreen(),
       ),
     );
   }
