@@ -1,3 +1,5 @@
+import 'package:flowo/authentication/sigin_in_screen.dart';
+import 'package:flowo/authentication/sign_up_screen.dart';
 import 'package:flowo/constants/constant.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +15,7 @@ class Onboardingscreen extends StatelessWidget {
             top: 70,
             right: 25,
             child: GestureDetector(
-              onTap: () => null,
+              onTap: () {},
               child: const Text(
                 'Skip',
                 style: TextStyle(color: Color(0xff6B7C8F)),
@@ -74,7 +76,10 @@ class Onboardingscreen extends StatelessWidget {
                         Color(0xffC89FF5),
                       ),
                     ),
-                    onPressed: () => null,
+                    onPressed: () => Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (c) => SignUpScreen()),
+                    ),
                     child: Text(
                       'Get Started',
                       style: TextStyle(
@@ -86,14 +91,20 @@ class Onboardingscreen extends StatelessWidget {
                   ),
                 ),
 
-                Container(
-                  margin: EdgeInsets.only(top: 15),
-                  child: Text(
-                    'I already have an account',
-                    style: TextStyle(
-                      color: Color(0xFFA250F9),
-                      letterSpacing: 1,
-                      fontWeight: FontWeight.w300,
+                GestureDetector(
+                  onTap: () => Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (c) => SiginInScreen()),
+                  ),
+                  child: Container(
+                    margin: EdgeInsets.only(top: 15),
+                    child: Text(
+                      'I already have an account',
+                      style: TextStyle(
+                        color: Color(0xFFA250F9),
+                        letterSpacing: 1,
+                        fontWeight: FontWeight.w300,
+                      ),
                     ),
                   ),
                 ),
