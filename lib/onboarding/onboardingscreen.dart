@@ -97,7 +97,7 @@ class Onboardingscreen extends StatelessWidget {
                     MaterialPageRoute(builder: (c) => SiginInScreen()),
                   ),
                   child: Container(
-                    margin: EdgeInsets.only(top: 15),
+                    margin: EdgeInsets.only(top: 18),
                     child: Text(
                       'I already have an account',
                       style: TextStyle(

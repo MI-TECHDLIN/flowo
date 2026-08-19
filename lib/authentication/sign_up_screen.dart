@@ -1,11 +1,11 @@
-import 'package:flowo/authentication/sign_up_screen.dart';
+import 'package:flowo/authentication/sigin_in_screen.dart';
 import 'package:flowo/authentication/widgets/cta_button.dart';
 import 'package:flowo/authentication/widgets/ctasub_button.dart';
 import 'package:flowo/authentication/widgets/textfield_card.dart';
 import 'package:flutter/material.dart';
 
-class SiginInScreen extends StatelessWidget {
-  const SiginInScreen({super.key});
+class SignUpScreen extends StatelessWidget {
+  const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -80,14 +80,14 @@ class SiginInScreen extends StatelessWidget {
                         icondata: Icons.lock,
                       ),
 
-                      CtaBtn(label: 'Sign in', ontap: () {}),
+                      CtaBtn(label: 'Sign up', ontap: () {}),
 
                       CtaSubBtn(
-                        label: 'Don\'t have an account?',
-                        actionlabel: 'Sign up',
+                        label: 'have an account?',
+                        actionlabel: 'Sign in',
                         ontap: () => Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (c) => SignUpScreen()),
+                          MaterialPageRoute(builder: (c) => SiginInScreen()),
                         ),
                       ),
                     ],
