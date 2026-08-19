@@ -1,4 +1,5 @@
-import 'package:flowo/shared/widgets/bottom_nav.dart';
+import 'package:flowo/authentication/sigin_in_screen.dart';
+import 'package:flowo/onboarding/onboardingscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
@@ -39,7 +40,7 @@ class FlowoApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF6C63FF)),
           useMaterial3: true,
         ),
-        home: Bottomnav(),
+        home: Onboardingscreen(),
       ),
     );
   }
