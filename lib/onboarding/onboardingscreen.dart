@@ -2,17 +2,18 @@ import 'package:flowo/authentication/provider/auth_provider.dart';
 import 'package:flowo/authentication/sigin_in_screen.dart';
 import 'package:flowo/authentication/sign_up_screen.dart';
 import 'package:flutter/material.dart';
+//TODO: imporove the UI for error catching in the onboarding screen
 
 class Onboardingscreen extends StatelessWidget {
   const Onboardingscreen({super.key});
 
   Future<void> test() async {
     AuthencticationProvider user = AuthencticationProvider(
-      email: 'ezechukwumiracle52@gmail.com',
+      email: 'ezechukwumi52@gmail.com',
       password: 'password',
     );
 
-    await user.createAccount();
+    await user.signUp();
   }
 
   @override
