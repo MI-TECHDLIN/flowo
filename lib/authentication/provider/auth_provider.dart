@@ -11,7 +11,7 @@ class AuthencticationProvider {
 
   String get _password => password;
 
-  Future<void> signUp() async {
+  Future<bool> signUp() async {
     '''
 this basically function basically creates account for you in that firm 
 ''';
@@ -24,14 +24,18 @@ this basically function basically creates account for you in that firm
       print(
         'this user logs: $userlogs, email: $_email, | password: $_password',
       );
+
+      return true;
     } catch (e) {
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text(e.toString())));
+
+      return false;
     }
   }
 
-  Future<void> signIn() async {
+  Future<bool> signIn() async {
     '''
 this function basically signs my exisiting users in firestore collectively
 ''';
@@ -41,10 +45,12 @@ this function basically signs my exisiting users in firestore collectively
         email: _email,
         password: _password,
       );
-
       print('this user  got successfully signed in ${userlogs}');
+
+      return true;
     } catch (e) {
-      print('error:${e.toString()}');
+      return false;
+      // print('error:${e.toString()}');
     }
   }
 
