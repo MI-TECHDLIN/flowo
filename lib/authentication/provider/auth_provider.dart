@@ -1,12 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
-//TODO: imporove the UI for error catching in the onboarding screen
+import 'package:flutter/material.dart';
 
 class AuthencticationProvider {
   final auth = FirebaseAuth.instance;
+  final BuildContext context;
   final String email;
   final String password;
 
   String get _email => email;
+
   String get _password => password;
 
   Future<void> signUp() async {
@@ -23,7 +25,9 @@ this basically function basically creates account for you in that firm
         'this user logs: $userlogs, email: $_email, | password: $_password',
       );
     } catch (e) {
-      return print('catched error: ${e.toString()}');
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }
 
@@ -58,5 +62,9 @@ this function basically sign out a user from the unique id from the cache
     }
   }
 
-  AuthencticationProvider({required this.email, required this.password});
+  AuthencticationProvider({
+    required this.context,
+    required this.email,
+    required this.password,
+  });
 }
