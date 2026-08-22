@@ -114,7 +114,7 @@ a initial request called   once
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (ctx) => AiSuggestionScreen()),
+                  MaterialPageRoute(builder: (context) => AiSuggestionScreen()),
                 );
               },
               child: Container(

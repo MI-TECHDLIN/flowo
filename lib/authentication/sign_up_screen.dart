@@ -1,11 +1,50 @@
+import 'package:flowo/authentication/provider/auth_provider.dart';
 import 'package:flowo/authentication/sigin_in_screen.dart';
 import 'package:flowo/authentication/widgets/cta_button.dart';
 import 'package:flowo/authentication/widgets/ctasub_button.dart';
 import 'package:flowo/authentication/widgets/textfield_card.dart';
+import 'package:flowo/features/tasks/screens/task_screen.dart';
 import 'package:flutter/material.dart';
 
-class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({super.key});
+//TODO: modified functionalitit for auth class
+
+//TODO: work on state functionality for cta button and signpscreen
+class SignUpScreen extends StatefulWidget {
+  SignUpScreen({super.key});
+
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  bool _waiting = true;
+
+  Future<void> _signup(BuildContext ctx, String email, String password) async {
+    '''
+private function triggered by AuthenticationProvider class to create account
+''';
+
+    AuthencticationProvider datalogs = AuthencticationProvider(
+      context: ctx,
+      email: email,
+      password: password,
+    );
+
+    _waiting;
+
+    await datalogs.signUp();
+
+    setState(() {
+      _waiting = !_waiting;
+    });
+
+    // _waiting == false
+    //     ? Navigator.pushReplacement(
+    //         context,
+    //         MaterialPageRoute(builder: (c) => Taskscreen()),
+    //       )
+    //     : null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +93,7 @@ class SignUpScreen extends StatelessWidget {
                     ),
 
                     Text(
-                      'Sign in to your account',
+                      'Create an account',
                       style: TextStyle(
                         letterSpacing: 1,
                         fontWeight: FontWeight.w300,
@@ -80,15 +119,22 @@ class SignUpScreen extends StatelessWidget {
                         icondata: Icons.lock,
                       ),
 
-                      CtaBtn(label: 'Sign up', ontap: () {}),
+                      CtaBtn(
+                        label: 'Sign up',
+                        ontap: () {
+                          _signup(context, 'ema5255@gmail.com', '12345666');
+                        },
+                      ),
 
                       CtaSubBtn(
                         label: 'have an account?',
                         actionlabel: 'Sign in',
-                        ontap: () => Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (c) => SiginInScreen()),
-                        ),
+                        ontap: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (c) => SiginInScreen()),
+                          );
+                        },
                       ),
                     ],
                   ),
