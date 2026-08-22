@@ -27,9 +27,19 @@ this basically function basically creates account for you in that firm
 
       return true;
     } catch (e) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(e.toString())));
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          margin: EdgeInsets.only(
+            bottom: MediaQuery.of(context).size.height - 110,
+            left: 12,
+            right: 12,
+          ),
+          behavior: SnackBarBehavior.floating,
+          dismissDirection: DismissDirection.up,
+          backgroundColor: const Color(0xFFE02417),
+          content: Text(e.toString()),
+        ),
+      );
 
       return false;
     }
@@ -49,6 +59,20 @@ this function basically signs my exisiting users in firestore collectively
 
       return true;
     } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          backgroundColor: const Color(0xffE02417),
+          margin: EdgeInsets.only(
+            bottom: MediaQuery.of(context).size.height - 110,
+            right: 12,
+            left: 12,
+          ),
+          behavior: SnackBarBehavior.floating,
+          dismissDirection: DismissDirection.up,
+          content: Text(e.toString()),
+        ),
+      );
+
       return false;
       // print('error:${e.toString()}');
     }
