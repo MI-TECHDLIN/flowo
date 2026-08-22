@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class textfield_card extends StatelessWidget {
   const textfield_card({
+    super.key,
     required this.textlabel,
     required this.texthint,
     required this.icondata,
@@ -49,7 +50,6 @@ class textfield_card extends StatelessWidget {
                   decoration: InputDecoration(
                     hintText: texthint,
                     hintStyle: const TextStyle(fontWeight: FontWeight.w300),
-
                     contentPadding: EdgeInsets.only(left: 0),
                     border: InputBorder.none,
                   ),

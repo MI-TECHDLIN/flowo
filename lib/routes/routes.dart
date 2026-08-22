@@ -4,9 +4,16 @@ import 'package:flowo/onboarding/onboardingscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-class Routes extends StatelessWidget {
+class Routes extends StatefulWidget {
   Routes({super.key});
+
+  @override
+  State<Routes> createState() => _RoutesState();
+}
+
+class _RoutesState extends State<Routes> {
   var listener = FirebaseAuth.instance.authStateChanges();
+
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(

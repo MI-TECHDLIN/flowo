@@ -38,12 +38,12 @@ private function triggered by AuthenticationProvider class to create account
       _waiting = !_waiting;
     });
 
-    // _waiting == false
-    //     ? Navigator.pushReplacement(
-    //         context,
-    //         MaterialPageRoute(builder: (c) => Taskscreen()),
-    //       )
-    //     : null;
+    _waiting == false
+        ? Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (c) => Taskscreen()),
+          )
+        : null;
   }
 
   @override
@@ -122,7 +122,7 @@ private function triggered by AuthenticationProvider class to create account
                       CtaBtn(
                         label: 'Sign up',
                         ontap: () {
-                          _signup(context, '2ttttt55@gmail.com', '12345666');
+                          _signup(context, 'dhd55@gmail.com', '12345666');
                         },
                       ),
 
