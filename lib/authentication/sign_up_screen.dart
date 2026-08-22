@@ -122,7 +122,7 @@ private function triggered by AuthenticationProvider class to create account
                       CtaBtn(
                         label: 'Sign up',
                         ontap: () {
-                          _signup(context, 'ema5255@gmail.com', '12345666');
+                          _signup(context, '2ttttt55@gmail.com', '12345666');
                         },
                       ),
 
