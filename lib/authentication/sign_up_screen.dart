@@ -9,16 +9,15 @@ import 'package:flutter/material.dart';
 //TODO: modified functionalitit for auth class
 
 //TODO: work on state functionality for cta button and signpscreen
-class SignUpScreen extends StatefulWidget {
+class SignUpScreen extends StatelessWidget {
   SignUpScreen({super.key});
 
-  @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
-}
+  //variables
 
-class _SignUpScreenState extends State<SignUpScreen> {
-  bool _waiting = true;
+  TextEditingController emailstr = TextEditingController();
+  TextEditingController passwordstr = TextEditingController();
 
+  ///functions
   Future<void> _signup(BuildContext ctx, String email, String password) async {
     '''
 private function triggered by AuthenticationProvider class to create account
@@ -30,17 +29,11 @@ private function triggered by AuthenticationProvider class to create account
       password: password,
     );
 
-    _waiting;
+    bool response = await datalogs.signUp();
 
-    await datalogs.signUp();
-
-    setState(() {
-      _waiting = !_waiting;
-    });
-
-    _waiting == false
+    response == true
         ? Navigator.pushReplacement(
-            context,
+            ctx,
             MaterialPageRoute(builder: (c) => Taskscreen()),
           )
         : null;
@@ -106,14 +99,16 @@ private function triggered by AuthenticationProvider class to create account
                   margin: EdgeInsets.symmetric(horizontal: 70, vertical: 80),
                   child: Column(
                     children: [
-                      textfield_card(
+                      reusable_textfield_card(
+                        formdata: emailstr,
                         textlabel: 'Email',
                         texthint: 'you@example.com',
                         icondata: Icons.email,
                       ),
                       SizedBox(height: 20),
 
-                      textfield_card(
+                      reusable_textfield_card(
+                        formdata: passwordstr,
                         textlabel: 'Password',
                         texthint: '. . . . . . . . . .',
                         icondata: Icons.lock,
@@ -122,7 +117,7 @@ private function triggered by AuthenticationProvider class to create account
                       CtaBtn(
                         label: 'Sign up',
                         ontap: () {
-                          _signup(context, 'dhd55@gmail.com', '12345666');
+                          _signup(context, emailstr.text, passwordstr.text);
                         },
                       ),
 

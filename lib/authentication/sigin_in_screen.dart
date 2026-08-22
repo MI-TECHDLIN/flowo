@@ -1,11 +1,40 @@
+import 'package:flowo/authentication/provider/auth_provider.dart';
 import 'package:flowo/authentication/sign_up_screen.dart';
 import 'package:flowo/authentication/widgets/cta_button.dart';
 import 'package:flowo/authentication/widgets/ctasub_button.dart';
 import 'package:flowo/authentication/widgets/textfield_card.dart';
+
+import 'package:flowo/features/tasks/screens/task_screen.dart';
 import 'package:flutter/material.dart';
 
 class SiginInScreen extends StatelessWidget {
-  const SiginInScreen({super.key});
+  SiginInScreen({super.key});
+
+  //variables
+
+  TextEditingController emailstr = TextEditingController();
+  TextEditingController passwordstr = TextEditingController();
+
+  //functions
+  Future<void> signIn(BuildContext ctx, String email, String password) async {
+    '''
+this function logs a exisiting account to its interface
+''';
+    AuthencticationProvider datalogs = AuthencticationProvider(
+      context: ctx,
+      email: email,
+      password: password,
+    );
+
+    bool response = await datalogs.signIn();
+
+    response == true
+        ? Navigator.pushReplacement(
+            ctx,
+            MaterialPageRoute(builder: (c) => Taskscreen()),
+          )
+        : null;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,20 +95,26 @@ class SiginInScreen extends StatelessWidget {
                 margin: EdgeInsets.symmetric(horizontal: 70, vertical: 80),
                 child: Column(
                   children: [
-                    textfield_card(
+                    reusable_textfield_card(
+                      formdata: emailstr,
                       textlabel: 'Email',
                       texthint: 'you@example.com',
                       icondata: Icons.email,
                     ),
                     SizedBox(height: 20),
 
-                    textfield_card(
+                    reusable_textfield_card(
+                      formdata: passwordstr,
                       textlabel: 'Password',
                       texthint: '. . . . . . . . . .',
                       icondata: Icons.lock,
                     ),
 
-                    CtaBtn(label: 'Sign in', ontap: () {}),
+                    CtaBtn(
+                      label: 'Sign in',
+                      ontap: () =>
+                          signIn(context, emailstr.text, passwordstr.text),
+                    ),
 
                     CtaSubBtn(
                       label: 'Don\'t have an account?',
