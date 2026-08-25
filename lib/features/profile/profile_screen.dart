@@ -82,7 +82,8 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
 
-                SizedBox(
+                Container(
+                  margin: EdgeInsets.only(top: 280),
                   height: 52,
                   width: 350,
                   child: ElevatedButton(
