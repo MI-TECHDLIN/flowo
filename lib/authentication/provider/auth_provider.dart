@@ -81,7 +81,7 @@ this function basically signs my exisiting users in firestore collectively
     }
   }
 
-  Future<void> signOut() async {
+  Future<bool> signOut() async {
     '''
 this function basically sign out a user from the unique id from the cache
 
@@ -91,8 +91,11 @@ this function basically sign out a user from the unique id from the cache
       var userlogs = await auth.signOut();
 
       print('successfully signed this user out');
+
+      return true;
     } catch (e) {
       print('error:${e.toString()}');
+      return false;
     }
   }
 

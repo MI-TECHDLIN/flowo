@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flowo/authentication/provider/auth_provider.dart';
+import 'package:flowo/authentication/sigin_in_screen.dart';
 import 'package:flowo/features/profile/widget/avatar_card.dart';
+import 'package:flowo/onboarding/onboardingscreen.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -80,24 +82,38 @@ class ProfileScreen extends StatelessWidget {
                   ),
                 ),
 
-                Container(
-                  decoration: BoxDecoration(color: Color(0xffFCA5A5)),
+                SizedBox(
                   height: 52,
                   width: 350,
                   child: ElevatedButton(
                     style: ButtonStyle(
+                      side: WidgetStatePropertyAll(
+                        BorderSide(color: Color(0xffFCA5A5)),
+                      ),
                       backgroundColor: WidgetStatePropertyAll(
                         Color(0xffFFFFFF),
                       ),
                     ),
-                    onPressed: () {
+                    onPressed: () async {
                       AuthencticationProvider authstate =
                           AuthencticationProvider(context: context);
-                      authstate.signOut();
+                      var auth = await authstate.signOut();
+
+                      auth == true
+                          ? Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (c) => SiginInScreen(),
+                              ),
+                            )
+                          : null;
                     },
-                    child: Text(
+                    child: const Text(
                       'Sign Out',
-                      style: TextStyle(color: Color(0xffEF4444)),
+                      style: TextStyle(
+                        fontSize: 16.5,
+                        color: Color(0xffEF4444),
+                      ),
                     ),
                   ),
                 ),
