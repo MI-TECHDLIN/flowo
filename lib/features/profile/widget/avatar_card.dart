@@ -9,6 +9,7 @@ class AvatarCard extends StatefulWidget {
 }
 
 class _AvatarCardState extends State<AvatarCard> {
+  int profilecolor = 0xff8B5CF6;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -22,7 +23,6 @@ class _AvatarCardState extends State<AvatarCard> {
 
             width: 80,
             decoration: BoxDecoration(
-              color: Color(0xff8B5CF6),
               borderRadius: BorderRadius.circular(9999),
             ),
             child: Text(
@@ -40,13 +40,44 @@ class _AvatarCardState extends State<AvatarCard> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                reusable_avatar(color: 0xff8B5CF6),
-                reusable_avatar(color: 0xffF472B6),
+                reusable_avatar(
+                  color: 0xff8B5CF6,
+                  ontouch: () => setState(() {
+                    profilecolor = 0xff8B5CF6;
+                  }),
+                ),
 
-                reusable_avatar(color: 0xff60A5FA),
-                reusable_avatar(color: 0xff34D399),
-                reusable_avatar(color: 0xffFB923C),
-                reusable_avatar(color: 0xffFBBF24),
+                reusable_avatar(
+                  color: 0xffF472B6,
+                  ontouch: () => setState(() {
+                    profilecolor = 0xffF472B6;
+                  }),
+                ),
+
+                reusable_avatar(
+                  color: 0xff60A5FA,
+                  ontouch: () => setState(() {
+                    profilecolor = 0xff60A5FA;
+                  }),
+                ),
+                reusable_avatar(
+                  color: 0xff34D399,
+                  ontouch: () => setState(() {
+                    profilecolor = 0xff34D399;
+                  }),
+                ),
+                reusable_avatar(
+                  color: 0xffFB923C,
+                  ontouch: () => setState(() {
+                    profilecolor = 0xffFB923C;
+                  }),
+                ),
+                reusable_avatar(
+                  color: 0xffFBBF24,
+                  ontouch: () => setState(() {
+                    profilecolor = 0xffFBBF24;
+                  }),
+                ),
               ],
             ),
           ),
