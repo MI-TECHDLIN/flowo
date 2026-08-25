@@ -1,8 +1,10 @@
-import 'package:flowo/features/profile/widget/reuseable_avatatr.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flowo/authentication/provider/auth_provider.dart';
+import 'package:flowo/features/profile/widget/avatar_card.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -23,47 +25,83 @@ class ProfileScreen extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            SizedBox(
-              height: 400,
-              child: Column(
-                children: [
-                  Container(
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.only(top: 30),
-                    height: 80,
+            AvatarCard(),
 
-                    width: 80,
-                    decoration: BoxDecoration(
-                      color: Color(0xff8B5CF6),
-                      borderRadius: BorderRadius.circular(9999),
-                    ),
-                    child: Text(
-                      'JD',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25,
-                        fontWeight: FontWeight.w700,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('DISPLAY NAME'),
+                Container(
+                  margin: EdgeInsets.only(top: 15),
+                  height: 52,
+                  width: 350,
+                  decoration: BoxDecoration(
+                    border: BoxBorder.all(color: Color(0xffE5E7EB)),
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hint: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text('Jordan Davis'),
                       ),
                     ),
                   ),
+                ),
 
-                  Container(
-                    margin: EdgeInsets.only(top: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        reusable_avatar(color: 0xff8B5CF6),
-                        reusable_avatar(color: 0xffF472B6),
-
-                        reusable_avatar(color: 0xff60A5FA),
-                        reusable_avatar(color: 0xff34D399),
-                        reusable_avatar(color: 0xffFB923C),
-                        reusable_avatar(color: 0xffFBBF24),
-                      ],
+                SizedBox(height: 30),
+                Text('ACCOUNT'),
+                Container(
+                  height: 52,
+                  width: 350,
+                  margin: EdgeInsets.only(top: 15),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(color: Color(0xffE5E7EB)),
+                  ),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      hint: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Email', style: TextStyle(fontSize: 16)),
+                            Text(
+                              'jordan@gmail.com',
+                              style: TextStyle(fontWeight: FontWeight.w300),
+                            ),
+                          ],
+                        ),
+                      ),
+                      border: InputBorder.none,
                     ),
                   ),
-                ],
-              ),
+                ),
+
+                Container(
+                  decoration: BoxDecoration(color: Color(0xffFCA5A5)),
+                  height: 52,
+                  width: 350,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: WidgetStatePropertyAll(
+                        Color(0xffFFFFFF),
+                      ),
+                    ),
+                    onPressed: () {
+                      AuthencticationProvider authstate =
+                          AuthencticationProvider(context: context);
+                      authstate.signOut();
+                    },
+                    child: Text(
+                      'Sign Out',
+                      style: TextStyle(color: Color(0xffEF4444)),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
