@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 
-class textfield_card extends StatelessWidget {
-  const textfield_card({
+class reusable_textfield_card extends StatelessWidget {
+  const reusable_textfield_card({
+    super.key,
     required this.textlabel,
+    required this.formdata,
     required this.texthint,
     required this.icondata,
   });
 
   final String textlabel;
   final String texthint;
+  final TextEditingController formdata;
   final IconData icondata;
 
   @override
@@ -46,10 +49,10 @@ class textfield_card extends StatelessWidget {
                 height: 50,
                 width: 180,
                 child: TextField(
+                  controller: formdata,
                   decoration: InputDecoration(
                     hintText: texthint,
                     hintStyle: const TextStyle(fontWeight: FontWeight.w300),
-
                     contentPadding: EdgeInsets.only(left: 0),
                     border: InputBorder.none,
                   ),

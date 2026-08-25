@@ -2,6 +2,7 @@
 
 import 'package:flowo/constants/constant.dart';
 import 'package:flowo/features/ai/ai_suggestion_screen.dart';
+import 'package:flowo/features/profile/profile_screen.dart';
 import 'package:flowo/main.dart';
 import 'package:provider/provider.dart';
 import '../task_functions.dart';
@@ -114,7 +115,7 @@ a initial request called   once
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (ctx) => AiSuggestionScreen()),
+                  MaterialPageRoute(builder: (context) => AiSuggestionScreen()),
                 );
               },
               child: Container(
@@ -188,9 +189,60 @@ a initial request called   once
     final todo = controller.activetasks;
     final completed = controller.completeedtasks;
     final totalCount = todo.length + completed.length;
-    return SafeArea(
-      child: Scaffold(
-        body: Padding(
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 100,
+        title: Container(
+          // margin: EdgeInsets.only(top),
+          padding: EdgeInsets.all(10),
+          child: Column(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  greettingfunc('Miracle'),
+
+                  style: TextStyle(fontSize: 24),
+                ),
+              ),
+              SizedBox(height: 10),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'You have $totalCount tasks today',
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        actions: [
+          InkWell(
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(builder: (c) => ProfileScreen()),
+            ),
+            child: Container(
+              margin: EdgeInsets.all(20),
+              alignment: Alignment.center,
+              height: 50,
+              width: 50,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(9999),
+                color: Colors.blue,
+              ),
+
+              child: Text(
+                'E',
+                style: TextStyle(color: Colors.white, fontSize: 20),
+              ),
+            ),
+          ),
+        ],
+      ),
+      body: SafeArea(
+        child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: SingleChildScrollView(
             child: totalCount == 0
@@ -198,32 +250,6 @@ a initial request called   once
                 : Column(
                     children: [
                       // welcome container with greeting function
-                      Container(
-                        padding: EdgeInsets.all(10),
-                        child: Column(
-                          children: [
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                greettingfunc('Miracle'),
-
-                                style: TextStyle(fontSize: 24),
-                              ),
-                            ),
-                            SizedBox(height: 10),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'You have $totalCount tasks today',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w300,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
 
                       //task section for completed task,remaining,overdue
                       Container(
