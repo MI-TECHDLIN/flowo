@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class AuthencticationProvider {
   final auth = FirebaseAuth.instance;
-  final BuildContext context;
-  final String email;
-  final String password;
+  BuildContext context;
+  String email;
+  String password;
 
   String get _email => email;
 
@@ -57,6 +57,9 @@ this function basically signs my exisiting users in firestore collectively
       );
       print('this user  got successfully signed in ${userlogs}');
 
+      // auth.userChanges()
+      //TODO: user changes for screens for auth screens
+
       return true;
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -86,6 +89,7 @@ this function basically sign out a user from the unique id from the cache
 
     try {
       var userlogs = await auth.signOut();
+
       print('successfully signed this user out');
     } catch (e) {
       print('error:${e.toString()}');
@@ -94,7 +98,8 @@ this function basically sign out a user from the unique id from the cache
 
   AuthencticationProvider({
     required this.context,
-    required this.email,
-    required this.password,
+
+    this.email = 'lmafo@gmail.com',
+    this.password = '123456',
   });
 }
