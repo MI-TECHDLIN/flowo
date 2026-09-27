@@ -1,7 +1,7 @@
 import 'package:flowo/constants/constant.dart';
 import 'package:flowo/data/models/task_model.dart';
 import 'package:flowo/features/focus_timer/focus_timer.dart';
-import 'package:flowo/features/tasks/task_functions.dart';
+import 'package:flowo/services/task_functions.dart';
 import 'package:flowo/main.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

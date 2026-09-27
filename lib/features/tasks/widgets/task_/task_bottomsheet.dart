@@ -1,5 +1,5 @@
 import 'package:flowo/constants/constant.dart';
-import 'package:flowo/features/tasks/task_functions.dart';
+import 'package:flowo/services/task_functions.dart';
 import 'package:flowo/features/tasks/widgets/task_/reusable_increment_btn.dart';
 import 'package:flowo/features/tasks/widgets/task_/task_field.dart';
 import 'package:flowo/features/tasks/widgets/task_/task_priority.dart';

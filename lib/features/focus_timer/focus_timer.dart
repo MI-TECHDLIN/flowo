@@ -6,7 +6,7 @@ import 'package:flowo/features/focus_timer/reusable_btn.dart';
 import 'dart:async';
 import 'package:flowo/constants/constant.dart';
 import 'package:flowo/features/focus_timer/time_card.dart';
-import 'package:flowo/features/tasks/task_functions.dart';
+import 'package:flowo/services/task_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:goal_progress_indicator/goal_progress_indicator.dart';
 import 'package:flowo/features/focus_timer/play_card.dart';

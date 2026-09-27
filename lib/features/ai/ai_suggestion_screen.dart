@@ -1,6 +1,6 @@
 import 'package:flowo/constants/constant.dart';
 import 'package:flowo/features/ai/ai_card.dart';
-import 'package:flowo/features/tasks/task_functions.dart';
+import 'package:flowo/services/task_functions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

@@ -2,11 +2,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flowo/authentication/provider/auth_provider.dart';
 import 'package:flowo/authentication/sigin_in_screen.dart';
 import 'package:flowo/features/profile/widget/avatar_card.dart';
-import 'package:flowo/onboarding/onboardingscreen.dart';
+import 'package:flowo/services/user_service.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
+
+  var userlog = UserService();
+
+  User? get displayname => userlog.userlogs;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +19,15 @@ class ProfileScreen extends StatelessWidget {
         actions: [
           Container(
             margin: EdgeInsets.all(15),
-            child: Text('Save', style: TextStyle(fontWeight: FontWeight.w300)),
+            child: Container(
+              width: 150,
+              height: 80,
+
+              child: Text(
+                'Save',
+                style: TextStyle(fontWeight: FontWeight.w300),
+              ),
+            ),
           ),
         ],
         centerTitle: true,
@@ -46,7 +58,7 @@ class ProfileScreen extends StatelessWidget {
                       border: InputBorder.none,
                       hint: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: Text('Jordan Davis'),
+                        child: Text('$displayname'),
                       ),
                     ),
                   ),

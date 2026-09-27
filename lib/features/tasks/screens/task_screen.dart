@@ -5,7 +5,7 @@ import 'package:flowo/features/ai/ai_suggestion_screen.dart';
 import 'package:flowo/features/profile/profile_screen.dart';
 import 'package:flowo/main.dart';
 import 'package:provider/provider.dart';
-import '../task_functions.dart';
+import '../../../services/task_functions.dart';
 import 'package:flowo/features/tasks/widgets/task_/task_card.dart';
 import 'package:flowo/features/tasks/widgets/task_/task_count.dart';
 import 'package:flutter/material.dart';
