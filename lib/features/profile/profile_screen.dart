@@ -59,7 +59,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              AvatarCard(abbr: displayname!),
+              AvatarCard(),
 
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

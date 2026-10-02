@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 enum colorprority { color1, color2, color3, color4, color5, color6 }
 
 class AvatarCard extends StatefulWidget {
-  AvatarCard({required this.abbr});
+  AvatarCard({this.abbr = 'FLOWO'});
   String abbr;
 
   @override
@@ -19,7 +19,7 @@ class _AvatarCardState extends State<AvatarCard> {
 
   @override
   Widget build(BuildContext context) {
-    String edit = widget.abbr.substring(0, 1);
+    String edit = widget.abbr.substring(0, 2);
 
     return SizedBox(
       height: 220,
