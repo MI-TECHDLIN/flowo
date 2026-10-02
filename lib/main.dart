@@ -5,7 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
-import 'features/tasks/task_functions.dart';
+import 'services/task_functions.dart';
 
 //TODO:this timer material widget lags i will get a third  party pckage
 //ToDo:make sure to remove test mode from firestore dbs

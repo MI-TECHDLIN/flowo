@@ -11,9 +11,10 @@ class AuthencticationProvider {
 
   String get _password => password;
 
+  //signup funct
   Future<bool> signUp() async {
     '''
-this basically function basically creates account for you in that firm 
+this  function basically creates account for you in that state
 ''';
     try {
       var userlogs = await auth.createUserWithEmailAndPassword(
@@ -45,6 +46,7 @@ this basically function basically creates account for you in that firm
     }
   }
 
+  //signin
   Future<bool> signIn() async {
     '''
 this function basically signs my exisiting users in firestore collectively
@@ -81,6 +83,7 @@ this function basically signs my exisiting users in firestore collectively
     }
   }
 
+  //save
   Future<bool> signOut() async {
     '''
 this function basically sign out a user from the unique id from the cache
@@ -90,18 +93,19 @@ this function basically sign out a user from the unique id from the cache
     try {
       var userlogs = await auth.signOut();
 
-      print('successfully signed this user out');
-
       return true;
     } catch (e) {
-      print('error:${e.toString()}');
       return false;
     }
   }
 
+
+
+
+
+
   AuthencticationProvider({
     required this.context,
-
     this.email = 'lmafo@gmail.com',
     this.password = '123456',
   });
