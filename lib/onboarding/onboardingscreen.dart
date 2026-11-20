@@ -1,4 +1,3 @@
-import 'package:flowo/authentication/provider/auth_provider.dart';
 import 'package:flowo/authentication/sigin_in_screen.dart';
 import 'package:flowo/authentication/sign_up_screen.dart';
 import 'package:flutter/material.dart';

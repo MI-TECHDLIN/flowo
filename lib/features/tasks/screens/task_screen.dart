@@ -19,27 +19,31 @@ class Taskscreen extends StatefulWidget {
 
 class _TaskscreenState extends State<Taskscreen> {
   DateTime dtime = DateTime.now();
-  String _username = LocalStorageService.defaultUsername;
+  String _username = '';
 
   String greettingfunc(String name) {
     '''
 this function basically set a greeting time stamp for the task screen''';
 
     final htime = int.parse(DateFormat.H().format(dtime));
-    if (htime < 12) {
-      return 'Good Morning, $name 👋';
-    } else if (htime < 17)
-      return 'Good Afternoon, $name 👋';
-    else if (htime < 24)
-      return 'Good Evening, $name 👋';
-    return name;
+    final timeOfDay = htime < 12
+        ? 'Good Morning'
+        : htime < 17
+            ? 'Good Afternoon'
+            : 'Good Evening';
+
+    final trimmed = name.trim();
+    if (trimmed.isNotEmpty) {
+      return '$timeOfDay, $trimmed 👋';
+    }
+    return '$timeOfDay 👋';
   }
 
   Future<void> _loadUsername() async {
     final name = await LocalStorageService.getUsername();
     if (mounted) {
       setState(() {
-        _username = name;
+        _username = name ?? '';
       });
     }
   }

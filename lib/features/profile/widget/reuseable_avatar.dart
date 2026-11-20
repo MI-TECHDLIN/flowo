@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class reusable_avatar extends StatelessWidget {
-  reusable_avatar({
+  reusable_avatar({super.key, 
     required this.color,
     required this.bordercolor,
     required this.ontouch,

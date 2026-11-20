@@ -1,28 +1,26 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flowo/authentication/provider/auth_provider.dart';
 import 'package:flowo/authentication/sigin_in_screen.dart';
 import 'package:flowo/authentication/widgets/cta_button.dart';
 import 'package:flowo/authentication/widgets/ctasub_button.dart';
 import 'package:flowo/authentication/widgets/textfield_card.dart';
+import 'package:flowo/data/services/local_storage_service.dart';
 import 'package:flowo/features/tasks/screens/task_screen.dart';
 import 'package:flutter/material.dart';
 
-//TODO: modified functionalitit for auth class
-
-//TODO: work on state functionality for cta button and signpscreen
 class SignUpScreen extends StatelessWidget {
   SignUpScreen({super.key});
 
-  //variables
+  final TextEditingController namestr = TextEditingController();
+  final TextEditingController emailstr = TextEditingController();
+  final TextEditingController passwordstr = TextEditingController();
 
-  TextEditingController emailstr = TextEditingController();
-  TextEditingController passwordstr = TextEditingController();
-
-  ///functions
-  Future<void> _signup(BuildContext ctx, String email, String password) async {
-    '''
-private function triggered by AuthenticationProvider class to create account
-''';
-
+  Future<void> _signup(
+    BuildContext ctx,
+    String name,
+    String email,
+    String password,
+  ) async {
     AuthencticationProvider datalogs = AuthencticationProvider(
       context: ctx,
       email: email,
@@ -31,12 +29,19 @@ private function triggered by AuthenticationProvider class to create account
 
     bool response = await datalogs.signUp();
 
-    response == true
-        ? Navigator.pushReplacement(
-            ctx,
-            MaterialPageRoute(builder: (c) => Taskscreen()),
-          )
-        : null;
+    if (response == true) {
+      final trimmedName = name.trim();
+      if (trimmedName.isNotEmpty) {
+        await LocalStorageService.saveUsername(trimmedName);
+        await FirebaseAuth.instance.currentUser?.updateDisplayName(trimmedName);
+      }
+      if (ctx.mounted) {
+        Navigator.pushReplacement(
+          ctx,
+          MaterialPageRoute(builder: (c) => const Taskscreen()),
+        );
+      }
+    }
   }
 
   @override
@@ -49,8 +54,8 @@ private function triggered by AuthenticationProvider class to create account
               children: [
                 Container(
                   height: 90,
-                  margin: EdgeInsets.symmetric(horizontal: 100),
-                  child: Row(
+                  margin: const EdgeInsets.symmetric(horizontal: 100),
+                  child: const Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Image(
@@ -71,7 +76,7 @@ private function triggered by AuthenticationProvider class to create account
                   ),
                 ),
 
-                Column(
+                const Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
@@ -96,16 +101,24 @@ private function triggered by AuthenticationProvider class to create account
                 ),
 
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 70, vertical: 80),
+                  margin: const EdgeInsets.symmetric(horizontal: 70, vertical: 40),
                   child: Column(
                     children: [
+                      reusable_textfield_card(
+                        formdata: namestr,
+                        textlabel: 'Display Name',
+                        texthint: 'Your name',
+                        icondata: Icons.person,
+                      ),
+                      const SizedBox(height: 20),
+
                       reusable_textfield_card(
                         formdata: emailstr,
                         textlabel: 'Email',
                         texthint: 'you@example.com',
                         icondata: Icons.email,
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
 
                       reusable_textfield_card(
                         formdata: passwordstr,
@@ -117,7 +130,12 @@ private function triggered by AuthenticationProvider class to create account
                       CtaBtn(
                         label: 'Sign up',
                         ontap: () {
-                          _signup(context, emailstr.text, passwordstr.text);
+                          _signup(
+                            context,
+                            namestr.text,
+                            emailstr.text,
+                            passwordstr.text,
+                          );
                         },
                       ),
 

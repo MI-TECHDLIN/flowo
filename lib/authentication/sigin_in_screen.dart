@@ -1,9 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flowo/authentication/provider/auth_provider.dart';
 import 'package:flowo/authentication/sign_up_screen.dart';
 import 'package:flowo/authentication/widgets/cta_button.dart';
 import 'package:flowo/authentication/widgets/ctasub_button.dart';
 import 'package:flowo/authentication/widgets/textfield_card.dart';
-
+import 'package:flowo/data/services/local_storage_service.dart';
 import 'package:flowo/features/tasks/screens/task_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -12,8 +13,8 @@ class SiginInScreen extends StatelessWidget {
 
   //variables
 
-  TextEditingController emailstr = TextEditingController();
-  TextEditingController passwordstr = TextEditingController();
+  final TextEditingController emailstr = TextEditingController();
+  final TextEditingController passwordstr = TextEditingController();
 
   //functions
   Future<void> signIn(BuildContext ctx, String email, String password) async {
@@ -28,12 +29,18 @@ this function logs a exisiting account to its interface
 
     bool response = await datalogs.signIn();
 
-    response == true
-        ? Navigator.pushReplacement(
-            ctx,
-            MaterialPageRoute(builder: (c) => Taskscreen()),
-          )
-        : null;
+    if (response == true) {
+      final user = FirebaseAuth.instance.currentUser;
+      if (user?.displayName != null && user!.displayName!.trim().isNotEmpty) {
+        await LocalStorageService.saveUsername(user.displayName!.trim());
+      }
+      if (ctx.mounted) {
+        Navigator.pushReplacement(
+          ctx,
+          MaterialPageRoute(builder: (c) => const Taskscreen()),
+        );
+      }
+    }
   }
 
   @override

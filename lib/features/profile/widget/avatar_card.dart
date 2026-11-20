@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 enum colorprority { color1, color2, color3, color4, color5, color6 }
 
 class AvatarCard extends StatefulWidget {
-  const AvatarCard({super.key});
+  final String? initials;
+  const AvatarCard({super.key, this.initials});
 
   @override
   State<AvatarCard> createState() => _AvatarCardState();
@@ -34,7 +35,7 @@ class _AvatarCardState extends State<AvatarCard> {
               color: Color(profilecolor),
             ),
             child: Text(
-              'JD',
+              widget.initials ?? 'JD',
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 25,

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CtaBtn extends StatefulWidget {
-  CtaBtn({super.key, required this.label, required this.ontap});
+  const CtaBtn({super.key, required this.label, required this.ontap});
   final String label;
   final VoidCallback ontap;
 
