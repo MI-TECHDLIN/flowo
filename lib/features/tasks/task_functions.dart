@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flowo/data/models/suggestiion_response,.dart';
 import 'package:flowo/data/services/ai_service.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,10 @@ class TaskController extends ChangeNotifier {
   final TaskService _taskService = TaskService();
   List<TaskModel> _tasks = [];
   var aiservice = AiService();
+  StreamSubscription<List<TaskModel>>? _tasksSubscription;
+
+  String _currentUserId = '';
+  String get currentUserId => _currentUserId;
 
   //ai_variables
   bool _isloadingsug = false;
@@ -39,6 +44,7 @@ class TaskController extends ChangeNotifier {
 
   //thhis listens to the firestore dbs
   void listenTOtasks(String userId) {
+    _currentUserId = userId;
     _isloading = true;
     notifyListeners();
     '''
@@ -46,7 +52,8 @@ Any update made on firestore this functions basicalyy listens to it
 it wworks with our stream ... listentiask function acts as the listener 
 ''';
 
-    _taskService
+    _tasksSubscription?.cancel();
+    _tasksSubscription = _taskService
         .gettasks(userId)
         .listen(
           (tasks) {
@@ -61,6 +68,12 @@ it wworks with our stream ... listentiask function acts as the listener
             notifyListeners();
           },
         );
+  }
+
+  @override
+  void dispose() {
+    _tasksSubscription?.cancel();
+    super.dispose();
   }
 
   //fetchsuggetion

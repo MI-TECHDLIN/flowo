@@ -108,8 +108,11 @@ am actually having issue put a timeofday type and String in the same widget so a
       return;
     }
 
+    final currentUserId = context.read<TaskController>().currentUserId;
+    final targetUserId = currentUserId.isNotEmpty ? currentUserId : kTestUserId;
+
     await context.read<TaskController>().addTask(
-      kTestUserId,
+      targetUserId,
       title,
       description,
       duration,

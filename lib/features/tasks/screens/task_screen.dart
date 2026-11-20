@@ -2,7 +2,6 @@ import 'package:flowo/constants/constant.dart';
 import 'package:flowo/data/services/local_storage_service.dart';
 import 'package:flowo/features/ai/ai_suggestion_screen.dart';
 import 'package:flowo/features/profile/profile_screen.dart';
-import 'package:flowo/main.dart';
 import 'package:provider/provider.dart';
 import '../task_functions.dart';
 import 'package:flowo/features/tasks/widgets/task_/task_card.dart';
@@ -29,8 +28,8 @@ this function basically set a greeting time stamp for the task screen''';
     final timeOfDay = htime < 12
         ? 'Good Morning'
         : htime < 17
-            ? 'Good Afternoon'
-            : 'Good Evening';
+        ? 'Good Afternoon'
+        : 'Good Evening';
 
     final trimmed = name.trim();
     if (trimmed.isNotEmpty) {
@@ -41,10 +40,15 @@ this function basically set a greeting time stamp for the task screen''';
 
   Future<void> _loadUsername() async {
     final name = await LocalStorageService.getUsername();
+    final userId = await LocalStorageService.getUserId();
     if (mounted) {
       setState(() {
         _username = name ?? '';
       });
+      final currentControllerId = context.read<TaskController>().currentUserId;
+      if (currentControllerId != userId) {
+        context.read<TaskController>().listenTOtasks(userId);
+      }
     }
   }
 
@@ -52,11 +56,14 @@ this function basically set a greeting time stamp for the task screen''';
   void initState() {
     super.initState();
     _loadUsername();
-    Future.microtask(() {
+    Future.microtask(() async {
       '''
 a initial request called   once
 ''';
-      context.read<TaskController>().listenTOtasks(kTestUserId);
+      final userId = await LocalStorageService.getUserId();
+      if (mounted) {
+        context.read<TaskController>().listenTOtasks(userId);
+      }
     });
   }
 

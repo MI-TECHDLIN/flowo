@@ -137,7 +137,9 @@ this function is a widgetstate constraint used to get statecolor
                                         ),
                                         value: isCheck,
                                         onChanged: (_) => controller.toggleTask(
-                                          kTestUserId,
+                                          controller.currentUserId.isNotEmpty
+                                              ? controller.currentUserId
+                                              : kTestUserId,
                                           widget.task,
                                         ),
                                       ),
@@ -272,7 +274,12 @@ this function is a widgetstate constraint used to get statecolor
                 child: !widget.task.isCompleted
                     ? IconButton.outlined(
                         onPressed: () {
-                          controller.deleteTask(kTestUserId, widget.task.id);
+                          controller.deleteTask(
+                            controller.currentUserId.isNotEmpty
+                                ? controller.currentUserId
+                                : kTestUserId,
+                            widget.task.id,
+                          );
                         },
 
                         icon: Icon(Icons.delete_forever),
