@@ -9,6 +9,9 @@ flowo this is a productivity tool that re ranks daily tasks based on importance 
 
 ## How flowo works
 
+-onboarding screen
+<img width="720" height="1604" alt="Screenshot_20261120-225539" src="https://github.com/user-attachments/assets/421e0b13-6b66-460f-a40e-b6871daedce1" />
+
 - create a task
   <img width="720" height="1604" alt="Screenshot_20260531-170043" src="https://github.com/user-attachments/assets/c23ea4c7-5725-4d20-b477-2f96eef312f5" />
 
@@ -19,13 +22,22 @@ flowo this is a productivity tool that re ranks daily tasks based on importance 
   <img width="720" height="1604" alt="Screenshot_20260531-170340" src="https://github.com/user-attachments/assets/00cd4fe7-9a49-45dd-b18a-0db7025eeef5" />
 
 - re ranked tasks
-  <img width="720" height="1604" alt="Screenshot_20260531-170424" src="https://github.com/user-attachments/assets/1b192594-f4c4-4e0c-9ec7-ae67664850ba" />
+ <img width="720" height="1604" alt="Screenshot_20261120-224038" src="https://github.com/user-attachments/assets/6bb89955-178d-48b9-a2cd-af36778e564f" />
+
+- profile screen
+  <img width="720" height="1604" alt="Screenshot_20261120-224042" src="https://github.com/user-attachments/assets/03021173-c3d5-4702-8b85-0ef3db93006e" />
+
+- task field 
+- <img width="720" height="1604" alt="Screenshot_20261120-224016" src="https://github.com/user-attachments/assets/06817bdd-31bd-45fe-b97f-8525f310890a" />
+
+
 
 ## Video demo 
-https://github.com/user-attachments/assets/c19748f7-da30-49cb-b9c5-3a6af87bafc8
+https://github.com/user-attachments/assets/b6490832-5e9c-4fa9-b013-f754637a351d
+
 
 for a better quality check out this drive:
-https://drive.google.com/file/d/1HyTMUxGqOqqY4nnAyaadVrEKx5q7mWnc/view?usp=sharing
+https://drive.google.com/file/d/1vi-dZl1CBHU4Kbnb84zYIqjaoj4mQYyC/view?usp=sharing
 
 ## Stack 
 - Flutter SDK 
@@ -59,10 +71,14 @@ flutter run
 
 ## Note
 - minimum SDK - 35 for andriod 
-- for v1.0.0 the app size is 144mb because of a local server and complex functionality
-- for v1.1.0 which used render for backend rending and api services, the app size is optimized to 50mb and refractored
-- for delete feature for task card would be implemented in v.2.0.0
-- custom authentication involving login and complex authentication state would be implemented in v2.0.0
+- for v1.2.0 the app size is 144mb because of a local server and complex functionality
+- for v1.2.0 which used render for backend rending and api services, the app size is optimized to 56mb and refractored
+- delete feature is configured
+- changed ai model from ollama to gpt-0SS
+- Login and auth system functional and a full auth system
+- profile screen feature with color selctor
+  
+  
 
 Create a `.env` file in `flowo_backend/`:
 ```
