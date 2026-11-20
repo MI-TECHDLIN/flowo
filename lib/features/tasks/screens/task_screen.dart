@@ -2,6 +2,7 @@ import 'package:flowo/constants/constant.dart';
 import 'package:flowo/data/services/local_storage_service.dart';
 import 'package:flowo/features/ai/ai_suggestion_screen.dart';
 import 'package:flowo/features/profile/profile_screen.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import '../task_functions.dart';
 import 'package:flowo/features/tasks/widgets/task_/task_card.dart';
@@ -212,6 +213,17 @@ a initial request called   once
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 100,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        systemOverlayStyle: const SystemUiOverlayStyle(
+          statusBarColor: Colors.white,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light,
+          systemNavigationBarColor: Colors.white,
+          systemNavigationBarIconBrightness: Brightness.dark,
+          systemNavigationBarDividerColor: Colors.transparent,
+        ),
         title: Container(
           // margin: EdgeInsets.only(top),
           padding: EdgeInsets.all(10),
@@ -387,6 +399,13 @@ a initial request called   once
                   ),
           ),
         ),
+      ),
+
+      floatingActionButton: FloatingActionButton(
+        highlightElevation: 15,
+        backgroundColor: Colors.purpleAccent,
+        child: Icon(Icons.add, color: Colors.white),
+        onPressed: () => addtask(context),
       ),
     );
   }

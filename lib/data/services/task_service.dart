@@ -13,7 +13,12 @@ class TaskService {
 
   //create -aadd anew task
   Future<void> addTask(String userId, TaskModel task) async {
-    await _tasksRef(userId).add(task.toFirestore());
+    await _tasksRef(userId).add(task.toFirestore()).timeout(
+      const Duration(seconds: 4),
+      onTimeout: () {
+        return _tasksRef(userId).doc();
+      },
+    );
   }
 
   //Read - Stream of all tasks livefeed

@@ -1,9 +1,9 @@
 import 'package:flowo/constants/constant.dart';
+import 'package:flowo/data/services/local_storage_service.dart';
 import 'package:flowo/features/tasks/task_functions.dart';
 import 'package:flowo/features/tasks/widgets/task_/reusable_increment_btn.dart';
 import 'package:flowo/features/tasks/widgets/task_/task_field.dart';
 import 'package:flowo/features/tasks/widgets/task_/task_priority.dart';
-import 'package:flowo/main.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:numberpicker/numberpicker.dart';
@@ -90,10 +90,8 @@ am actually having issue put a timeofday type and String in the same widget so a
   final titilecontroller = TextEditingController();
   final decription_controller = TextEditingController();
 
-
-//priority
+  //priority
   int priorityint = 2;
-
 
   bool issaving = false;
 
@@ -102,31 +100,48 @@ am actually having issue put a timeofday type and String in the same widget so a
     final title = titilecontroller.text.trim();
     final description = decription_controller.text.trim();
     if (title.isEmpty) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text('Please enter a task title')));
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Please enter a task title')),
+      );
       return;
     }
 
-    final currentUserId = context.read<TaskController>().currentUserId;
-    final targetUserId = currentUserId.isNotEmpty ? currentUserId : kTestUserId;
-
-    await context.read<TaskController>().addTask(
-      targetUserId,
-      title,
-      description,
-      duration,
-      time,
-      priorityint,
-      context,
-    );
+    if (issaving) return;
 
     setState(() {
       issaving = true;
     });
 
-    if (!context.mounted) return;
-    Navigator.pop(context);
+    final formattedTime = time.format(context);
+    final taskController = context.read<TaskController>();
+    String targetUserId = taskController.currentUserId;
+    if (targetUserId.isEmpty) {
+      targetUserId = await LocalStorageService.getUserId();
+    }
+
+    try {
+      await taskController.addTask(
+        targetUserId,
+        title,
+        description,
+        duration,
+        formattedTime,
+        priorityint,
+      );
+
+      if (mounted) {
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      if (mounted) {
+        setState(() {
+          issaving = false;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Failed to add task: ${e.toString()}')),
+        );
+      }
+    }
   }
 
   @override
@@ -336,13 +351,11 @@ am actually having issue put a timeofday type and String in the same widget so a
                   ),
                   SizedBox(width: 30),
                   GestureDetector(
-                    onTap: () {
-                      save_task();
-                    },
+                    onTap: issaving ? null : () => save_task(),
                     child: Container(
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: Color(0xffC89FF5),
+                        color: const Color(0xffC89FF5),
                         borderRadius: BorderRadius.circular(27),
                       ),
                       height: 54,
@@ -351,18 +364,27 @@ am actually having issue put a timeofday type and String in the same widget so a
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Icon(Icons.add, color: Colors.white),
-
-                          issaving
-                              ? CircularProgressIndicator()
-                              : Text(
-                                  'Add Task',
-                                  style: TextStyle(
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                ),
+                          if (issaving)
+                            const SizedBox(
+                              height: 22,
+                              width: 22,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 2.5,
+                              ),
+                            )
+                          else ...[
+                            const Icon(Icons.add, color: Colors.white),
+                            const SizedBox(width: 4),
+                            const Text(
+                              'Add Task',
+                              style: TextStyle(
+                                fontSize: 17,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
                         ],
                       ),
                     ),

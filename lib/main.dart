@@ -6,19 +6,24 @@ import 'firebase_options.dart';
 import 'package:provider/provider.dart';
 import 'features/tasks/task_functions.dart';
 
-//TODO:this timer material widget lags i will get a third  party pckage
+//TODO:this timer material widget lags i will get a third party pckage
 //ToDo:make sure to remove test mode from firestore dbs
 //TODO: disabling time fime stamp feature this feature might be later introduce on production i am replacing it with a countdown features
 //TODO: coming back to frontend--later
 
 const String kTestUserId = 'test_user_002';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
+      statusBarColor: Colors.white,
       statusBarIconBrightness: Brightness.dark,
       statusBarBrightness: Brightness.light,
+      systemNavigationBarColor: Colors.white,
+      systemNavigationBarIconBrightness: Brightness.dark,
+      systemNavigationBarDividerColor: Colors.transparent,
     ),
   );
 
@@ -37,10 +42,28 @@ class FlowoApp extends StatelessWidget {
         title: 'Flowo',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF6C63FF)),
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF6C63FF)),
           useMaterial3: true,
+          scaffoldBackgroundColor: Colors.white,
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Colors.white,
+            elevation: 0,
+            scrolledUnderElevation: 0,
+            systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarColor: Colors.white,
+              statusBarIconBrightness: Brightness.dark,
+              statusBarBrightness: Brightness.light,
+              systemNavigationBarColor: Colors.white,
+              systemNavigationBarIconBrightness: Brightness.dark,
+              systemNavigationBarDividerColor: Colors.transparent,
+            ),
+          ),
+          navigationBarTheme: const NavigationBarThemeData(
+            backgroundColor: Colors.white,
+            elevation: 0,
+          ),
         ),
-        home: Scaffold(body: Routes()),
+        home: const Routes(),
       ),
     );
   }

@@ -4,6 +4,7 @@ import 'package:flowo/data/services/ai_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flowo/data/models/task_model.dart';
 import 'package:flowo/data/services/task_service.dart';
+import 'package:flowo/main.dart';
 
 class TaskController extends ChangeNotifier {
   //this are private properity they can only be read
@@ -103,9 +104,8 @@ this is used to fetch suggestion from fast api backend
     String title,
     String description,
     int duration,
-    TimeOfDay time,
+    String timeString,
     int priority,
-    BuildContext context,
   ) async {
     '''
 
@@ -114,14 +114,17 @@ this is function adds new task to the list of tasks
 
     final task = TaskModel(
       id: '',
-      time: time.format(context).toString(),
+      time: timeString,
       title: title,
       description: description,
       duration: duration,
       priority: priority,
       createdAt: DateTime.now(),
     );
-    await _taskService.addTask(userId, task);
+    final uid = userId.isNotEmpty
+        ? userId
+        : (_currentUserId.isNotEmpty ? _currentUserId : kTestUserId);
+    await _taskService.addTask(uid, task);
   }
 
   // Toggle complete/incomplete

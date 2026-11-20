@@ -5,7 +5,7 @@ class LocalStorageService {
   static const String _keyUsername = 'user_display_name';
   static const String _keyUserId = 'user_firestore_id';
 
-  /// Generates a standardized user ID using display name and symbols (e.g. '@miracle_a1b2c' or '@user_001')
+  /// Generates a standardized user ID using display name and symbols (e.g. 'user_miracle_a1b2c3' or 'user_miracle_001')
   static String formatUserId(String displayName, {String? uid}) {
     final clean = displayName
         .trim()
@@ -21,7 +21,7 @@ class LocalStorageService {
       suffix = '001';
     }
 
-    return '@${namePart}_$suffix';
+    return 'user_${namePart}_$suffix';
   }
 
   /// Save username and update associated user ID locally
