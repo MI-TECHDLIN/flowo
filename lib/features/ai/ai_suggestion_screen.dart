@@ -27,6 +27,14 @@ class _AiSuggestionScreenState extends State<AiSuggestionScreen> {
     final controller = context.watch<TaskController>();
     // this is v1-frontend   no api rq called
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'Ai Suggestions',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+      ),
+
       body: SingleChildScrollView(
         child: controller.isloadingsug
             ? Container(
@@ -73,7 +81,7 @@ class _AiSuggestionScreenState extends State<AiSuggestionScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Here's what i recommend —— you decide",
+                            "Here's what i recommend — you decide",
                             style: TextStyle(fontSize: 16),
                           ),
                           SizedBox(height: 15),
@@ -85,7 +93,7 @@ class _AiSuggestionScreenState extends State<AiSuggestionScreen> {
                               color: Color(0xffC89FF5),
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            height: 130,
+                            height: 150,
                             width: 380,
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -120,7 +128,7 @@ class _AiSuggestionScreenState extends State<AiSuggestionScreen> {
                                         ),
                                       ),
                                       SizedBox(
-                                        height: 60,
+                                        height: 90,
                                         width: 250,
                                         child: Text(
                                           capitlaise(
@@ -139,7 +147,7 @@ class _AiSuggestionScreenState extends State<AiSuggestionScreen> {
                               ],
                             ),
                           ),
-
+                          SizedBox(height: 20),
                           ListView(
                             shrinkWrap: true,
                             physics: NeverScrollableScrollPhysics(),

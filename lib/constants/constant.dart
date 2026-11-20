@@ -68,15 +68,16 @@ Widget tapper(Function func) {
 Widget iconwidget(IconData data, String label, {int color = 0xffFFFFF}) {
   return Container(
     decoration: BoxDecoration(borderRadius: BorderRadius.circular(12)),
-    height: 20,
-
-    width: 115,
     child: Row(
+      mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Icon(data, size: 16, color: Color(color)),
-        SizedBox(width: 4),
-        Text(label, style: TextStyle(color: Color(0xff6B7C8F), fontSize: 16)),
+        const SizedBox(width: 4),
+        Text(
+          label,
+          style: const TextStyle(color: Color(0xff6B7C8F), fontSize: 15),
+        ),
       ],
     ),
   );

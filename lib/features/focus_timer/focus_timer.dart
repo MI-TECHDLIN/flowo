@@ -50,45 +50,41 @@ class _focustimerState extends State<FocusTimer> {
   Timer? timer;
   //taskbreak
   Widget take_break() {
-    '''
-since this would be called one
- it should be initialized
-
-''';
-    return Row(
-      children: [
-        Container(
-          height: 38,
-          decoration: BoxDecoration(
-            color: Color.fromARGB(133, 200, 240, 220),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          width: 135,
-
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(
-                Icons.free_breakfast_outlined,
-                size: 14,
-                color: Color(0xff3CA05A),
-              ),
-              space(width: 3),
-              GestureDetector(
-                onTap: () => {
-                  setState(() {
-                    iscounting == true ? pause() : null;
-                  }),
-                },
-                child: Text(
-                  'Take a break',
-                  style: TextStyle(color: Color(0xff3CA05A), fontSize: 17),
-                ),
-              ),
-            ],
-          ),
+    return InkWell(
+      borderRadius: BorderRadius.circular(20),
+      onTap: () {
+        if (iscounting) {
+          pause();
+        }
+      },
+      child: Container(
+        height: 40,
+        padding: const EdgeInsets.symmetric(horizontal: 14),
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(133, 200, 240, 220),
+          borderRadius: BorderRadius.circular(20),
         ),
-      ],
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Icon(
+              Icons.free_breakfast_outlined,
+              size: 16,
+              color: Color(0xff3CA05A),
+            ),
+            SizedBox(width: 6),
+            Text(
+              'Take a break',
+              style: TextStyle(
+                color: Color(0xff3CA05A),
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -108,90 +104,51 @@ since this would be called one
       builder: (context) {
         return AlertDialog(
           backgroundColor: Colors.white,
-          content: SizedBox(
-            height: 300,
-            width: 500,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: Color(0xffFFDCDC),
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  height: 60,
-                  width: 60,
-                  child: Icon(
-                    Icons.stop_outlined,
-                    color: Color(0xB4EF4444),
-
-                    size: 50,
-                  ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  color: const Color(0xffFFDCDC),
+                  borderRadius: BorderRadius.circular(30),
                 ),
-                SizedBox(height: 10),
-                Text(
-                  'End this session?',
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: Color(0xff2D3E50),
-                    fontWeight: FontWeight.bold,
-                  ),
+                height: 60,
+                width: 60,
+                child: const Icon(
+                  Icons.stop_outlined,
+                  color: Color(0xB4EF4444),
+                  size: 40,
                 ),
-                SizedBox(height: 8),
-                Text(
-                  'You Still have $hours:$rminutes left om Session 2. Ending will reset the focus time',
-                  style: TextStyle(
-                    fontFamily: 'Inter',
-                    fontSize: 15,
-                    color: Color(0xff687C8F),
-                  ),
+              ),
+              const SizedBox(height: 12),
+              const Text(
+                'End this session?',
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Color(0xff2D3E50),
+                  fontWeight: FontWeight.bold,
                 ),
-                SizedBox(height: 13),
-                Container(
-                  height: 36,
-                  width: 210,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(18),
-                    color: Color(0x92F3E8FF),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.timer_sharp,
-                        size: 15,
-                        color: Color(0xffC89FF5),
-                      ),
-                      SizedBox(width: 7),
-                      Text(
-                        'Session 2',
-                        style: TextStyle(color: Color(0xffAA64DC)),
-                      ),
-                      Container(
-                        margin: EdgeInsets.symmetric(
-                          vertical: 0,
-                          horizontal: 13,
-                        ),
-
-                        height: 6,
-                        width: 6,
-                        decoration: BoxDecoration(
-                          color: Color(0xffAA64DC),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                      ),
-                      Text(
-                        '50% complete ',
-                        style: TextStyle(color: Color(0xffAA64DC)),
-                      ),
-                    ],
-                  ),
+              ),
+              const SizedBox(height: 8),
+              Text(
+                'You still have $hours:${mincondition(rminutes)} left. Ending will reset the focus time.',
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 15,
+                  color: Color(0xff687C8F),
                 ),
-                SizedBox(height: 14),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    resuablebutton(
+              ),
+              const SizedBox(height: 16),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: resuablebutton(
                       function: () {
                         Navigator.pop(context);
                       },
@@ -201,17 +158,16 @@ since this would be called one
                       icondata: Icons.play_arrow_outlined,
                       label: 'Keep going',
                     ),
-                    SizedBox(width: 8),
-
-                    resuablebutton(
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: resuablebutton(
                       function: () {
-                        if (iscounting == true || iscounting == false) {
-                          stop();
-                          setState(() {
-                            totalseconds = sessionseconds;
-                          });
-                          Navigator.pop(context);
-                        }
+                        stop();
+                        setState(() {
+                          totalseconds = sessionseconds;
+                        });
+                        Navigator.pop(context);
                       },
                       bgcolor: 0xffFFDCDC,
                       textcolor: 0xffEF4444,
@@ -219,10 +175,10 @@ since this would be called one
                       icondata: Icons.stop,
                       label: 'End Session',
                     ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                ],
+              ),
+            ],
           ),
         );
       },
@@ -338,33 +294,33 @@ getters would only display hours and mins for now the app is getting busy
 
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(30, 20, 20, 0),
+          padding: const EdgeInsets.fromLTRB(20, 15, 20, 25),
           child: Column(
             children: [
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Container(
                 key: Key(widget.task.id),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
+                    Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 6,
+                      runSpacing: 4,
                       children: [
                         Container(
                           height: 10,
-
                           width: 10,
                           decoration: BoxDecoration(
-                            color: Color(0xffEF4444),
+                            color: const Color(0xffEF4444),
                             borderRadius: BorderRadius.circular(5),
                           ),
                         ),
-                        SizedBox(width: 5),
                         blacktext(
                           'Currently focusing on',
                           17,
                           color: 0xff6B7C8f,
                         ),
-                        SizedBox(width: 5),
                         taskwidget(
                           bgcolor(widget.task.priority),
                           textcolor(widget.task.priority),
@@ -373,40 +329,44 @@ getters would only display hours and mins for now the app is getting busy
                       ],
                     ),
 
-                    SizedBox(height: 1),
+                    const SizedBox(height: 4),
 
                     Text(
                       capitlaise(widget.task.title),
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Color(0xff2D3E50),
                         fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
 
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
+                    const SizedBox(height: 4),
+
+                    Wrap(
+                      crossAxisAlignment: WrapCrossAlignment.center,
+                      spacing: 16,
+                      runSpacing: 6,
                       children: [
                         iconwidget(
                           Icons.access_time,
                           'Due ${widget.task.time}',
                           color: 0xffC89FF5,
                         ),
-                        SizedBox(width: 20),
                         Row(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
-                            Icon(
+                            const Icon(
                               Icons.device_hub_rounded,
                               color: Color(0xffF5A34A),
                               size: 17,
                             ),
-
+                            const SizedBox(width: 4),
                             Text(
                               constmin <= 60 || consthour <= 0
-                                  ? 'Est. $constmin min '
+                                  ? 'Est. $constmin min'
                                   : 'Est. $consthour hour $constmin min',
-                              style: TextStyle(
-                                fontSize: 17,
+                              style: const TextStyle(
+                                fontSize: 15,
                                 color: Color(0xff6B7C8F),
                               ),
                             ),
@@ -420,9 +380,9 @@ getters would only display hours and mins for now the app is getting busy
 
               //time card
               Container(
-                margin: EdgeInsets.only(top: 25),
-                height: 260,
-                width: 390,
+                margin: const EdgeInsets.only(top: 25),
+                height: 250,
+                width: double.infinity,
                 child: Card(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(28),
@@ -433,109 +393,126 @@ getters would only display hours and mins for now the app is getting busy
                   color: const Color(0xFFFFFFFF),
 
                   child: Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         //sessions
-                        Expanded(
-                          flex: 1,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                height: 9,
-                                width: 9,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4),
-                                  color: Color(0xff5AC578),
-                                ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: 9,
+                              width: 9,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                color: const Color(0xff5AC578),
                               ),
-                              SizedBox(width: 8),
-                              Text(
-                                'Session ${getIndexByiD(todos, id)} of $totalCount',
+                            ),
+                            const SizedBox(width: 8),
+                            Text(
+                              'Session ${getIndexByiD(todos, id)} of $totalCount',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: Color(0xff2D3E50),
+                                fontWeight: FontWeight.w500,
                               ),
+                            ),
 
-                              Container(
-                                margin: EdgeInsets.symmetric(
-                                  vertical: 0,
-                                  horizontal: 8,
-                                ),
-                                width: 5,
-                                height: 5,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4),
-                                  color: Color(0xff6B7C8f),
-                                ),
+                            Container(
+                              margin: const EdgeInsets.symmetric(
+                                vertical: 0,
+                                horizontal: 8,
                               ),
-                              Text('Running'),
-                            ],
-                          ),
+                              width: 5,
+                              height: 5,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                color: const Color(0xff6B7C8f),
+                              ),
+                            ),
+                            Text(
+                              iscounting ? 'Running' : 'Paused',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: iscounting ? const Color(0xff5AC578) : const Color(0xff6B7C8F),
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
                         ),
                         //hour-min widget
-                        Expanded(
-                          flex: 2,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              //hour
-                              timewidget(
-                                '$hours',
-                                'hour',
-                                0xffF3E8FF,
-                                0xffAA64DC,
-                              ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            //hour
+                            timewidget(
+                              '$hours',
+                              'hour',
+                              0xffF3E8FF,
+                              0xffAA64DC,
+                            ),
 
-                              Container(
-                                margin: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                child: Text(
-                                  ':',
-                                  style: TextStyle(
-                                    letterSpacing: 3,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 40,
-                                    color: Color(0xffC89FF5),
-                                  ),
+                            Container(
+                              margin: const EdgeInsets.symmetric(horizontal: 10),
+                              padding: const EdgeInsets.only(bottom: 22),
+                              child: const Text(
+                                ':',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 38,
+                                  color: Color(0xffC89FF5),
                                 ),
                               ),
-                              //min
-                              timewidget(
-                                mincondition(rminutes),
-                                'min',
-                                0xffE8F6EE,
-                                0xff3CA05A,
-                              ),
-                            ],
-                          ),
+                            ),
+                            //min
+                            timewidget(
+                              mincondition(rminutes),
+                              'min',
+                              0xffE8F6EE,
+                              0xff3CA05A,
+                            ),
+                          ],
                         ),
                         //time header
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.timer_sharp,
-                                color: Color(0xffC89FF5),
-                                size: 15,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(
+                              Icons.timer_sharp,
+                              color: Color(0xffC89FF5),
+                              size: 15,
+                            ),
+                            const SizedBox(width: 5),
+                            Text(
+                              '$diffmin min session',
+                              style: const TextStyle(
+                                fontSize: 13,
+                                color: Color(0xff6B7C8F),
                               ),
-                              SizedBox(width: 5),
-                              Text('$diffmin min session'),
-                              Container(
-                                height: 5,
-                                width: 5,
-                                decoration: BoxDecoration(
-                                  color: Color(0xff6B7C8F),
-                                  borderRadius: BorderRadius.circular(2),
-                                ),
-                                margin: EdgeInsets.symmetric(
-                                  vertical: 0,
-                                  horizontal: 7,
-                                ),
+                            ),
+                            Container(
+                              height: 5,
+                              width: 5,
+                              decoration: BoxDecoration(
+                                color: const Color(0xff6B7C8F),
+                                borderRadius: BorderRadius.circular(2),
                               ),
-                              Text('$consttotalmin min total remaining'),
-                            ],
-                          ),
+                              margin: const EdgeInsets.symmetric(
+                                vertical: 0,
+                                horizontal: 7,
+                              ),
+                            ),
+                            Text(
+                              '$consttotalmin min total remaining',
+                              style: const TextStyle(
+                                fontSize: 13,
+                                color: Color(0xff6B7C8F),
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -544,12 +521,12 @@ getters would only display hours and mins for now the app is getting busy
               ),
               //time progress indicator
               Container(
-                margin: EdgeInsets.symmetric(vertical: 18, horizontal: 12),
+                margin: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Session progress', style: TextStyle(fontSize: 18)),
-                    SizedBox(height: 10),
+                    const Text('Session progress', style: TextStyle(fontSize: 18)),
+                    const SizedBox(height: 10),
                     GoalProgressIndicator(
                       showLabels: false,
                       showMilestoneCircles: false,
@@ -557,7 +534,7 @@ getters would only display hours and mins for now the app is getting busy
                       currentValue: diffmin.toDouble(),
                       targetValue: consttotalmin.toDouble(),
                       style: GoalProgressIndicatorStyles.gradient(
-                        colors: [Color(0xffaa64dc0), Color(0xffC89FF5)],
+                        colors: const [Color(0xffAA64DC), Color(0xffC89FF5)],
                       ),
                     ),
                   ],
@@ -566,29 +543,27 @@ getters would only display hours and mins for now the app is getting busy
 
               //take a break button
               Container(
-                margin: EdgeInsets.only(right: 30),
+                margin: const EdgeInsets.only(top: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     take_break(),
-                    space(width: 10),
+                    const SizedBox(width: 14),
                     //break playcard....
                     PlayCard(
                       ontap: () {
-                        if (iscounting == false) {
+                        if (!iscounting) {
                           play();
-                        } else if (iscounting = true) {
-                          pause();
                         } else {
-                          null;
+                          pause();
                         }
                       },
-                      iscounting == false
+                      !iscounting
                           ? Icons.play_arrow
                           : Icons.pause_outlined,
                     ),
 
-                    space(width: 20),
+                    const SizedBox(width: 14),
 
                     //stop
                     PlayCard(
@@ -598,12 +573,6 @@ getters would only display hours and mins for now the app is getting busy
                         });
 
                         showplaydialog();
-                        '''
-implemeneted a alert log feature so a user dont mistake of reseting the time 
-
-this kind of confirmation
-
-''';
                       },
                       Icons.stop_outlined,
                       height: 53,

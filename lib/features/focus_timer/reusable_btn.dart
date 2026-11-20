@@ -19,17 +19,22 @@ class resuablebutton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
-      width: 140,
+      height: 48,
       child: ElevatedButton(
-        style: ElevatedButton.styleFrom(backgroundColor: Color(bgcolor)),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Color(bgcolor),
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+        ),
         onPressed: function,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Icon(icondata, size: 20, color: Color(iconcolor)),
-            SizedBox(width: 4),
+            Icon(icondata, size: 18, color: Color(iconcolor)),
+            const SizedBox(width: 4),
             Text(
               label,
               style: TextStyle(
