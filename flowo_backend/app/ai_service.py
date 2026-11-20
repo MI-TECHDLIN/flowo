@@ -94,7 +94,7 @@ def get_suggestions(tasks:list[TaskInput])->SuggestionResponse:
     cli=get_groqapi()
 
     groq_response=cli.chat.completions.create(
-        model='GPT-OSS 120B',
+        model='openai/gpt-oss-120b',
         messages=[
             {
                 "role":"system",
