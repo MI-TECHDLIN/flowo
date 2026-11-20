@@ -31,7 +31,7 @@ class TaskPriority extends StatelessWidget {
 
       child: Container(
         height: 40,
-        width: 106,
+        alignment: Alignment.center,
         decoration: BoxDecoration(
           border: Border.all(
             color: selected

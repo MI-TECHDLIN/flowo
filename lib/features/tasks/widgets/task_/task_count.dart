@@ -11,7 +11,6 @@ class TaskCount extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 111.67,
       height: 79,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),

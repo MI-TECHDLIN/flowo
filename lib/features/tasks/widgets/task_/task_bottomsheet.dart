@@ -55,29 +55,26 @@ am actually having issue put a timeofday type and String in the same widget so a
     return InkWell(
       onTap: ontouch,
       child: Container(
-        height: 45,
-        width: 156,
+        height: 52,
         decoration: BoxDecoration(
           color: Color(bgcolor),
           borderRadius: BorderRadius.circular(15),
           border: Border.all(color: Color(bordercolor), width: 2),
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Container(
-              margin: EdgeInsets.only(left: 20),
-              child: Icon(icon, color: Color(0xffC89FF5), size: 18),
-            ),
-            SizedBox(width: 10),
-            Text(
-              changestring(text: label, time: time),
-              style: TextStyle(
-                color: Color(0xff2D3E50),
-
-                fontSize: 17,
-                fontWeight: FontWeight.bold,
+            Icon(icon, color: const Color(0xffC89FF5), size: 18),
+            const SizedBox(width: 8),
+            Flexible(
+              child: Text(
+                changestring(text: label, time: time),
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  color: Color(0xff2D3E50),
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ],
@@ -147,56 +144,49 @@ am actually having issue put a timeofday type and String in the same widget so a
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      child: SizedBox(
-        // color: Colors.white,
-        height: 570,
-        width: double.infinity,
-        child: Padding(
-          padding: EdgeInsets.all(15),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: EdgeInsets.only(top: 20),
-                child: Text(
-                  'New Task',
-                  style: TextStyle(
-                    fontFamily: 'inter',
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                  ),
+      child: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              margin: const EdgeInsets.only(top: 10),
+              child: const Text(
+                'New Task',
+                style: TextStyle(
+                  fontFamily: 'inter',
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
-
-              Text(
-                "What's on your mind?",
-                style: TextStyle(fontWeight: FontWeight.w300),
-              ),
-              SizedBox(height: 10),
-              TaskField(
-                hinttext: 'e.g. Finish the weekly report 📋',
-                controller: titilecontroller,
-                text: 'Task title',
-                vertical: 10,
-                horizontal: 10,
-              ),
-              SizedBox(height: 10),
-
-              TaskField(
-                hinttext: 'Add some details...',
-                controller: decription_controller,
-                text: 'Description (optional)',
-
-                horizontal: 50,
-              ),
-              SizedBox(height: 10),
-
-              Text('Priority'),
-              SizedBox(height: 7),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TaskPriority(
+            ),
+            const Text(
+              "What's on your mind?",
+              style: TextStyle(fontWeight: FontWeight.w300),
+            ),
+            const SizedBox(height: 10),
+            TaskField(
+              hinttext: 'e.g. Finish the weekly report 📋',
+              controller: titilecontroller,
+              text: 'Task title',
+              vertical: 10,
+              horizontal: 10,
+            ),
+            const SizedBox(height: 10),
+            TaskField(
+              hinttext: 'Add some details...',
+              controller: decription_controller,
+              text: 'Description (optional)',
+              horizontal: 50,
+            ),
+            const SizedBox(height: 10),
+            const Text('Priority'),
+            const SizedBox(height: 7),
+            Row(
+              children: [
+                Expanded(
+                  child: TaskPriority(
                     label: 'High',
                     backgroundcolor: 0xffFFDCDC,
                     bordercolor: 0xffEF4444,
@@ -210,7 +200,10 @@ am actually having issue put a timeofday type and String in the same widget so a
                       });
                     },
                   ),
-                  TaskPriority(
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: TaskPriority(
                     label: 'Medium',
                     backgroundcolor: 0x71F5A24A,
                     bordercolor: 0xffF5A34A,
@@ -224,7 +217,10 @@ am actually having issue put a timeofday type and String in the same widget so a
                       });
                     },
                   ),
-                  TaskPriority(
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: TaskPriority(
                     label: 'low',
                     backgroundcolor: 0x5D5AC578,
                     bordercolor: 0xff5AC578,
@@ -238,119 +234,116 @@ am actually having issue put a timeofday type and String in the same widget so a
                       });
                     },
                   ),
-                ],
-              ),
-
-              Container(
-                margin: EdgeInsets.only(top: 8),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(child: Text('Date & Time')),
-                    SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        timerwudget(
+                ),
+              ],
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('Date & Time'),
+                  const SizedBox(height: 8),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: timerwudget(
                           () {
                             showTimePicker(
                               context: context,
                               initialTime: TimeOfDay.now(),
                             ).then((value) {
-                              setState(() {
-                                time = value!;
-                              });
+                              if (value != null) {
+                                setState(() {
+                                  time = value;
+                                });
+                              }
                             });
                           },
                           Icons.access_time,
                           time: time,
-
                           bgcolor: 0xffF5F8FA,
                           bordercolor: 0xffD4B5F5,
                         ),
-                        GestureDetector(
-                          onTap: () => selcet_number,
-                          child: Container(
-                            padding: EdgeInsets.fromLTRB(5, 12, 0, 0),
-                            height: 65,
-                            width: 130,
-                            decoration: BoxDecoration(
-                              color: Color(0x4ED3E0E9),
-                              borderRadius: BorderRadius.circular(27),
-                              border: Border.all(
-                                color: Color(0xffD4B5F5),
-                                width: 2,
-                              ),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    ReusableIncrementBtn(
-                                      icon: Icons.remove,
-                                      callback: () {
-                                        '''
-                        edge:case since the duration picker is not flexible i use a third party package to select a number it weould be more efficeient than a ontap''';
-
-                                        setState(() {
-                                          duration--;
-                                        });
-                                      },
-                                    ),
-                                    Text(
-                                      duration.toString(),
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 20,
-                                        color: Color(0xff2D3E50),
-                                      ),
-                                    ),
-
-                                    ReusableIncrementBtn(
-                                      icon: Icons.add,
-
-                                      callback: () {
-                                        setState(() {
-                                          duration++;
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
-
-                                Text('min'),
-                              ],
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Container(
+                          alignment: Alignment.center,
+                          height: 52,
+                          decoration: BoxDecoration(
+                            color: const Color(0x4ED3E0E9),
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(
+                              color: const Color(0xffD4B5F5),
+                              width: 2,
                             ),
                           ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              ReusableIncrementBtn(
+                                icon: Icons.remove,
+                                callback: () {
+                                  setState(() {
+                                    if (duration > 1) {
+                                      duration--;
+                                    }
+                                  });
+                                },
+                              ),
+                              const SizedBox(width: 6),
+                              Text(
+                                '$duration min',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                  color: Color(0xff2D3E50),
+                                ),
+                              ),
+                              const SizedBox(width: 6),
+                              ReusableIncrementBtn(
+                                icon: Icons.add,
+                                callback: () {
+                                  setState(() {
+                                    duration++;
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
                         ),
-                      ],
-                    ),
-                  ],
-                ),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              SizedBox(height: 20),
-              Row(
-                children: [
-                  GestureDetector(
+            ),
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Expanded(
+                  flex: 1,
+                  child: GestureDetector(
                     onTap: () {
                       Navigator.pop(context);
                     },
                     child: Container(
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        color: Color(0xffF5F8FA),
+                        color: const Color(0xffF5F8FA),
                         borderRadius: BorderRadius.circular(27),
-                        border: Border.all(color: Color(0xffD2DAE4)),
+                        border: Border.all(color: const Color(0xffD2DAE4)),
                       ),
                       height: 50,
-                      width: 100,
-                      child: Text('Cancel', style: TextStyle(fontSize: 15)),
+                      child: const Text('Cancel', style: TextStyle(fontSize: 15)),
                     ),
                   ),
-                  SizedBox(width: 30),
-                  GestureDetector(
+                ),
+                const SizedBox(width: 16),
+                Expanded(
+                  flex: 2,
+                  child: GestureDetector(
                     onTap: issaving ? null : () => save_task(),
                     child: Container(
                       alignment: Alignment.center,
@@ -359,7 +352,6 @@ am actually having issue put a timeofday type and String in the same widget so a
                         borderRadius: BorderRadius.circular(27),
                       ),
                       height: 54,
-                      width: 227,
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -389,10 +381,10 @@ am actually having issue put a timeofday type and String in the same widget so a
                       ),
                     ),
                   ),
-                ],
-              ),
-            ],
-          ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

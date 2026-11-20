@@ -158,7 +158,6 @@ a initial request called   once
                   },
                   child: Row(
                     children: [
-                      Icon(Icons.auto_awesome, color: Color(0xffC89FF5)),
                       SizedBox(width: 10),
                       Text(
                         'Get AI  Suggestions',
@@ -196,7 +195,7 @@ a initial request called   once
                   SizedBox(height: 13),
                   reusable_row_conc(
                     0xffC89FF5,
-                    'Write down 3 things you want to finish today',
+                    'Write down tasks to finish today',
                   ),
                 ],
               ),
@@ -290,28 +289,32 @@ a initial request called   once
                       Container(
                         padding: EdgeInsets.all(10),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            //completed tasks
-                            TaskCount(
-                              Color(0x82F3E8FF),
-                              completed.length.toString(),
-                              'Done today',
-                              Color(0xBDC294F4),
+                            Expanded(
+                              child: TaskCount(
+                                const Color(0x82F3E8FF),
+                                completed.length.toString(),
+                                'Done today',
+                                const Color(0xBDC294F4),
+                              ),
                             ),
-                            //totalcount
-                            TaskCount(
-                              Color(0x58C8F0DC),
-                              totalCount.toString(),
-                              'Remaining',
-                              Color(0xFF5AC578),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: TaskCount(
+                                const Color(0x58C8F0DC),
+                                totalCount.toString(),
+                                'Remaining',
+                                const Color(0xFF5AC578),
+                              ),
                             ),
-                            //remaining
-                            TaskCount(
-                              Color(0x38FFE5CC),
-                              todo.length.toString(),
-                              'Overdue',
-                              Color(0xFFF5A24A),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: TaskCount(
+                                const Color(0x38FFE5CC),
+                                todo.length.toString(),
+                                'Overdue',
+                                const Color(0xFFF5A24A),
+                              ),
                             ),
                           ],
                         ),
@@ -343,7 +346,8 @@ a initial request called   once
                       SizedBox(height: 30),
                       Container(
                         height: 100,
-                        width: 350,
+                        width: double.infinity,
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
                         decoration: BoxDecoration(
                           color: Color(0xffC89FF5),
                           borderRadius: BorderRadius.circular(20),
