@@ -1,6 +1,5 @@
-//TODO: make sure you replace you name for the grretings function
-
 import 'package:flowo/constants/constant.dart';
+import 'package:flowo/data/services/local_storage_service.dart';
 import 'package:flowo/features/ai/ai_suggestion_screen.dart';
 import 'package:flowo/features/profile/profile_screen.dart';
 import 'package:flowo/main.dart';
@@ -20,6 +19,8 @@ class Taskscreen extends StatefulWidget {
 
 class _TaskscreenState extends State<Taskscreen> {
   DateTime dtime = DateTime.now();
+  String _username = LocalStorageService.defaultUsername;
+
   String greettingfunc(String name) {
     '''
 this function basically set a greeting time stamp for the task screen''';
@@ -34,9 +35,19 @@ this function basically set a greeting time stamp for the task screen''';
     return name;
   }
 
+  Future<void> _loadUsername() async {
+    final name = await LocalStorageService.getUsername();
+    if (mounted) {
+      setState(() {
+        _username = name;
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    _loadUsername();
     Future.microtask(() {
       '''
 a initial request called   once
@@ -198,7 +209,7 @@ a initial request called   once
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  greettingfunc('Miracle'),
+                  greettingfunc(_username),
 
                   style: TextStyle(fontSize: 24),
                 ),
@@ -217,10 +228,13 @@ a initial request called   once
 
         actions: [
           InkWell(
-            onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(builder: (c) => ProfileScreen()),
-            ),
+            onTap: () async {
+              await Navigator.push(
+                context,
+                MaterialPageRoute(builder: (c) => const ProfileScreen()),
+              );
+              _loadUsername();
+            },
             child: Container(
               margin: EdgeInsets.all(20),
               alignment: Alignment.center,
@@ -232,7 +246,7 @@ a initial request called   once
               ),
 
               child: Text(
-                'E',
+                _username.isNotEmpty ? _username[0].toUpperCase() : 'M',
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),

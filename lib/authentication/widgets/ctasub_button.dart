@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class CtaSubBtn extends StatelessWidget {
-  const CtaSubBtn({
+  const CtaSubBtn({super.key, 
     required this.label,
     required this.actionlabel,
     required this.ontap,
