@@ -9,14 +9,11 @@ flowo this is a productivity tool that re ranks daily tasks based on importance 
 
 ## How flowo works
 
--onboarding screen
+- onboarding screen
 <img width="720" height="1604" alt="Screenshot_20261120-225539" src="https://github.com/user-attachments/assets/421e0b13-6b66-460f-a40e-b6871daedce1" />
 
 - create a task
   <img width="720" height="1604" alt="Screenshot_20260531-170043" src="https://github.com/user-attachments/assets/c23ea4c7-5725-4d20-b477-2f96eef312f5" />
-
-- task session for different objectives
-  <img width="720" height="1604" alt="Screenshot_20260531-170459" src="https://github.com/user-attachments/assets/cab63e8c-6c6c-41e3-a4d7-5fc150f4229f" />
 
 - for each tasks there is a focus session for producitivity
   <img width="720" height="1604" alt="Screenshot_20260531-170340" src="https://github.com/user-attachments/assets/00cd4fe7-9a49-45dd-b18a-0db7025eeef5" />
@@ -27,7 +24,7 @@ flowo this is a productivity tool that re ranks daily tasks based on importance 
 - profile screen
   <img width="720" height="1604" alt="Screenshot_20261120-224042" src="https://github.com/user-attachments/assets/03021173-c3d5-4702-8b85-0ef3db93006e" />
 
-- task field 
+- task field with task objectives 
 - <img width="720" height="1604" alt="Screenshot_20261120-224016" src="https://github.com/user-attachments/assets/06817bdd-31bd-45fe-b97f-8525f310890a" />
 
 
