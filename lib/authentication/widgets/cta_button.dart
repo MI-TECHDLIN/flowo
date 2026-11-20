@@ -1,42 +1,45 @@
 import 'package:flutter/material.dart';
 
-class CtaBtn extends StatefulWidget {
-  const CtaBtn({super.key, required this.label, required this.ontap});
+class CtaBtn extends StatelessWidget {
+  const CtaBtn({
+    super.key,
+    required this.label,
+    required this.ontap,
+    this.isLoading = false,
+  });
+
   final String label;
   final VoidCallback ontap;
-
-  @override
-  State<CtaBtn> createState() => _CtaBtnState();
-}
-
-class _CtaBtnState extends State<CtaBtn> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
+  final bool isLoading;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 70),
+      margin: const EdgeInsets.only(top: 70),
       height: 56,
       width: 285,
       child: ElevatedButton(
-        style: ButtonStyle(
+        style: const ButtonStyle(
           backgroundColor: WidgetStatePropertyAll(Color(0xffC89FF5)),
         ),
-        onPressed: widget.ontap,
-
-        child: Text(
-          widget.label,
-          style: TextStyle(
-            fontSize: 18,
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        // : Center(child: CircularProgressIndicator()),
+        onPressed: isLoading ? null : ontap,
+        child: isLoading
+            ? const SizedBox(
+                height: 24,
+                width: 24,
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                  strokeWidth: 2.5,
+                ),
+              )
+            : Text(
+                label,
+                style: const TextStyle(
+                  fontSize: 18,
+                  color: Colors.white,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
       ),
     );
   }

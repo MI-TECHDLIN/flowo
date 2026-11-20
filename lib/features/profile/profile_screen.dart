@@ -56,7 +56,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final userEmail = FirebaseAuth.instance.currentUser?.email ?? 'jordan@gmail.com';
+    final userEmail =
+        FirebaseAuth.instance.currentUser?.email ?? 'jordan@gmail.com';
 
     return Scaffold(
       appBar: AppBar(
@@ -66,7 +67,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               final nameToSave = _nameController.text.trim();
               if (nameToSave.isNotEmpty) {
                 await LocalStorageService.saveUsername(nameToSave);
-                await FirebaseAuth.instance.currentUser?.updateDisplayName(nameToSave);
+                await FirebaseAuth.instance.currentUser?.updateDisplayName(
+                  nameToSave,
+                );
                 if (mounted) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Display name saved!')),
@@ -76,7 +79,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
             },
             child: Container(
               margin: const EdgeInsets.all(15),
-              child: const Text('Save', style: TextStyle(fontWeight: FontWeight.w600)),
+              child: const Text(
+                'Save',
+                style: TextStyle(fontWeight: FontWeight.w600),
+              ),
             ),
           ),
         ],
@@ -86,104 +92,110 @@ class _ProfileScreenState extends State<ProfileScreen> {
           style: TextStyle(fontWeight: FontWeight.w700, letterSpacing: 1),
         ),
       ),
-      body: Center(
-        child: Column(
-          children: [
-            AvatarCard(initials: _initials),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              AvatarCard(initials: _initials),
 
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Text('DISPLAY NAME'),
-                Container(
-                  margin: const EdgeInsets.only(top: 15),
-                  height: 52,
-                  width: 350,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: const Color(0xffE5E7EB)),
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  child: TextField(
-                    controller: _nameController,
-                    onChanged: (val) {
-                      setState(() {
-                        _updateInitials(val);
-                      });
-                    },
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                      hintText: 'Jordan Davis',
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('DISPLAY NAME'),
+                  Container(
+                    margin: const EdgeInsets.only(top: 15),
+                    height: 52,
+                    width: 350,
+                    decoration: BoxDecoration(
+                      border: Border.all(color: const Color(0xffE5E7EB)),
+                      borderRadius: BorderRadius.circular(14),
                     ),
-                  ),
-                ),
-
-                const SizedBox(height: 30),
-                const Text('ACCOUNT'),
-                Container(
-                  height: 52,
-                  width: 350,
-                  margin: const EdgeInsets.only(top: 15),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(14),
-                    border: Border.all(color: const Color(0xffE5E7EB)),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text('Email', style: TextStyle(fontSize: 16)),
-                        Text(
-                          userEmail,
-                          style: const TextStyle(fontWeight: FontWeight.w300),
+                    child: TextField(
+                      controller: _nameController,
+                      onChanged: (val) {
+                        setState(() {
+                          _updateInitials(val);
+                        });
+                      },
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 14,
                         ),
-                      ],
+                        hintText: 'Jordan Davis',
+                      ),
                     ),
                   ),
-                ),
 
-                Container(
-                  margin: const EdgeInsets.only(top: 280),
-                  height: 52,
-                  width: 350,
-                  child: ElevatedButton(
-                    style: const ButtonStyle(
-                      side: WidgetStatePropertyAll(
-                        BorderSide(color: Color(0xffFCA5A5)),
-                      ),
-                      backgroundColor: WidgetStatePropertyAll(
-                        Color(0xffFFFFFF),
-                      ),
+                  const SizedBox(height: 30),
+                  const Text('ACCOUNT'),
+                  Container(
+                    height: 52,
+                    width: 350,
+                    margin: const EdgeInsets.only(top: 15),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(14),
+                      border: Border.all(color: const Color(0xffE5E7EB)),
                     ),
-                    onPressed: () async {
-                      AuthencticationProvider authstate =
-                          AuthencticationProvider(context: context);
-                      var auth = await authstate.signOut();
-
-                      if (auth == true) {
-                        await LocalStorageService.clear();
-                        if (context.mounted) {
-                          Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (c) => SiginInScreen(),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text('Email', style: TextStyle(fontSize: 16)),
+                          Text(
+                            userEmail,
+                            style: const TextStyle(fontWeight: FontWeight.w300),
                           ),
-                        );
-                      }
-                    },
-                    child: const Text(
-                      'Sign Out',
-                      style: TextStyle(
-                        fontSize: 16.5,
-                        color: Color(0xffEF4444),
+                        ],
                       ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+
+                  Container(
+                    margin: const EdgeInsets.only(top: 280),
+                    height: 52,
+                    width: 350,
+                    child: ElevatedButton(
+                      style: const ButtonStyle(
+                        side: WidgetStatePropertyAll(
+                          BorderSide(color: Color(0xffFCA5A5)),
+                        ),
+                        backgroundColor: WidgetStatePropertyAll(
+                          Color(0xffFFFFFF),
+                        ),
+                      ),
+                      onPressed: () async {
+                        AuthencticationProvider authstate =
+                            AuthencticationProvider(context: context);
+                        var auth = await authstate.signOut();
+
+                        if (auth == true) {
+                          await LocalStorageService.clear();
+                          if (context.mounted) {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (c) => SiginInScreen(),
+                              ),
+                            );
+                          }
+                        }
+                      },
+                      child: const Text(
+                        'Sign Out',
+                        style: TextStyle(
+                          fontSize: 16.5,
+                          color: Color(0xffEF4444),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

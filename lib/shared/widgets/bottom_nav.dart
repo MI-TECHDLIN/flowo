@@ -15,13 +15,13 @@ class _BottomnavState extends State<Bottomnav> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Widget> _screens = [
+    final List<Widget> screens = [
       Taskscreen(),
       Taskscreen(),
       AiSuggestionScreen(),
     ];
     return Scaffold(
-      body: _screens[_currentindex],
+      body: screens[_currentindex],
 
       bottomNavigationBar: NavigationBar(
         selectedIndex: _currentindex,

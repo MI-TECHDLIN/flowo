@@ -6,9 +6,15 @@ import 'package:flowo/main.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class TaskCard extends StatelessWidget {
+class TaskCard extends StatefulWidget {
   const TaskCard({super.key, required this.task});
   final TaskModel task;
+
+  @override
+  State<TaskCard> createState() => _TaskCardState();
+}
+
+class _TaskCardState extends State<TaskCard> {
   //decription_converter
   String decript(TaskModel t) {
     final des = t.description;
@@ -47,8 +53,8 @@ class TaskCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = context.read<TaskController>();
-    final color = headcolor(task.priority);
-    bool isCheck = task.isCompleted;
+    final color = headcolor(widget.task.priority);
+    bool isCheck = widget.task.isCompleted;
     Color getcheckboxcolor(Set<WidgetState> states) {
       '''
 this function is a widgetstate constraint used to get statecolor
@@ -63,173 +69,220 @@ this function is a widgetstate constraint used to get statecolor
       return Colors.white;
     }
 
-    return Container(
-      margin: EdgeInsets.only(bottom: 5),
-      key: Key(task.id),
-      padding: EdgeInsets.only(left: 14),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Stack(
+    return Row(
+      children: [
+        Container(
+          margin: EdgeInsets.only(bottom: 5),
+          key: Key(widget.task.id),
+          padding: EdgeInsets.only(left: 14),
+          child: Row(
             children: [
-              //iscompleted
-              Positioned(
-                top: 3,
-                child: Container(
-                  height: 118,
-                  width: 4,
-                  decoration: BoxDecoration(
-                    color: task.isCompleted ? Color(0xff5AC578) : color,
-                    borderRadius: BorderRadius.circular(20),
-                  ),
+              SizedBox(
+                width: 320,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Stack(
+                      children: [
+                        //iscompleted
+                        Positioned(
+                          top: 3,
+                          child: Container(
+                            height: 118,
+                            width: 4,
+                            decoration: BoxDecoration(
+                              color: widget.task.isCompleted
+                                  ? Color(0xff5AC578)
+                                  : color,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                          ),
+                        ),
+
+                        InkWell(
+                          onTap: () => {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (v) => FocusTimer(task: widget.task),
+                              ),
+                            ),
+                          },
+                          child: Card(
+                            elevation: 1,
+                            shadowColor: const Color(0x52FFFFFF),
+                            color: Color.fromARGB(251, 255, 255, 255),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    //checkbox
+                                    Transform.scale(
+                                      scale: 1.2,
+                                      child: Checkbox(
+                                        fillColor: WidgetStateColor.resolveWith(
+                                          (s) {
+                                            return getcheckboxcolor(s);
+                                          },
+                                        ),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadiusGeometry.circular(5),
+                                        ),
+                                        side: BorderSide(
+                                          color: Color(0xFFC89FF5),
+                                          style: BorderStyle.solid,
+                                        ),
+                                        value: isCheck,
+                                        onChanged: (_) => controller.toggleTask(
+                                          kTestUserId,
+                                          widget.task,
+                                        ),
+                                      ),
+                                    ),
+
+                                    //title
+                                    SizedBox(
+                                      width: 200,
+                                      height: 20,
+                                      child: Text(
+                                        capitlaise(widget.task.title),
+                                        style: TextStyle(
+                                          fontSize: 18,
+
+                                          fontWeight: widget.task.isCompleted
+                                              ? FontWeight.w200
+                                              : FontWeight.w400,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                //decription
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(15, 0, 0, 4),
+                                  child: Text(
+                                    capitlaise(decript(widget.task)),
+                                    style: TextStyle(
+                                      fontWeight: widget.task.isCompleted
+                                          ? FontWeight.w300
+                                          : FontWeight.normal,
+                                    ),
+                                  ),
+                                ),
+
+                                Container(
+                                  margin: EdgeInsets.fromLTRB(15, 2, 4, 15),
+                                  child: Row(
+                                    children: [
+                                      //TaskPriority
+                                      Container(
+                                        alignment: Alignment.center,
+                                        height: 23,
+                                        width: 90,
+                                        decoration: BoxDecoration(
+                                          color: widget.task.isCompleted
+                                              ? Color(0xffC8F0DC)
+                                              : bgcolor(widget.task.priority),
+                                          borderRadius: BorderRadius.circular(
+                                            8,
+                                          ),
+                                        ),
+                                        child: Text(
+                                          textpriority(widget.task.priority),
+                                          style: TextStyle(
+                                            color: widget.task.isCompleted
+                                                ? Color(0xff5AC578)
+                                                : textcolor(
+                                                    widget.task.priority,
+                                                  ),
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(width: 10),
+                                      //tasktime && duration
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: Color(0x7BF3E8FF),
+                                          borderRadius: BorderRadius.circular(
+                                            12,
+                                          ),
+                                        ),
+                                        height: 30,
+                                        width: 150,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            //task_time,
+                                            Text(
+                                              widget.task.time,
+                                              style: TextStyle(
+                                                color: Color(0xffAA64DC),
+                                              ),
+                                            ),
+                                            SizedBox(width: 3),
+                                            Text(
+                                              '·',
+                                              style: TextStyle(fontSize: 22),
+                                            ),
+
+                                            Container(
+                                              margin: EdgeInsets.symmetric(
+                                                horizontal: 4,
+
+                                                vertical: 0,
+                                              ),
+                                              child: Icon(
+                                                Icons.access_time,
+                                                color: Color(0xffC89FF5),
+                                                size: 15,
+                                              ),
+                                            ),
+
+                                            Text(
+                                              duration_conv(
+                                                widget.task.duration!.toInt(),
+                                              ),
+                                              style: TextStyle(
+                                                color: Color(0xffAA64DC),
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
 
-              InkWell(
-                onTap: () => {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (v) => FocusTimer(task: task)),
-                  ),
-                },
-                child: Card(
-                  elevation: 1,
-                  shadowColor: const Color(0x52FFFFFF),
-                  color: Color.fromARGB(251, 255, 255, 255),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        children: [
-                          //checkbox
-                          Transform.scale(
-                            scale: 1.2,
-                            child: Checkbox(
-                              fillColor: WidgetStateColor.resolveWith((s) {
-                                return getcheckboxcolor(s);
-                              }),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadiusGeometry.circular(5),
-                              ),
-                              side: BorderSide(
-                                color: Color(0xFFC89FF5),
-                                style: BorderStyle.solid,
-                              ),
-                              value: isCheck,
-                              onChanged: (_) =>
-                                  controller.toggleTask(kTestUserId, task),
-                            ),
-                          ),
+              //delete button
+              SizedBox(
+                child: !widget.task.isCompleted
+                    ? IconButton.outlined(
+                        onPressed: () {
+                          controller.deleteTask(kTestUserId, widget.task.id);
+                        },
 
-                          //title
-                          SizedBox(
-                            width: 200,
-                            height: 20,
-                            child: Text(
-                              capitlaise(task.title),
-                              style: TextStyle(
-                                fontSize: 18,
-
-                                fontWeight: task.isCompleted
-                                    ? FontWeight.w200
-                                    : FontWeight.w400,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      //decription
-                      Container(
-                        margin: EdgeInsets.fromLTRB(15, 0, 0, 4),
-                        child: Text(
-                          capitlaise(decript(task)),
-                          style: TextStyle(
-                            fontWeight: task.isCompleted
-                                ? FontWeight.w300
-                                : FontWeight.normal,
-                          ),
-                        ),
-                      ),
-
-                      Container(
-                        margin: EdgeInsets.fromLTRB(15, 2, 4, 15),
-                        child: Row(
-                          children: [
-                            //TaskPriority
-                            Container(
-                              alignment: Alignment.center,
-                              height: 23,
-                              width: 90,
-                              decoration: BoxDecoration(
-                                color: task.isCompleted
-                                    ? Color(0xffC8F0DC)
-                                    : bgcolor(task.priority),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Text(
-                                textpriority(task.priority),
-                                style: TextStyle(
-                                  color: task.isCompleted
-                                      ? Color(0xff5AC578)
-                                      : textcolor(task.priority),
-                                ),
-                              ),
-                            ),
-                            SizedBox(width: 10),
-                            //tasktime && duration
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Color(0x7BF3E8FF),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              height: 30,
-                              width: 150,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  //task_time,
-                                  Text(
-                                    task.time,
-                                    style: TextStyle(color: Color(0xffAA64DC)),
-                                  ),
-                                  SizedBox(width: 3),
-                                  Text('·', style: TextStyle(fontSize: 22)),
-
-                                  Container(
-                                    margin: EdgeInsets.symmetric(
-                                      horizontal: 4,
-
-                                      vertical: 0,
-                                    ),
-                                    child: Icon(
-                                      Icons.access_time,
-                                      color: Color(0xffC89FF5),
-                                      size: 15,
-                                    ),
-                                  ),
-
-                                  Text(
-                                    duration_conv(task.duration!.toInt()),
-                                    style: TextStyle(
-                                      color: Color(0xffAA64DC),
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                        icon: Icon(Icons.delete_forever),
+                      )
+                    : null,
               ),
             ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

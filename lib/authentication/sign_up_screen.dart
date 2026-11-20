@@ -8,38 +8,63 @@ import 'package:flowo/data/services/local_storage_service.dart';
 import 'package:flowo/features/tasks/screens/task_screen.dart';
 import 'package:flutter/material.dart';
 
-class SignUpScreen extends StatelessWidget {
-  SignUpScreen({super.key});
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({super.key});
 
+  @override
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController namestr = TextEditingController();
   final TextEditingController emailstr = TextEditingController();
   final TextEditingController passwordstr = TextEditingController();
+  bool _isLoading = false;
+
+  @override
+  void dispose() {
+    namestr.dispose();
+    emailstr.dispose();
+    passwordstr.dispose();
+    super.dispose();
+  }
 
   Future<void> _signup(
-    BuildContext ctx,
     String name,
     String email,
     String password,
   ) async {
-    AuthencticationProvider datalogs = AuthencticationProvider(
-      context: ctx,
-      email: email,
-      password: password,
-    );
+    setState(() {
+      _isLoading = true;
+    });
 
-    bool response = await datalogs.signUp();
+    try {
+      AuthencticationProvider datalogs = AuthencticationProvider(
+        context: context,
+        email: email,
+        password: password,
+      );
 
-    if (response == true) {
-      final trimmedName = name.trim();
-      if (trimmedName.isNotEmpty) {
-        await LocalStorageService.saveUsername(trimmedName);
-        await FirebaseAuth.instance.currentUser?.updateDisplayName(trimmedName);
+      bool response = await datalogs.signUp();
+
+      if (response == true) {
+        final trimmedName = name.trim();
+        if (trimmedName.isNotEmpty) {
+          await LocalStorageService.saveUsername(trimmedName);
+          await FirebaseAuth.instance.currentUser?.updateDisplayName(trimmedName);
+        }
+        if (mounted) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (c) => const Taskscreen()),
+          );
+        }
       }
-      if (ctx.mounted) {
-        Navigator.pushReplacement(
-          ctx,
-          MaterialPageRoute(builder: (c) => const Taskscreen()),
-        );
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
       }
     }
   }
@@ -129,9 +154,9 @@ class SignUpScreen extends StatelessWidget {
 
                       CtaBtn(
                         label: 'Sign up',
+                        isLoading: _isLoading,
                         ontap: () {
                           _signup(
-                            context,
                             namestr.text,
                             emailstr.text,
                             passwordstr.text,

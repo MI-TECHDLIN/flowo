@@ -139,9 +139,9 @@ int stringpriority(String priority) {
 
 //backgroound_color-priority
 Color bgcolor(int priority) {
-  if (priority == 3)
+  if (priority == 3) {
     return Color(0xffFFDCDC);
-  else if (priority == 2)
+  } else if (priority == 2)
     return Color(0xffFFEDD5);
   else if (priority == 1)
     return Color(0xffF5F8FA);
@@ -150,9 +150,9 @@ Color bgcolor(int priority) {
 
 //text_color
 Color textcolor(int priority) {
-  if (priority == 3)
+  if (priority == 3) {
     return Color(0xffEF4444);
-  else if (priority == 2)
+  } else if (priority == 2)
     return Color(0xffF5A34A);
   else if (priority == 1)
     return Color(0xff6B7C8F);
