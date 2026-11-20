@@ -122,14 +122,19 @@ this function is a widgetstate constraint used to get statecolor
                             ),
                           ),
 
-                          Text(
-                            capitlaise(task.title),
-                            style: TextStyle(
-                              fontSize: 18,
+                          //title
+                          SizedBox(
+                            width: 200,
+                            height: 20,
+                            child: Text(
+                              capitlaise(task.title),
+                              style: TextStyle(
+                                fontSize: 18,
 
-                              fontWeight: task.isCompleted
-                                  ? FontWeight.w200
-                                  : FontWeight.w400,
+                                fontWeight: task.isCompleted
+                                    ? FontWeight.w200
+                                    : FontWeight.w400,
+                              ),
                             ),
                           ),
                         ],

@@ -22,9 +22,8 @@ class _TaskscreenState extends State<Taskscreen> {
   DateTime dtime = DateTime.now();
   String greettingfunc(String name) {
     '''
-this function basically set a greeting time stamp for the task screen
+this function basically set a greeting time stamp for the task screen''';
 
-''';
     final htime = int.parse(DateFormat.H().format(dtime));
     if (htime < 12) {
       return 'Good Morning, $name 👋';
@@ -37,7 +36,6 @@ this function basically set a greeting time stamp for the task screen
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Future.microtask(() {
       '''
@@ -80,7 +78,7 @@ a initial request called   once
               padding: EdgeInsets.fromLTRB(70, 0, 55, 10),
               // padding: EdgeInsets.only(left: 90.0),
               child: Text(
-                'Your list is wide open -- a blank canvas, ready for great things, Start with one small task 🌱',
+                'Your list is wide open - a blank canvas, ready for great things, Start with one small task 🌱',
                 style: TextStyle(color: Color(0xff6B7C8F), fontSize: 15),
               ),
             ),

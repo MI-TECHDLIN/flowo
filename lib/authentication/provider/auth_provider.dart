@@ -55,7 +55,7 @@ this function basically signs my exisiting users in firestore collectively
         email: _email,
         password: _password,
       );
-      print('this user  got successfully signed in ${userlogs}');
+      print('this user  got successfully signed in $userlogs');
 
       // auth.userChanges()
       //TODO: user changes for screens for auth screens
